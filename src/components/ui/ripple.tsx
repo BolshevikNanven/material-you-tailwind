@@ -324,7 +324,7 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
                 ref={waveRef}
                 className={`absolute inset-0 opacity-0 transition-opacity ease-linear`}
                 style={{
-                    background: `radial-gradient(closest-side, currentColor max(calc(100% - 70px), 65%), transparent 100%)`,
+                    background: `radial-gradient(closest-side, currentColor 86%, transparent 100%)`,
                 }}
             ></div>
         </div>

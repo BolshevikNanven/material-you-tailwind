@@ -1,4 +1,4 @@
-import { Stars } from 'lucide-react'
+import { Stars, Undo2 } from 'lucide-react'
 import { Button } from './components/ui/button'
 import { Toggle } from './components/ui/toggle'
 import { Checkbox } from './components/ui/checkbox'
@@ -9,6 +9,22 @@ import pic2 from '@/assets/pic2.png'
 import { Slider } from './components/ui/slider'
 import { Switch } from './components/ui/switch'
 import { RadioGroup, RadioGroupItem } from './components/ui/radio-group'
+
+import {
+    ContextMenu,
+    ContextMenuCheckboxItem,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuLabel,
+    ContextMenuRadioGroup,
+    ContextMenuRadioItem,
+    ContextMenuSeparator,
+    ContextMenuShortcut,
+    ContextMenuSub,
+    ContextMenuSubContent,
+    ContextMenuSubTrigger,
+    ContextMenuTrigger,
+} from '@/components/ui/context-menu'
 
 export default function App() {
     return (
@@ -210,6 +226,50 @@ export default function App() {
                             <Button>Buy tickets</Button>
                         </CardFooter>
                     </Card>
+                </div>
+                <h3>Context Menu</h3>
+                <div className='mb-6 flex flex-wrap items-center gap-4'>
+                    <ContextMenu>
+                        <ContextMenuTrigger className='flex h-37.5 w-1/3 items-center justify-center rounded-md border border-dashed text-sm'>
+                            Right click here
+                        </ContextMenuTrigger>
+                        <ContextMenuContent className='w-52'>
+                            <ContextMenuItem>
+                                <Undo2 />
+                                Back
+                                <ContextMenuShortcut>⌘[</ContextMenuShortcut>
+                            </ContextMenuItem>
+                            <ContextMenuItem inset disabled>
+                                Forward
+                                <ContextMenuShortcut>⌘]</ContextMenuShortcut>
+                            </ContextMenuItem>
+                            <ContextMenuItem inset>
+                                Reload
+                                <ContextMenuShortcut>⌘R</ContextMenuShortcut>
+                            </ContextMenuItem>
+                            <ContextMenuSub>
+                                <ContextMenuSubTrigger inset>More Tools</ContextMenuSubTrigger>
+                                <ContextMenuSubContent className='w-44'>
+                                    <ContextMenuItem>Save Page...</ContextMenuItem>
+                                    <ContextMenuItem>Create Shortcut...</ContextMenuItem>
+                                    <ContextMenuItem>Name Window...</ContextMenuItem>
+                                    <ContextMenuSeparator />
+                                    <ContextMenuItem>Developer Tools</ContextMenuItem>
+                                    <ContextMenuSeparator />
+                                    <ContextMenuItem variant='destructive'>Delete</ContextMenuItem>
+                                </ContextMenuSubContent>
+                            </ContextMenuSub>
+                            <ContextMenuSeparator />
+                            <ContextMenuCheckboxItem checked>Show Bookmarks</ContextMenuCheckboxItem>
+                            <ContextMenuCheckboxItem>Show Full URLs</ContextMenuCheckboxItem>
+                            <ContextMenuSeparator />
+                            <ContextMenuRadioGroup value='pedro'>
+                                <ContextMenuLabel inset>People</ContextMenuLabel>
+                                <ContextMenuRadioItem value='pedro'>Pedro Duarte</ContextMenuRadioItem>
+                                <ContextMenuRadioItem value='colm'>Colm Tuite</ContextMenuRadioItem>
+                            </ContextMenuRadioGroup>
+                        </ContextMenuContent>
+                    </ContextMenu>
                 </div>
             </div>
         </div>
