@@ -12,12 +12,13 @@ const TOUCH_DELAY_MS = 150
 const ANIMATION_FILL = 'forwards'
 
 // --- 状态枚举 ---
-enum State {
-    INACTIVE,
-    TOUCH_DELAY, // 触摸按下，等待判断是点击还是滚动
-    HOLDING, // 确认为长按
-    WAITING_FOR_CLICK, // 等待手指抬起
-}
+const State = {
+    INACTIVE: 0,
+    TOUCH_DELAY: 1, // 触摸按下，等待判断是点击还是滚动
+    HOLDING: 2, // 确认为长按
+    WAITING_FOR_CLICK: 3, // 等待手指抬起
+} as const
+type State = (typeof State)[keyof typeof State]
 
 interface RippleProps {
     /** 是否禁用涟漪 */
