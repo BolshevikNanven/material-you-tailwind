@@ -25,25 +25,17 @@ const inputVariants = cva(
     {
         variants: {
             variant: {
-                filled: [
-                    'rounded-t-sm border-b border-outline pt-6 pb-2',
-                    'focus:border-b-3 focus:border-primary focus:pb-1.5',
-                ],
+                filled: ['rounded-t-sm border-b border-outline pt-6 pb-2', 'focus:border-b-3 focus:border-primary'],
                 outlined: ['rounded-sm border border-outline py-2', 'focus:border-3 focus:border-primary'],
             },
             error: {
                 true: 'border-error focus:border-error',
             },
         },
-        compoundVariants: [
-            {
-                variant: 'filled',
-                error: true,
-                class: 'border-error',
-            },
-        ],
+        compoundVariants: [],
         defaultVariants: {
             variant: 'outlined',
+            error: false,
         },
     },
 )
@@ -78,19 +70,18 @@ type TextFieldProps = React.ComponentProps<'input'> &
     VariantProps<typeof inputVariants> & {
         label?: string
         helperText?: string
-        errorText?: string
         startIcon?: React.ReactNode
         endIcon?: React.ReactNode
     }
 
 const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
     (
-        { className, variant = 'outlined', type, label, helperText, errorText, startIcon, endIcon, placeholder, id, ...props },
+        { className, variant = 'outlined', type, label, helperText, error, startIcon, endIcon, placeholder, id, ...props },
         ref,
     ) => {
         const generatedId = React.useId()
         const inputId = id || generatedId
-        const isError = !!errorText
+        const isError = error
 
         placeholder = ''
 
@@ -106,12 +97,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
                     <input
                         id={inputId}
                         type={type}
-                        className={cn(
-                            inputVariants({ variant, error: isError }),
-                            startIcon && 'pl-12',
-                            startIcon && variant === 'outlined' && 'focus:pl-[46px]',
-                            endIcon && 'pr-12',
-                        )}
+                        className={cn(inputVariants({ variant, error: isError }), startIcon && 'pl-12', endIcon && 'pr-12')}
                         placeholder={placeholder}
                         ref={ref}
                         {...props}
@@ -120,7 +106,13 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
                     {label && (
                         <label
                             htmlFor={inputId}
-                            className={cn(labelVariants({ variant, error: isError }), startIcon && 'left-12')}
+                            className={cn(
+                                labelVariants({ variant, error: isError }),
+                                startIcon && 'left-12',
+                                startIcon &&
+                                    variant === 'outlined' &&
+                                    'peer-focus:-translate-x-10 peer-[:not(:placeholder-shown)]:-translate-x-10',
+                            )}
                         >
                             {label}
                         </label>
@@ -132,10 +124,8 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
                         </div>
                     )}
                 </div>
-                {(helperText || errorText) && (
-                    <p className={cn('px-4 text-xs', isError ? 'text-error' : 'text-on-surface-variant')}>
-                        {errorText || helperText}
-                    </p>
+                {helperText && (
+                    <p className={cn('px-4 text-xs', isError ? 'text-error' : 'text-on-surface-variant')}>{helperText}</p>
                 )}
             </div>
         )
