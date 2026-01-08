@@ -14,6 +14,7 @@ import {
     ContextMenu,
     ContextMenuCheckboxItem,
     ContextMenuContent,
+    ContextMenuGroup,
     ContextMenuItem,
     ContextMenuLabel,
     ContextMenuRadioGroup,
@@ -234,40 +235,45 @@ export default function App() {
                             Right click here
                         </ContextMenuTrigger>
                         <ContextMenuContent className='w-52'>
-                            <ContextMenuItem>
-                                <Undo2 />
-                                Back
-                                <ContextMenuShortcut>⌘[</ContextMenuShortcut>
-                            </ContextMenuItem>
-                            <ContextMenuItem inset disabled>
-                                Forward
-                                <ContextMenuShortcut>⌘]</ContextMenuShortcut>
-                            </ContextMenuItem>
-                            <ContextMenuItem inset>
-                                Reload
-                                <ContextMenuShortcut>⌘R</ContextMenuShortcut>
-                            </ContextMenuItem>
-                            <ContextMenuSub>
-                                <ContextMenuSubTrigger inset>More Tools</ContextMenuSubTrigger>
-                                <ContextMenuSubContent className='w-44'>
-                                    <ContextMenuItem>Save Page...</ContextMenuItem>
-                                    <ContextMenuItem>Create Shortcut...</ContextMenuItem>
-                                    <ContextMenuItem>Name Window...</ContextMenuItem>
-                                    <ContextMenuSeparator />
-                                    <ContextMenuItem>Developer Tools</ContextMenuItem>
-                                    <ContextMenuSeparator />
-                                    <ContextMenuItem variant='destructive'>Delete</ContextMenuItem>
-                                </ContextMenuSubContent>
-                            </ContextMenuSub>
-                            <ContextMenuSeparator />
-                            <ContextMenuCheckboxItem checked>Show Bookmarks</ContextMenuCheckboxItem>
-                            <ContextMenuCheckboxItem>Show Full URLs</ContextMenuCheckboxItem>
-                            <ContextMenuSeparator />
-                            <ContextMenuRadioGroup value='pedro'>
-                                <ContextMenuLabel inset>People</ContextMenuLabel>
-                                <ContextMenuRadioItem value='pedro'>Pedro Duarte</ContextMenuRadioItem>
-                                <ContextMenuRadioItem value='colm'>Colm Tuite</ContextMenuRadioItem>
-                            </ContextMenuRadioGroup>
+                            <ContextMenuGroup>
+                                <ContextMenuItem>
+                                    <Undo2 />
+                                    Back
+                                    <ContextMenuShortcut>⌘[</ContextMenuShortcut>
+                                </ContextMenuItem>
+                                <ContextMenuItem inset disabled>
+                                    Forward
+                                    <ContextMenuShortcut>⌘]</ContextMenuShortcut>
+                                </ContextMenuItem>
+                                <ContextMenuItem inset>
+                                    Reload
+                                    <ContextMenuShortcut>⌘R</ContextMenuShortcut>
+                                </ContextMenuItem>
+                                <ContextMenuSub>
+                                    <ContextMenuSubTrigger inset>More Tools</ContextMenuSubTrigger>
+                                    <ContextMenuSubContent className='w-44'>
+                                        <ContextMenuGroup>
+                                            <ContextMenuItem>Save Page...</ContextMenuItem>
+                                            <ContextMenuItem>Create Shortcut...</ContextMenuItem>
+                                            <ContextMenuItem>Name Window...</ContextMenuItem>
+                                            <ContextMenuItem>Developer Tools</ContextMenuItem>
+                                        </ContextMenuGroup>
+                                        <ContextMenuGroup>
+                                            <ContextMenuItem variant='destructive'>Delete</ContextMenuItem>
+                                        </ContextMenuGroup>
+                                    </ContextMenuSubContent>
+                                </ContextMenuSub>
+                            </ContextMenuGroup>
+                            <ContextMenuGroup>
+                                <ContextMenuCheckboxItem checked>Show Bookmarks</ContextMenuCheckboxItem>
+                                <ContextMenuCheckboxItem>Show Full URLs</ContextMenuCheckboxItem>
+                                <ContextMenuSeparator />
+                                <ContextMenuRadioGroup value='pedro'>
+                                    <ContextMenuLabel inset>People</ContextMenuLabel>
+                                    <ContextMenuRadioItem value='pedro'>Pedro Duarte</ContextMenuRadioItem>
+                                    <ContextMenuRadioItem value='colm'>Colm Tuite</ContextMenuRadioItem>
+                                </ContextMenuRadioGroup>
+                            </ContextMenuGroup>
                         </ContextMenuContent>
                     </ContextMenu>
                 </div>
