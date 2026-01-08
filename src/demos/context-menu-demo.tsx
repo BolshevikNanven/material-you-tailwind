@@ -15,7 +15,6 @@ import {
     ContextMenuShortcut,
 } from '@/components/ui/context-menu'
 import { Undo2, Redo2, RefreshCcw } from 'lucide-react'
-import React from 'react'
 
 export function ContextMenuDemo() {
     return (
