@@ -9,6 +9,7 @@ import { CardDemo } from '@/demos/card-demo'
 import { ContextMenuDemo } from '@/demos/context-menu-demo'
 import { DropdownMenuDemo } from '@/demos/dropdown-menu-demo'
 import { TextFieldDemo } from './demos/text-field-demo'
+import { DialogDemo } from './demos/dialog-demo'
 
 export default function App() {
     return (
@@ -28,6 +29,7 @@ export default function App() {
                 <CardDemo />
                 <ContextMenuDemo />
                 <DropdownMenuDemo />
+                <DialogDemo />
             </div>
         </div>
     )
