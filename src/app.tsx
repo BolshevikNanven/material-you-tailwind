@@ -27,6 +27,23 @@ import {
     ContextMenuTrigger,
 } from '@/components/ui/context-menu'
 
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuPortal,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import React from 'react'
+
 export default function App() {
     return (
         <div className='h-screen overflow-hidden p-4'>
@@ -277,7 +294,85 @@ export default function App() {
                         </ContextMenuContent>
                     </ContextMenu>
                 </div>
+                <h3>Dropdown Menu</h3>
+                <div className='mb-6 flex flex-wrap items-center gap-4'>
+                    <DropdownMenuRadioGroupDemo />
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant='outline'>Open</Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className='w-56' align='start'>
+                            <DropdownMenuGroup>
+                                <DropdownMenuItem>
+                                    Profile
+                                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    Billing
+                                    <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    Settings
+                                    <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    Keyboard shortcuts
+                                    <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                            </DropdownMenuGroup>
+                            <DropdownMenuGroup>
+                                <DropdownMenuItem>Team</DropdownMenuItem>
+                                <DropdownMenuSub>
+                                    <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+                                    <DropdownMenuPortal>
+                                        <DropdownMenuSubContent>
+                                            <DropdownMenuGroup>
+                                                <DropdownMenuItem>Email</DropdownMenuItem>
+                                                <DropdownMenuItem>Message</DropdownMenuItem>
+                                                <DropdownMenuSeparator />
+                                                <DropdownMenuItem>More...</DropdownMenuItem>
+                                            </DropdownMenuGroup>
+                                        </DropdownMenuSubContent>
+                                    </DropdownMenuPortal>
+                                </DropdownMenuSub>
+                                <DropdownMenuItem>
+                                    New Team
+                                    <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                            </DropdownMenuGroup>
+                            <DropdownMenuGroup>
+                                <DropdownMenuItem>GitHub</DropdownMenuItem>
+                                <DropdownMenuItem>Support</DropdownMenuItem>
+                                <DropdownMenuItem disabled>API</DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    Log out
+                                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                            </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             </div>
         </div>
+    )
+}
+
+export function DropdownMenuRadioGroupDemo() {
+    const [position, setPosition] = React.useState('bottom')
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button>RadioGroup</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='w-56'>
+                <DropdownMenuGroup>
+                    <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+                        <DropdownMenuRadioItem value='top'>Top</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value='bottom'>Bottom</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value='right'>Right</DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
+                </DropdownMenuGroup>
+            </DropdownMenuContent>
+        </DropdownMenu>
     )
 }
