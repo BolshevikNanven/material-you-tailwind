@@ -25,6 +25,9 @@ const buttonVariants = cva(
                 true: 'rounded-xl',
                 false: 'rounded-full',
             },
+            icon: {
+                true: 'aspect-square px-0',
+            },
         },
         compoundVariants: [
             {
@@ -52,6 +55,7 @@ const buttonVariants = cva(
             variant: 'default',
             size: 'md',
             square: false,
+            icon: false,
         },
     },
 )
@@ -94,6 +98,7 @@ function Button({
     variant = 'default',
     size = 'md',
     square = false,
+    icon = false,
     asChild = false,
     children,
     ...props
@@ -110,7 +115,7 @@ function Button({
             data-slot='button'
             data-variant={variant}
             data-size={size}
-            className={cn(buttonVariants({ variant, size, square, className }))}
+            className={cn(buttonVariants({ variant, size, square, icon, className }))}
             {...props}
         >
             <div className={cn(layerVariants({ variant, size, square }))} />

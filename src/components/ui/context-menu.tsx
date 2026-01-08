@@ -103,20 +103,17 @@ function ContextMenuContent({ className, ...props }: React.ComponentProps<typeof
 function ContextMenuItem({
     className,
     inset,
-    variant = 'default',
     children,
     ...props
 }: React.ComponentProps<typeof ContextMenuPrimitive.Item> & {
     inset?: boolean
-    variant?: 'default' | 'destructive'
 }) {
     return (
         <ContextMenuPrimitive.Item
             data-slot='context-menu-item'
             data-inset={inset}
-            data-variant={variant}
             className={cn(
-                "data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive relative flex h-11 cursor-default items-center gap-2 overflow-hidden rounded-sm px-3 text-sm outline-hidden transition-colors select-none hover:bg-on-surface/8 focus:bg-on-surface/8 data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-10 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:mx-0.5 [&_svg:not([class*='size-'])]:size-4",
+                "relative flex h-11 cursor-default items-center gap-2 overflow-hidden rounded-sm px-3 text-sm outline-hidden transition-colors select-none hover:bg-on-surface/8 focus:bg-on-surface/8 data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-10 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:mx-0.5 [&_svg:not([class*='size-'])]:size-4",
                 className,
             )}
             {...props}
@@ -201,7 +198,7 @@ function ContextMenuSeparator({ className, ...props }: React.ComponentProps<type
     return (
         <ContextMenuPrimitive.Separator
             data-slot='context-menu-separator'
-            className={cn('mx-1 my-1 h-[0.5px] bg-outline-variant', className)}
+            className={cn('mx-2 my-1 h-[0.5px] bg-outline-variant', className)}
             {...props}
         />
     )
