@@ -2,7 +2,7 @@ import { Checkbox } from '../components/ui/checkbox'
 
 export function CheckboxDemo() {
     return (
-        <>
+        <div className='flex flex-col gap-4'>
             <h3>Checkbox</h3>
             <div className='mb-6 flex flex-wrap items-center gap-4'>
                 <div className='flex items-center'>
@@ -12,6 +12,6 @@ export function CheckboxDemo() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

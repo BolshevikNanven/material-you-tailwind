@@ -3,7 +3,7 @@ import { Button } from '../components/ui/button'
 
 export function ButtonDemo() {
     return (
-        <>
+        <div className='flex flex-col gap-4'>
             <h3>Button</h3>
             <div className='mb-6 flex flex-wrap items-center gap-4'>
                 <Button size='lg' square>
@@ -48,6 +48,6 @@ export function ButtonDemo() {
                     Label
                 </Button>
             </div>
-        </>
+        </div>
     )
 }

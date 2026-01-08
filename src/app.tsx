@@ -13,23 +13,28 @@ import { DialogDemo } from './demos/dialog-demo'
 
 export default function App() {
     return (
-        <div className='flex h-screen flex-col overflow-hidden'>
+        <div className='flex h-screen w-full flex-col overflow-hidden'>
             <header className='flex h-18 items-center p-4'>
                 <h3 className='text-xl text-secondary'>Material You Tailwind</h3>
             </header>
             <div className='m-4 mt-0 flex h-full flex-col gap-2 overflow-auto rounded-3xl bg-surface p-6'>
                 <ButtonDemo />
                 <ToggleDemo />
-                <CheckboxDemo />
-                <SwitchDemo />
-                <RadioGroupDemo />
-                <SliderDemo />
-                <TextFieldDemo />
-                <BadgeDemo />
+                <div className='flex w-full gap-12'>
+                    <CheckboxDemo />
+                    <SwitchDemo />
+                    <BadgeDemo />
+                    <TextFieldDemo />
+                </div>
+                <div className='flex gap-12'>
+                    <RadioGroupDemo />
+                    <SliderDemo />
+                    <ContextMenuDemo />
+                    <DropdownMenuDemo />
+                    <DialogDemo />
+                </div>
                 <CardDemo />
-                <ContextMenuDemo />
-                <DropdownMenuDemo />
-                <DialogDemo />
+                <div className='flex gap-12'></div>
             </div>
         </div>
     )

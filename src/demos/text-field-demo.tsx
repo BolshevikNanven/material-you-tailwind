@@ -3,7 +3,7 @@ import { Search, XCircle } from 'lucide-react'
 
 export function TextFieldDemo() {
     return (
-        <>
+        <div className='flex flex-col gap-4'>
             <h3>TextField</h3>
             <div className='mb-6 flex flex-wrap items-center gap-4'>
                 <TextField
@@ -12,7 +12,7 @@ export function TextFieldDemo() {
                     helperText='Supporting Text'
                     startIcon={<Search />}
                     endIcon={<XCircle />}
-                    className='w-1/3'
+                    className='w-75'
                     error
                 />
                 <TextField
@@ -23,6 +23,6 @@ export function TextFieldDemo() {
                     startIcon={<Search />}
                 />
             </div>
-        </>
+        </div>
     )
 }

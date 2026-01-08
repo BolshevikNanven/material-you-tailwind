@@ -15,7 +15,7 @@ import { TextField } from '@/components/ui/text-field'
 
 export function DialogDemo() {
     return (
-        <>
+        <div className='flex flex-col gap-4'>
             <h3>Dialog</h3>
             <div className='mb-6 flex flex-wrap items-center gap-4'>
                 <Dialog>
@@ -69,6 +69,6 @@ export function DialogDemo() {
                     </DialogContent>
                 </Dialog>
             </div>
-        </>
+        </div>
     )
 }

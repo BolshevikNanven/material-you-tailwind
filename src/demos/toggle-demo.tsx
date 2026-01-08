@@ -3,7 +3,7 @@ import { Toggle } from '../components/ui/toggle'
 
 export function ToggleDemo() {
     return (
-        <>
+        <div className='flex flex-col gap-4'>
             <h3>Toggle</h3>
             <div className='mb-6 flex flex-wrap items-center gap-4'>
                 <Toggle size='lg'>
@@ -31,6 +31,6 @@ export function ToggleDemo() {
                     Label
                 </Toggle>
             </div>
-        </>
+        </div>
     )
 }

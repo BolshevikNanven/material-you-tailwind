@@ -69,7 +69,7 @@ export function DropdownMenuCheckboxes() {
 
 export function DropdownMenuDemo() {
     return (
-        <>
+        <div className='flex flex-col gap-4'>
             <h3>Dropdown Menu</h3>
             <div className='mb-6 flex flex-wrap items-center gap-4'>
                 <DropdownMenuRadioGroupDemo />
@@ -129,6 +129,6 @@ export function DropdownMenuDemo() {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-        </>
+        </div>
     )
 }

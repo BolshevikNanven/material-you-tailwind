@@ -18,11 +18,11 @@ import { Undo2, Redo2, RefreshCcw } from 'lucide-react'
 
 export function ContextMenuDemo() {
     return (
-        <>
+        <div className='flex flex-col gap-4'>
             <h3>Context Menu</h3>
             <div className='mb-6 flex flex-wrap items-center gap-4'>
                 <ContextMenu>
-                    <ContextMenuTrigger className='flex h-37.5 w-1/3 items-center justify-center rounded-md border border-dashed text-sm'>
+                    <ContextMenuTrigger className='flex h-37.5 w-100 items-center justify-center rounded-md border border-dashed text-sm'>
                         Right click here
                     </ContextMenuTrigger>
                     <ContextMenuContent className='w-52'>
@@ -70,6 +70,6 @@ export function ContextMenuDemo() {
                     </ContextMenuContent>
                 </ContextMenu>
             </div>
-        </>
+        </div>
     )
 }
