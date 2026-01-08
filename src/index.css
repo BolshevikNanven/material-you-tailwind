@@ -247,6 +247,30 @@
 
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--primary);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
 @layer base {
   * {
     @apply border-outline-variant outline-outline;

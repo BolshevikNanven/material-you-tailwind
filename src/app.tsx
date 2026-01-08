@@ -12,8 +12,11 @@ import { TextFieldDemo } from './demos/text-field-demo'
 
 export default function App() {
     return (
-        <div className='h-screen overflow-hidden p-4'>
-            <div className='flex h-full flex-col gap-2 overflow-auto rounded-3xl bg-surface p-6'>
+        <div className='flex h-screen flex-col overflow-hidden'>
+            <header className='flex h-18 items-center p-4'>
+                <h3 className='text-xl text-secondary'>Material You Tailwind</h3>
+            </header>
+            <div className='m-4 mt-0 flex h-full flex-col gap-2 overflow-auto rounded-3xl bg-surface p-6'>
                 <ButtonDemo />
                 <ToggleDemo />
                 <CheckboxDemo />

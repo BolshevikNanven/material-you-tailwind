@@ -19,7 +19,6 @@ export function TextFieldDemo() {
                     variant='filled'
                     label='Label text'
                     placeholder='Placeholder'
-                    error
                     helperText='Supporting Text'
                     startIcon={<Search />}
                 />
