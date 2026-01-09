@@ -12,6 +12,7 @@ import { TextFieldDemo } from './demos/text-field-demo'
 import { DialogDemo } from './demos/dialog-demo'
 import { ButtonGroupDemo } from './demos/button-group-demo'
 import { DividerDemo } from './demos/divider-demo'
+import { TooltipDemo } from './demos/tooltip-demo'
 
 export default function App() {
     return (
@@ -28,6 +29,7 @@ export default function App() {
                     <SwitchDemo />
                     <BadgeDemo />
                     <TextFieldDemo />
+                    <TooltipDemo />
                 </div>
                 <DividerDemo />
                 <div className='flex gap-12'>

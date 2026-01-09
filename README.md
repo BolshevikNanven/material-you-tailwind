@@ -22,12 +22,12 @@ Work in progress. Stay tuned!
 - [x] switch
 - [x] text-field
 - [x] toggle
-- [ ] Chip
-- [x] Divider
-- [ ] Tab
-- [ ] Navigation
-- [ ] Snakebar
-- [ ] Tooltips
+- [ ] chip
+- [x] divider
+- [ ] tab
+- [ ] navigation
+- [ ] snakebar
+- [x] tooltip
 - [ ] FAB
-- [ ] Progress
-- [ ] Carousel
+- [ ] progress
+- [ ] carousel
