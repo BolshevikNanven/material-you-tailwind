@@ -19,7 +19,7 @@ const buttonVariants = cva(
             size: {
                 sm: 'h-10 gap-2 px-4',
                 md: 'h-12 gap-2 px-6',
-                lg: 'h-14 gap-2 px-6',
+                lg: 'h-14 gap-2 px-6 [&_svg:not([class*=size-])]:size-5',
             },
             square: {
                 true: 'rounded-xl',
