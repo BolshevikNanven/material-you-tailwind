@@ -318,7 +318,8 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
         <div
             ref={rootRef}
             aria-hidden='true'
-            className={cn(`pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-full`, className)}
+            data-ripple='true'
+            className={cn(`pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[inherit]`, className)}
         >
             {/* Ripple Wave Layer */}
             <div
@@ -327,7 +328,7 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
                 style={{
                     background: `radial-gradient(closest-side, currentColor 86%, transparent 100%)`,
                 }}
-            ></div>
+            />
         </div>
     )
 }

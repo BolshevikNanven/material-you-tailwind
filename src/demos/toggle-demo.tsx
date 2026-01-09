@@ -6,7 +6,7 @@ export function ToggleDemo() {
         <div className='flex flex-col gap-4'>
             <h3>Toggle</h3>
             <div className='mb-6 flex flex-wrap items-center gap-4'>
-                <Toggle size='lg'>
+                <Toggle size='lg' square>
                     <Stars />
                     Label
                 </Toggle>
@@ -29,6 +29,9 @@ export function ToggleDemo() {
                 <Toggle variant='elevated'>
                     <Stars />
                     Label
+                </Toggle>
+                <Toggle icon>
+                    <Stars />
                 </Toggle>
             </div>
         </div>

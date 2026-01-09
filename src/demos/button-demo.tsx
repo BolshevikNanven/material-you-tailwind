@@ -10,9 +10,8 @@ export function ButtonDemo() {
                     <Stars />
                     Label
                 </Button>
-                <Button>
+                <Button size='lg'>
                     <Stars />
-                    Label
                 </Button>
                 <Button size='sm'>
                     <Stars />

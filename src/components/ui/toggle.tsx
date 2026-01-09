@@ -5,9 +5,10 @@ import * as TogglePrimitive from '@radix-ui/react-toggle'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
+import { Ripple } from './ripple'
 
 const toggleVariants = cva(
-    "group relative inline-flex shrink-0 cursor-default items-center justify-center text-sm font-medium whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:bg-on-surface/10 disabled:text-on-surface/38 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+    "group relative inline-flex shrink-0 cursor-pointer items-center justify-center text-sm font-medium whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:bg-on-surface/10 disabled:text-on-surface/38 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
     {
         variants: {
             variant: {
@@ -25,7 +26,7 @@ const toggleVariants = cva(
             },
             square: {
                 true: 'rounded-xl',
-                false: 'rounded-full',
+                false: '',
             },
             icon: {
                 true: 'aspect-square px-0',
@@ -52,6 +53,21 @@ const toggleVariants = cva(
                 size: 'lg',
                 className: 'rounded-2xl',
             },
+            {
+                square: false,
+                size: 'sm',
+                className: 'rounded-[20px]',
+            },
+            {
+                square: false,
+                size: 'md',
+                className: 'rounded-[24px]',
+            },
+            {
+                square: false,
+                size: 'lg',
+                className: 'rounded-[28px]',
+            },
         ],
         defaultVariants: {
             variant: 'default',
@@ -61,20 +77,42 @@ const toggleVariants = cva(
     },
 )
 
+const layerVariants = cva('absolute inset-0 rounded-[inherit] transition-all', {
+    variants: {
+        variant: {
+            default: 'group-hover:bg-on-surface-variant/8 group-active:bg-on-surface-variant/10',
+            tonal: 'group-hover:bg-on-secondary-container/8 group-active:bg-on-secondary-container/10',
+            outline: 'group-hover:bg-on-surface-variant/8 group-active:bg-on-surface-variant/10',
+            elevated: 'group-hover:bg-primary/8 group-active:bg-primary/10',
+            text: 'group-hover:bg-primary/8 group-active:bg-primary/10',
+        },
+    },
+
+    defaultVariants: {
+        variant: 'default',
+    },
+})
+
 function Toggle({
     className,
     variant,
-    square = false,
-    icon = false,
+    square,
+    icon,
     size,
+    children,
     ...props
 }: React.ComponentProps<typeof TogglePrimitive.Root> & VariantProps<typeof toggleVariants>) {
     return (
         <TogglePrimitive.Root
             data-slot='toggle'
+            data-square={!!square}
             className={cn(toggleVariants({ variant, size, icon, square, className }))}
             {...props}
-        />
+        >
+            <div className={cn(layerVariants({ variant }))} />
+            <Ripple />
+            {children}
+        </TogglePrimitive.Root>
     )
 }
 

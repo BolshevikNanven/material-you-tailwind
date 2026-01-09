@@ -10,6 +10,7 @@ import { ContextMenuDemo } from '@/demos/context-menu-demo'
 import { DropdownMenuDemo } from '@/demos/dropdown-menu-demo'
 import { TextFieldDemo } from './demos/text-field-demo'
 import { DialogDemo } from './demos/dialog-demo'
+import { ButtonGroupDemo } from './demos/button-group-demo'
 
 export default function App() {
     return (
@@ -20,6 +21,7 @@ export default function App() {
             <div className='m-4 mt-0 flex h-full flex-col gap-2 overflow-auto rounded-3xl bg-surface p-6'>
                 <ButtonDemo />
                 <ToggleDemo />
+                <ButtonGroupDemo />
                 <div className='flex w-full gap-12'>
                     <CheckboxDemo />
                     <SwitchDemo />

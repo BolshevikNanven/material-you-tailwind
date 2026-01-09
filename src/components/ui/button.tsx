@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import { Ripple } from './ripple'
 
 const buttonVariants = cva(
-    "group aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive relative inline-flex shrink-0 cursor-pointer items-center justify-center text-sm font-medium whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:bg-on-surface/10 disabled:text-on-surface/38 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+    "group relative inline-flex shrink-0 cursor-pointer items-center justify-center text-sm font-medium whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:bg-on-surface/10 disabled:text-on-surface/38 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
     {
         variants: {
             variant: {
@@ -23,7 +23,7 @@ const buttonVariants = cva(
             },
             square: {
                 true: 'rounded-xl',
-                false: 'rounded-full',
+                false: '',
             },
             icon: {
                 true: 'aspect-square px-0',
@@ -50,6 +50,21 @@ const buttonVariants = cva(
                 size: 'lg',
                 className: 'rounded-2xl',
             },
+            {
+                square: false,
+                size: 'sm',
+                className: 'rounded-[20px]',
+            },
+            {
+                square: false,
+                size: 'md',
+                className: 'rounded-[24px]',
+            },
+            {
+                square: false,
+                size: 'lg',
+                className: 'rounded-[28px]',
+            },
         ],
         defaultVariants: {
             variant: 'default',
@@ -60,7 +75,7 @@ const buttonVariants = cva(
     },
 )
 
-const layerVariants = cva('absolute inset-0 transition-all', {
+const layerVariants = cva('absolute inset-0 rounded-[inherit] transition-all', {
     variants: {
         variant: {
             default: 'group-hover:bg-on-primary/8 group-active:bg-on-primary/10',
@@ -69,27 +84,9 @@ const layerVariants = cva('absolute inset-0 transition-all', {
             elevated: 'group-hover:bg-primary/8 group-active:bg-primary/10',
             text: 'group-hover:bg-primary/8 group-active:bg-primary/10',
         },
-        square: {
-            true: 'rounded-xl',
-            false: 'rounded-full',
-        },
-        size: {
-            sm: '',
-            md: '',
-            lg: '',
-        },
     },
-    compoundVariants: [
-        {
-            square: true,
-            size: 'lg',
-            className: 'rounded-2xl',
-        },
-    ],
     defaultVariants: {
         variant: 'default',
-        size: 'md',
-        square: false,
     },
 })
 
@@ -114,18 +111,13 @@ function Button({
         <button
             data-slot='button'
             data-variant={variant}
+            data-square={!!square}
             data-size={size}
             className={cn(buttonVariants({ variant, size, square, icon, className }))}
             {...props}
         >
-            <div className={cn(layerVariants({ variant, size, square }))} />
-            <Ripple
-                className={cn({
-                    'rounded-full': !square,
-                    'rounded-xl': square && (size === 'sm' || size === 'md'),
-                    'rounded-2xl': square && size === 'lg',
-                })}
-            />
+            <div className={cn(layerVariants({ variant }))} />
+            <Ripple />
             {children}
         </button>
     )
