@@ -11,6 +11,7 @@ import { DropdownMenuDemo } from '@/demos/dropdown-menu-demo'
 import { TextFieldDemo } from './demos/text-field-demo'
 import { DialogDemo } from './demos/dialog-demo'
 import { ButtonGroupDemo } from './demos/button-group-demo'
+import { DividerDemo } from './demos/divider-demo'
 
 export default function App() {
     return (
@@ -28,6 +29,7 @@ export default function App() {
                     <BadgeDemo />
                     <TextFieldDemo />
                 </div>
+                <DividerDemo />
                 <div className='flex gap-12'>
                     <RadioGroupDemo />
                     <SliderDemo />

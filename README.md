@@ -23,7 +23,7 @@ Work in progress. Stay tuned!
 - [x] text-field
 - [x] toggle
 - [ ] Chip
-- [ ] Divider
+- [x] Divider
 - [ ] Tab
 - [ ] Navigation
 - [ ] Snakebar
