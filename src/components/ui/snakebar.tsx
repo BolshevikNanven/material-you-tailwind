@@ -15,7 +15,7 @@ interface ToastProps {
 }
 function toast({ message, action, closable }: Omit<ToastProps, 'id'>) {
     return sonnerToast.custom(id => (
-        <div className='flex h-12 w-full items-center rounded-sm bg-inverse-surface text-inverse-on-surface shadow-elevation-3 md:max-w-91'>
+        <div className='flex h-12 w-full items-center rounded-sm bg-inverse-surface text-sm text-inverse-on-surface shadow-elevation-3 md:max-w-91'>
             <p className='flex flex-1 items-center px-4 text-sm'>{message}</p>
             {action && (
                 <button

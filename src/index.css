@@ -4,9 +4,34 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --shadow-elevation-1: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0px rgba(0, 0, 0, 0.30);
-  --shadow-elevation-2: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px 0px rgba(0, 0, 0, 0.30);
-  --shadow-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0px rgba(0, 0, 0, 0.30);
+  --animate-spin-rush: spin-rush 1.2s infinite;
+
+  @keyframes spin-rush {
+    0% {
+      transform: rotate(0deg);
+      animation-timing-function: cubic-bezier(0.5, 0, 1, 1);
+      /* 这一段慢慢走 */
+    }
+
+    70% {
+      transform: rotate(90deg);
+      /* 70% 的时间只转了 90度 (慢) */
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+      /* 这一段冲刺 */
+    }
+
+    100% {
+      transform: rotate(360deg);
+      /* 剩下的 30% 时间转完 270度 (快) */
+    }
+  }
+
+  --shadow-elevation-1: 0 1px 3px 1px rgba(0, 0, 0, 0.15),
+  0 1px 2px 0px rgba(0, 0, 0, 0.30);
+  --shadow-elevation-2: 0 2px 6px 2px rgba(0, 0, 0, 0.15),
+  0 1px 2px 0px rgba(0, 0, 0, 0.30);
+  --shadow-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15),
+  0 1px 3px 0px rgba(0, 0, 0, 0.30);
 
   --color-primary: var(--primary);
   --color-primary-container: var(--primary-container);

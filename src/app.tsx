@@ -15,6 +15,7 @@ import { DividerDemo } from './demos/divider-demo'
 import { TooltipDemo } from './demos/tooltip-demo'
 import { TabsDemo } from './demos/tabs-demo'
 import { SnakebarDemo } from './demos/snakebar-demo'
+import { LoadingDemo } from './demos/loading-demo'
 
 export default function App() {
     return (
@@ -44,6 +45,7 @@ export default function App() {
                 </div>
                 <CardDemo />
                 <TabsDemo />
+                <LoadingDemo />
                 <div className='flex gap-12'></div>
             </div>
         </div>

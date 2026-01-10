@@ -26,8 +26,9 @@ Work in progress. Stay tuned!
 - [x] divider
 - [x] tab
 - [ ] navigation
-- [ ] snakebar
+- [x] snakebar
 - [x] tooltip
 - [ ] FAB
 - [ ] progress
+- [x] loading
 - [ ] carousel
