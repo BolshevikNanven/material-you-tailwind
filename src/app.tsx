@@ -13,6 +13,7 @@ import { DialogDemo } from './demos/dialog-demo'
 import { ButtonGroupDemo } from './demos/button-group-demo'
 import { DividerDemo } from './demos/divider-demo'
 import { TooltipDemo } from './demos/tooltip-demo'
+import { TabsDemo } from './demos/tabs-demo'
 
 export default function App() {
     return (
@@ -40,6 +41,7 @@ export default function App() {
                     <DialogDemo />
                 </div>
                 <CardDemo />
+                <TabsDemo />
                 <div className='flex gap-12'></div>
             </div>
         </div>

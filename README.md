@@ -24,7 +24,7 @@ Work in progress. Stay tuned!
 - [x] toggle
 - [ ] chip
 - [x] divider
-- [ ] tab
+- [x] tab
 - [ ] navigation
 - [ ] snakebar
 - [x] tooltip
