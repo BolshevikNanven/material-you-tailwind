@@ -14,6 +14,7 @@ import { ButtonGroupDemo } from './demos/button-group-demo'
 import { DividerDemo } from './demos/divider-demo'
 import { TooltipDemo } from './demos/tooltip-demo'
 import { TabsDemo } from './demos/tabs-demo'
+import { SnakebarDemo } from './demos/snakebar-demo'
 
 export default function App() {
     return (
@@ -31,6 +32,7 @@ export default function App() {
                     <BadgeDemo />
                     <TextFieldDemo />
                     <TooltipDemo />
+                    <SnakebarDemo />
                 </div>
                 <DividerDemo />
                 <div className='flex gap-12'>
