@@ -29,6 +29,6 @@ Work in progress. Stay tuned!
 - [x] snakebar
 - [x] tooltip
 - [ ] FAB
-- [ ] progress
+- [x] progress
 - [x] loading
 - [ ] carousel

@@ -16,6 +16,7 @@ import { TooltipDemo } from './demos/tooltip-demo'
 import { TabsDemo } from './demos/tabs-demo'
 import { SnakebarDemo } from './demos/snakebar-demo'
 import { LoadingDemo } from './demos/loading-demo'
+import { ProgressDemo } from './demos/progress-demo'
 
 export default function App() {
     return (
@@ -46,6 +47,7 @@ export default function App() {
                 <CardDemo />
                 <TabsDemo />
                 <LoadingDemo />
+                <ProgressDemo />
                 <div className='flex gap-12'></div>
             </div>
         </div>
