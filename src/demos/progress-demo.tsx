@@ -6,7 +6,7 @@ export function ProgressDemo() {
 
     useEffect(() => {
         setInterval(() => {
-            setValue(prev => (prev + 0.5) % 101)
+            setValue(prev => (prev + 0.5) % 100)
         }, 200)
     }, [])
 
@@ -15,11 +15,11 @@ export function ProgressDemo() {
             <h3>Progress</h3>
             <div className='mb-6 flex flex-wrap items-center gap-8'>
                 <div className='flex gap-8'>
-                    <Progress wave variant='circle' value={value} />
+                    <Progress wave variant='circle' value={value} stroke={6}/>
                     <Progress variant='circle' value={value} />
                 </div>
-                <Progress wave value={value} />
-                <Progress value={value} />
+                <Progress wave value={value} stroke={6}/>
+                <Progress value={value} stroke={6} />
             </div>
         </div>
     )

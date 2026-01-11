@@ -6,12 +6,10 @@ import * as ProgressPrimitive from '@radix-ui/react-progress'
 import { cn } from '@/lib/utils'
 const CONSTANTS = {
     line: {
-        strokeWidth: 4,
         frequency: 0.1, // 线性波浪频率
         amplitude: 2.4, // 最大振幅
     },
     circle: {
-        strokeWidth: 4,
         frequency: 8, // 环形波浪频率 (一圈几个波峰)
         amplitude: 1.5, // 环形最大振幅
     },
@@ -22,6 +20,7 @@ function useWaveAnimation(
     value: number,
     wave: boolean,
     variant: 'line' | 'circle',
+    stroke: number,
 ) {
     const dataRef = React.useRef({ value, wave, variant })
 
@@ -48,13 +47,13 @@ function useWaveAnimation(
         }
 
         const renderLine = (width: number, height: number, colors: { primary: string }, amp: number) => {
-            const { strokeWidth, frequency } = CONSTANTS.line
+            const { frequency } = CONSTANTS.line
             const centerY = height / 2
-            const padding = strokeWidth / 2
+            const padding = stroke / 2
 
             ctx.beginPath()
             ctx.strokeStyle = colors.primary
-            ctx.lineWidth = strokeWidth
+            ctx.lineWidth = stroke
             ctx.lineCap = 'round'
             ctx.lineJoin = 'round'
 
@@ -80,14 +79,14 @@ function useWaveAnimation(
             amp: number,
             progress: number,
         ) => {
-            const { strokeWidth, frequency, amplitude: maxAmp } = CONSTANTS.circle
+            const { frequency, amplitude: maxAmp } = CONSTANTS.circle
             const centerX = width / 2
             const centerY = height / 2
 
             // 半径安全计算 (Anti-Clipping)
             // 公式：最大可用半径 - (线宽一半 + 最大振幅 + 安全边距)
             const maxAvailableRadius = Math.min(width, height) / 2
-            const safePadding = strokeWidth / 2 + maxAmp + 2.5
+            const safePadding = stroke / 2 + maxAmp + 2.5
             const radius = maxAvailableRadius - safePadding
 
             // 如果容器太小导致半径为负，直接不画
@@ -101,15 +100,15 @@ function useWaveAnimation(
             const endAngle = startAngle + currentProgressAngle
 
             // 计算像素间距对应的弧度 (Gap)
-            const gapRadian = 6 / radius
+            const gapRadian = (4 + stroke) / radius
 
-            //  绘制背景轨道 (Track) ---
+            // 绘制背景轨道 (Track) ---
             // 逻辑：只画“剩余部分”，并且头尾都要缩进 gapRadian
             // 只有当进度还没满一圈的时候才画轨道
             if (progress < 100) {
                 ctx.beginPath()
                 ctx.strokeStyle = colors.secondary
-                ctx.lineWidth = strokeWidth
+                ctx.lineWidth = stroke
                 ctx.lineCap = 'round'
 
                 // 轨道起点：进度结束点 + 间隙
@@ -128,7 +127,7 @@ function useWaveAnimation(
             if (progress > 0) {
                 ctx.beginPath()
                 ctx.strokeStyle = colors.primary
-                ctx.lineWidth = strokeWidth
+                ctx.lineWidth = stroke
                 ctx.lineCap = 'round'
 
                 // 如果振幅极小，降级为普通圆弧绘制 (性能优化)
@@ -198,18 +197,21 @@ function useWaveAnimation(
 
         render()
         return () => cancelAnimationFrame(frameId)
-    }, [canvasRef])
+    }, [canvasRef, stroke])
 }
 
 function Progress({
     className,
     value,
     variant = 'line',
+    stroke = 4,
     wave = false,
     ref,
     ...props
-}: React.ComponentProps<typeof ProgressPrimitive.Root> & { wave?: boolean; variant?: 'line' | 'circle' }) {
+}: React.ComponentProps<typeof ProgressPrimitive.Root> & { wave?: boolean; variant?: 'line' | 'circle'; stroke?: number }) {
     value = value || 0
+    stroke = stroke > 4 ? stroke : 4
+
     const valueRef = React.useRef(value)
 
     React.useEffect(() => {
@@ -218,7 +220,7 @@ function Progress({
 
     const canvasRef = React.useRef<HTMLCanvasElement>(null)
 
-    useWaveAnimation(canvasRef as React.RefObject<HTMLCanvasElement>, value || 0, wave, variant)
+    useWaveAnimation(canvasRef as React.RefObject<HTMLCanvasElement>, value || 0, wave, variant, stroke)
 
     if (variant === 'circle') {
         return (
@@ -232,13 +234,14 @@ function Progress({
         <ProgressPrimitive.Root
             ref={ref}
             data-slot='progress'
-            className={cn('flex w-full items-center overflow-hidden', wave ? 'h-2.5' : 'h-1 rounded-full', className)}
+            className={cn('flex w-full items-center overflow-hidden', className)}
+            style={{ height: `${wave ? stroke + 6 : stroke}px` }}
             value={value}
             {...props}
         >
             <ProgressPrimitive.Indicator
                 data-slot='progress-indicator'
-                className={cn('mr-1 h-2.5 transition-[width]')}
+                className={cn('mr-1 h-full transition-[width]')}
                 style={{
                     width: `${value || 0}%`,
                 }}
@@ -246,9 +249,8 @@ function Progress({
                 <canvas ref={canvasRef} className='h-full w-full text-primary' />
             </ProgressPrimitive.Indicator>
             <div
-                className={cn(
-                    'flex h-1 flex-1 flex-row-reverse items-center overflow-hidden rounded-full bg-secondary-container',
-                )}
+                className={cn('flex flex-1 flex-row-reverse items-center overflow-hidden rounded-full bg-secondary-container')}
+                style={{ height: `${stroke}px` }}
             >
                 <span className='aspect-square h-full rounded-full bg-primary' />
             </div>
