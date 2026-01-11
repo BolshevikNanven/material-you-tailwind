@@ -11,7 +11,6 @@ const SOFT_EDGE_CONTAINER_RATIO = 0.35
 const TOUCH_DELAY_MS = 150
 const ANIMATION_FILL = 'forwards'
 
-// --- 状态枚举 ---
 const State = {
     INACTIVE: 0,
     TOUCH_DELAY: 1, // 触摸按下，等待判断是点击还是滚动
@@ -21,29 +20,19 @@ const State = {
 type State = (typeof State)[keyof typeof State]
 
 interface RippleProps {
-    /** 是否禁用涟漪 */
     disabled?: boolean
-    /** 自定义根元素类名 */
     className?: string
-    /** * 强制不透明度 (可选)
-     * Material Design 默认 Pressed 状态约为 12% (0.12)。
-     */
     opacity?: number
 }
 
 export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = '', opacity = 0.12 }) => {
-    // DOM Refs
     const rootRef = useRef<HTMLDivElement>(null)
-    const hoverRef = useRef<HTMLDivElement>(null) // 对应原版的 ::before
-    const waveRef = useRef<HTMLDivElement>(null) // 对应原版的 ::after
+    const waveRef = useRef<HTMLDivElement>(null)
 
-    // 状态机 Refs (使用 Ref 而非 State 以避免重渲染中断动画)
     const state = useRef<State>(State.INACTIVE)
     const rippleStartEvent = useRef<PointerEvent | null>(null)
     const growAnimation = useRef<Animation | null>(null)
     const checkBoundsAfterAnim = useRef(false)
-
-    // --- 核心逻辑 (完全复刻 ripple.ts) ---
 
     const isTouch = (event: PointerEvent) => event.pointerType === 'touch'
 
@@ -193,24 +182,12 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
         }
     }
 
-    // --- 事件处理 ---
-
     const handlePointerEnter = (event: PointerEvent) => {
         if (!shouldReactToEvent(event)) return
-        // Hover 效果
-        if (hoverRef.current) {
-            // MD3 hover opacity 通常是 0.08 (8%)
-            hoverRef.current.style.opacity = '0.08'
-        }
     }
 
     const handlePointerLeave = (event: PointerEvent) => {
         if (!shouldReactToEvent(event)) return
-
-        // 移除 Hover
-        if (hoverRef.current) {
-            hoverRef.current.style.opacity = '0'
-        }
 
         // 如果手指移出元素，结束按压状态
         if (state.current !== State.INACTIVE) {
@@ -278,7 +255,6 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
     }
 
     // --- 挂载逻辑 ---
-
     useEffect(() => {
         const parent = rootRef.current?.parentElement
         if (!parent) return
@@ -288,9 +264,6 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
         if (style.position === 'static') {
             parent.style.position = 'relative'
         }
-        // 确保父元素不会裁剪涟漪的圆角，如果父元素有圆角
-        // 注意：如果父元素没有 overflow-hidden，涟漪可能会溢出，这里不强制修改 overflow，
-        // 因为这可能会破坏父元素的布局（如 sticky header）。通常建议在父类加 overflow-hidden。
 
         // 绑定事件到父元素
         parent.addEventListener('click', handleClick)
@@ -326,7 +299,7 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
                 ref={waveRef}
                 className={`absolute inset-0 opacity-0 transition-opacity ease-linear`}
                 style={{
-                    background: `radial-gradient(closest-side, currentColor 86%, transparent 100%)`,
+                    background: `radial-gradient(closest-side, currentColor 60%, transparent 100%)`,
                 }}
             />
         </div>
