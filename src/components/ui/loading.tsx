@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
+import { motion, useMotionValue, useTransform, animate } from 'motion/react'
 import { interpolate } from 'flubber'
 
 import * as React from 'react'

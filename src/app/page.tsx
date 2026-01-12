@@ -8,23 +8,23 @@ import { BadgeDemo } from '@/demos/badge-demo'
 import { CardDemo } from '@/demos/card-demo'
 import { ContextMenuDemo } from '@/demos/context-menu-demo'
 import { DropdownMenuDemo } from '@/demos/dropdown-menu-demo'
-import { TextFieldDemo } from './demos/text-field-demo'
-import { DialogDemo } from './demos/dialog-demo'
-import { ButtonGroupDemo } from './demos/button-group-demo'
-import { DividerDemo } from './demos/divider-demo'
-import { TooltipDemo } from './demos/tooltip-demo'
-import { TabsDemo } from './demos/tabs-demo'
-import { SnakebarDemo } from './demos/snakebar-demo'
-import { LoadingDemo } from './demos/loading-demo'
-import { ProgressDemo } from './demos/progress-demo'
+import { TextFieldDemo } from '@/demos/text-field-demo'
+import { DialogDemo } from '@/demos/dialog-demo'
+import { ButtonGroupDemo } from '@/demos/button-group-demo'
+import { DividerDemo } from '@/demos/divider-demo'
+import { TooltipDemo } from '@/demos/tooltip-demo'
+import { TabsDemo } from '@/demos/tabs-demo'
+import { SnakebarDemo } from '@/demos/snakebar-demo'
+import { LoadingDemo } from '@/demos/loading-demo'
+import { ProgressDemo } from '@/demos/progress-demo'
 
-export default function App() {
+export default function Home() {
     return (
         <div className='flex h-screen w-full flex-col overflow-hidden'>
             <header className='flex h-18 items-center p-4'>
-                <h3 className='text-xl text-secondary'>Material You Tailwind</h3>
+                <h3 className='text-secondary text-xl'>Material You Tailwind</h3>
             </header>
-            <div className='m-4 mt-0 flex h-full flex-col gap-2 overflow-auto rounded-3xl bg-surface p-6'>
+            <div className='bg-surface m-4 mt-0 flex h-full flex-col gap-2 overflow-auto rounded-3xl p-6'>
                 <ButtonDemo />
                 <ToggleDemo />
                 <ButtonGroupDemo />

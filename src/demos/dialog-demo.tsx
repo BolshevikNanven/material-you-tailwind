@@ -34,7 +34,7 @@ export function DialogDemo() {
                             </DialogDescription>
                         </DialogHeader>
                         <DialogFooter>
-                            <DialogClose>
+                            <DialogClose asChild>
                                 <Button variant='text' size='sm'>
                                     Action1
                                 </Button>
