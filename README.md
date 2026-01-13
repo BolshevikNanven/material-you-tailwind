@@ -6,8 +6,12 @@ Work in progress. Stay tuned!
 
 ![overview](./docs/image.png)
 
-### Components
+## Demo
 
+https://material.nanven.cn/
+
+### Components
+- [x] avatar
 - [x] badge
 - [x] button-group
 - [x] button
@@ -22,13 +26,15 @@ Work in progress. Stay tuned!
 - [x] switch
 - [x] text-field
 - [x] toggle
-- [ ] chip
+- [x] chip
 - [x] divider
 - [x] tab
-- [ ] navigation
 - [x] snakebar
 - [x] tooltip
 - [ ] FAB
 - [x] progress
 - [x] loading
+- [ ] navigation
 - [ ] carousel
+- [ ] date-picker
+- [ ] time-picker

@@ -32,7 +32,11 @@ function Badge({
         return <span data-slot='badge' className={cn(badgeVariants({ size }), className)} {...props} />
     }
 
-    return <Comp data-slot='badge' className={cn(badgeVariants({ size }), className)} children={children} {...props} />
+    return (
+        <Comp data-slot='badge' className={cn(badgeVariants({ size }), className)} {...props}>
+            {children}
+        </Comp>
+    )
 }
 
 export { Badge }

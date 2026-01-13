@@ -17,14 +17,16 @@ import { TabsDemo } from '@/demos/tabs-demo'
 import { SnakebarDemo } from '@/demos/snakebar-demo'
 import { LoadingDemo } from '@/demos/loading-demo'
 import { ProgressDemo } from '@/demos/progress-demo'
+import { ChipDemo } from '@/demos/chip-demo'
+import { AvatarDemo } from '@/demos/avatar-demo'
 
 export default function Home() {
     return (
         <div className='flex h-screen w-full flex-col overflow-hidden'>
             <header className='flex h-18 items-center p-4'>
-                <h3 className='text-secondary text-xl'>Material You Tailwind</h3>
+                <h3 className='text-xl text-secondary'>Material You Tailwind</h3>
             </header>
-            <div className='bg-surface m-4 mt-0 flex h-full flex-col gap-2 overflow-auto rounded-3xl p-6'>
+            <div className='m-4 mt-0 flex h-full flex-col gap-2 overflow-auto rounded-3xl bg-surface p-6'>
                 <ButtonDemo />
                 <ToggleDemo />
                 <ButtonGroupDemo />
@@ -43,6 +45,10 @@ export default function Home() {
                     <ContextMenuDemo />
                     <DropdownMenuDemo />
                     <DialogDemo />
+                </div>
+                <div className='flex gap-12'>
+                    <ChipDemo />
+                    <AvatarDemo />
                 </div>
                 <CardDemo />
                 <TabsDemo />

@@ -96,17 +96,9 @@ function Button({
     size = 'md',
     square = false,
     icon = false,
-    asChild = false,
     children,
     ...props
-}: React.ComponentProps<'button'> &
-    VariantProps<typeof buttonVariants> & {
-        asChild?: boolean
-    }) {
-    if (asChild) {
-        return <Slot data-slot='button' data-variant={variant} data-size={size} children={children} {...props} />
-    }
-
+}: React.ComponentProps<'button'> & VariantProps<typeof buttonVariants>) {
     return (
         <button
             data-slot='button'
