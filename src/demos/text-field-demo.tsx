@@ -16,11 +16,16 @@ export function TextFieldDemo() {
                     error
                 />
                 <TextField
+                    label='Label text'
+                    placeholder='Placeholder'
+                    helperText='Supporting Text'
+                    className='w-75'
+                />
+                <TextField
                     variant='filled'
                     label='Label text'
                     placeholder='Placeholder'
                     helperText='Supporting Text'
-                    startIcon={<Search />}
                 />
             </div>
         </div>

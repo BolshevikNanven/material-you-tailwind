@@ -59,7 +59,7 @@ export function DialogDemo() {
                         </DialogHeader>
                         <TextField className='w-full' label='Label Text' helperText='type "im sure" to continue'/>
                         <DialogFooter>
-                            <DialogClose>
+                            <DialogClose asChild>
                                 <Button variant='text' size='sm'>
                                     Action1
                                 </Button>

@@ -4,38 +4,52 @@ import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
-const containerVariants = cva('group relative flex w-full flex-col gap-1', {
-    variants: {
-        variant: {
-            filled: 'rounded-t-sm bg-surface-container-highest transition-colors',
-            outlined: 'bg-transparent',
-        },
-        error: {
-            true: '',
-            false: '',
-        },
-    },
-    defaultVariants: {
-        variant: 'outlined',
-    },
-})
-
-const inputVariants = cva(
-    'peer flex h-14 w-full bg-transparent px-4 py-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+const containerVariants = cva(
+    'group relative flex h-14 w-full items-center gap-1 transition-shadow disabled:cursor-not-allowed disabled:opacity-50',
     {
         variants: {
             variant: {
-                filled: ['rounded-t-sm border-b border-outline pt-6 pb-2', 'focus:border-b-3 focus:border-primary'],
-                outlined: ['rounded-sm border border-outline py-2', 'focus:border-3 focus:border-primary'],
+                filled: 'rounded-t-sm bg-surface-container-highest [box-shadow:inset_0_-1px_0_0_theme(colors.outline)] transition-colors focus-within:[box-shadow:inset_0_-2px_0_0_theme(colors.primary)]',
+                outlined:
+                    'rounded-sm bg-transparent [box-shadow:inset_0_0_0_1px_theme(colors.outline)] transition-colors focus-within:[box-shadow:inset_0_0_0_2px_theme(colors.primary)]',
             },
             error: {
-                true: 'border-error focus:border-error',
+                true: '',
+            },
+        },
+        compoundVariants: [
+            {
+                variant: 'filled',
+                error: true,
+                className:
+                    '[box-shadow:inset_0_-2px_0_0_theme(colors.error)] focus-within:[box-shadow:inset_0_-2px_0_0_theme(colors.error)]',
+            },
+            {
+                variant: 'outlined',
+                error: true,
+                className:
+                    '[box-shadow:inset_0_0_0_1px_theme(colors.error)] focus-within:[box-shadow:inset_0_0_0_2px_theme(colors.error)]',
+            },
+        ],
+        defaultVariants: {
+            variant: 'outlined',
+            error: false,
+        },
+    },
+)
+
+const inputVariants = cva(
+    'peer flex h-full w-full items-center placeholder:text-transparent focus:outline-none focus:placeholder:text-on-surface-variant',
+    {
+        variants: {
+            variant: {
+                filled: 'pt-4',
+                outlined: '',
             },
         },
         compoundVariants: [],
         defaultVariants: {
             variant: 'outlined',
-            error: false,
         },
     },
 )
@@ -46,14 +60,14 @@ const labelVariants = cva(
         variants: {
             variant: {
                 filled: [
-                    'left-4 origin-left',
+                    'origin-left',
                     'peer-focus:-translate-y-3 peer-focus:text-xs',
                     'peer-[:not(:placeholder-shown)]:-translate-y-3 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:leading-tight',
                 ],
                 outlined: [
-                    'left-4 origin-left',
-                    'peer-focus:h-4 peer-focus:-translate-x-1 peer-focus:-translate-y-2 peer-focus:bg-background peer-focus:px-1 peer-focus:text-xs peer-focus:text-primary',
-                    'peer-[:not(:placeholder-shown)]:h-4 peer-[:not(:placeholder-shown)]:-translate-x-1 peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:bg-background peer-[:not(:placeholder-shown)]:px-1 peer-[:not(:placeholder-shown)]:text-xs',
+                    'origin-left',
+                    'peer-focus:h-4 peer-focus:-translate-y-2 peer-focus:bg-background peer-focus:px-1 peer-focus:text-xs peer-focus:text-primary',
+                    'peer-[:not(:placeholder-shown)]:h-4 peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:bg-background peer-[:not(:placeholder-shown)]:px-1 peer-[:not(:placeholder-shown)]:text-xs',
                 ],
             },
             error: {
@@ -67,7 +81,7 @@ const labelVariants = cva(
 )
 
 type TextFieldProps = React.ComponentProps<'input'> &
-    VariantProps<typeof inputVariants> & {
+    VariantProps<typeof containerVariants> & {
         label?: string
         helperText?: string
         startIcon?: React.ReactNode
@@ -83,43 +97,44 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
         const inputId = id || generatedId
         const isError = error
 
-        placeholder = ''
+        placeholder = placeholder || ' '
 
         return (
-            <div className={cn('flex flex-col gap-1.5', className)}>
-                <div className={cn(containerVariants({ variant, error: isError }))}>
+            <div data-slot='input-container' className={cn('flex flex-col gap-1.5', className)}>
+                <div className={cn(containerVariants({ variant, error: isError }), !startIcon && 'pl-4', !endIcon && 'pr-4')}>
                     {startIcon && (
-                        <div className='absolute top-1/2 left-3 -translate-y-1/2 text-on-surface-variant [&_svg:not([class*=size-])]:size-5'>
+                        <div className='flex h-12 w-12 shrink-0 items-center justify-center text-on-surface-variant [&_svg:not([class*=size-])]:size-5'>
                             {startIcon}
                         </div>
                     )}
 
-                    <input
-                        id={inputId}
-                        type={type}
-                        className={cn(inputVariants({ variant, error: isError }), startIcon && 'pl-12', endIcon && 'pr-12')}
-                        placeholder={placeholder}
-                        ref={ref}
-                        {...props}
-                    />
+                    <div className='relative h-full w-full'>
+                        <input
+                            id={inputId}
+                            type={type}
+                            className={cn(inputVariants({ variant }))}
+                            placeholder={placeholder}
+                            ref={ref}
+                            {...props}
+                        />
 
-                    {label && (
-                        <label
-                            htmlFor={inputId}
-                            className={cn(
-                                labelVariants({ variant, error: isError }),
-                                startIcon && 'left-12',
-                                startIcon &&
-                                    variant === 'outlined' &&
-                                    'peer-focus:-translate-x-10 peer-[:not(:placeholder-shown)]:-translate-x-10',
-                            )}
-                        >
-                            {label}
-                        </label>
-                    )}
+                        {label && (
+                            <label
+                                htmlFor={inputId}
+                                className={cn(
+                                    labelVariants({ variant, error: isError }),
+                                    startIcon &&
+                                        variant === 'outlined' &&
+                                        'peer-focus:-translate-x-9 peer-[:not(:placeholder-shown)]:-translate-x-9',
+                                )}
+                            >
+                                {label}
+                            </label>
+                        )}
+                    </div>
 
                     {endIcon && (
-                        <div className='absolute top-1/2 right-3 -translate-y-1/2 text-on-surface-variant [&_svg:not([class*=size-])]:size-5'>
+                        <div className='flex h-12 w-12 shrink-0 items-center justify-center text-on-surface-variant [&_svg:not([class*=size-])]:size-5'>
                             {endIcon}
                         </div>
                     )}

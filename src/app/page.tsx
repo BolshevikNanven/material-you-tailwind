@@ -34,10 +34,10 @@ export default function Home() {
                     <CheckboxDemo />
                     <SwitchDemo />
                     <BadgeDemo />
-                    <TextFieldDemo />
                     <TooltipDemo />
                     <SnakebarDemo />
                 </div>
+                <TextFieldDemo />
                 <DividerDemo />
                 <div className='flex gap-12'>
                     <RadioGroupDemo />
