@@ -38,21 +38,17 @@ const containerVariants = cva(
     },
 )
 
-const inputVariants = cva(
-    'peer flex h-full w-full items-center placeholder:text-transparent focus:outline-none focus:placeholder:text-on-surface-variant',
-    {
-        variants: {
-            variant: {
-                filled: 'pt-4',
-                outlined: '',
-            },
-        },
-        compoundVariants: [],
-        defaultVariants: {
-            variant: 'outlined',
+const inputVariants = cva('peer flex h-full w-full items-center focus:outline-none focus:placeholder:text-on-surface-variant', {
+    variants: {
+        variant: {
+            filled: 'pt-4',
+            outlined: '',
         },
     },
-)
+    defaultVariants: {
+        variant: 'outlined',
+    },
+})
 
 const labelVariants = cva(
     'pointer-events-none absolute top-0 left-0 flex h-full w-fit items-center truncate text-on-surface-variant transition-all duration-200 ease-out select-none peer-focus:text-primary',
@@ -103,7 +99,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
             <div data-slot='input-container' className={cn('flex flex-col gap-1.5', className)}>
                 <div className={cn(containerVariants({ variant, error: isError }), !startIcon && 'pl-4', !endIcon && 'pr-4')}>
                     {startIcon && (
-                        <div className='flex h-12 w-12 shrink-0 items-center justify-center text-on-surface-variant [&_svg:not([class*=size-])]:size-5'>
+                        <div className='flex h-12 w-12 shrink-0 items-center justify-center text-on-surface-variant [&_i:not([class*=size-])]:size-5'>
                             {startIcon}
                         </div>
                     )}
@@ -112,12 +108,11 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
                         <input
                             id={inputId}
                             type={type}
-                            className={cn(inputVariants({ variant }))}
+                            className={cn(inputVariants({ variant }), label && 'placeholder:text-transparent')}
                             placeholder={placeholder}
                             ref={ref}
                             {...props}
                         />
-
                         {label && (
                             <label
                                 htmlFor={inputId}
@@ -134,7 +129,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
                     </div>
 
                     {endIcon && (
-                        <div className='flex h-12 w-12 shrink-0 items-center justify-center text-on-surface-variant [&_svg:not([class*=size-])]:size-5'>
+                        <div className='flex h-12 w-12 shrink-0 items-center justify-center text-on-surface-variant [&_i:not([class*=size-])]:size-5'>
                             {endIcon}
                         </div>
                     )}

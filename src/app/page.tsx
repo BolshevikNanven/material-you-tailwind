@@ -19,6 +19,7 @@ import { LoadingDemo } from '@/demos/loading-demo'
 import { ProgressDemo } from '@/demos/progress-demo'
 import { ChipDemo } from '@/demos/chip-demo'
 import { AvatarDemo } from '@/demos/avatar-demo'
+import { NavigationDemo } from '@/demos/navigation-demo'
 
 export default function Home() {
     return (
@@ -54,7 +55,7 @@ export default function Home() {
                 <TabsDemo />
                 <LoadingDemo />
                 <ProgressDemo />
-                <div className='flex gap-12'></div>
+                <NavigationDemo />
             </div>
         </div>
     )

@@ -1,7 +1,6 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { X } from 'lucide-react'
 import { toast as sonnerToast, Toaster as Sonner, type ToasterProps } from 'sonner'
 
 interface ToastProps {
@@ -36,7 +35,7 @@ function toast({ message, action, closable }: Omit<ToastProps, 'id'>) {
                     className='m-1 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-inverse-on-surface hover:bg-inverse-on-surface/8 active:bg-inverse-on-surface/10'
                     onClick={() => sonnerToast.dismiss(id)}
                 >
-                    <X className='size-4' />
+                    <i className='icon-[material-symbols--close-rounded] size-4' />
                 </button>
             )}
         </div>

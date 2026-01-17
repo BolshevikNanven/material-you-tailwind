@@ -27,7 +27,6 @@
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "flubber": "^0.4.2",
-        "lucide-react": "^0.562.0",
         "motion": "^12.25.0",
         "next": "16.1.1",
         "react": "19.2.3",
@@ -36,6 +35,8 @@
         "tailwind-merge": "^3.4.0"
     },
     "devDependencies": {
+        "@iconify-json/material-symbols": "^1.2.51",
+        "@iconify/tailwind4": "^1.2.1",
         "@tailwindcss/postcss": "^4",
         "@types/node": "^20",
         "@types/react": "^19",

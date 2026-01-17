@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import { Ripple } from './ripple'
 
 const toggleVariants = cva(
-    "group relative inline-flex shrink-0 cursor-pointer items-center justify-center text-sm font-medium whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:bg-on-surface/10 disabled:text-on-surface/38 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+    "group relative inline-flex shrink-0 cursor-pointer items-center justify-center text-sm font-medium whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:bg-on-surface/10 disabled:text-on-surface/38 [&_i]:pointer-events-none [&_i]:shrink-0 [&_i:not([class*='size-'])]:size-5",
     {
         variants: {
             variant: {
@@ -22,7 +22,7 @@ const toggleVariants = cva(
             size: {
                 sm: 'h-10 gap-2 px-4',
                 md: 'h-12 gap-2 px-6',
-                lg: 'h-14 gap-2 px-6 [&_svg:not([class*=size-])]:size-5',
+                lg: 'h-14 gap-2 px-6 [&_i:not([class*=size-])]:size-6',
             },
             square: {
                 true: 'rounded-xl',

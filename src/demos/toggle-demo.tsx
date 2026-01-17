@@ -1,4 +1,3 @@
-import { Stars } from 'lucide-react'
 import { Toggle } from '../components/ui/toggle'
 
 export function ToggleDemo() {
@@ -7,31 +6,31 @@ export function ToggleDemo() {
             <h3>Toggle</h3>
             <div className='mb-6 flex flex-wrap items-center gap-4'>
                 <Toggle size='lg' square>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Toggle>
                 <Toggle>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Toggle>
                 <Toggle size='sm'>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Toggle>
                 <Toggle variant='tonal'>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Toggle>
                 <Toggle variant='outline'>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Toggle>
                 <Toggle variant='elevated'>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Toggle>
                 <Toggle icon>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                 </Toggle>
             </div>
         </div>

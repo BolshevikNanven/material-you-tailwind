@@ -184,10 +184,6 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
         }
     }
 
-    const handlePointerEnter = (event: PointerEvent) => {
-        if (!shouldReactToEvent(event)) return
-    }
-
     const handlePointerLeave = (event: PointerEvent) => {
         if (!shouldReactToEvent(event)) return
 
@@ -272,7 +268,6 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
         parent.addEventListener('contextmenu', endPressAnimation)
         parent.addEventListener('pointercancel', handlePointerCancel)
         parent.addEventListener('pointerdown', handlePointerDown)
-        parent.addEventListener('pointerenter', handlePointerEnter)
         parent.addEventListener('pointerleave', handlePointerLeave)
         parent.addEventListener('pointerup', handlePointerUp)
 
@@ -281,7 +276,6 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
             parent.removeEventListener('contextmenu', endPressAnimation)
             parent.removeEventListener('pointercancel', handlePointerCancel)
             parent.removeEventListener('pointerdown', handlePointerDown)
-            parent.removeEventListener('pointerenter', handlePointerEnter)
             parent.removeEventListener('pointerleave', handlePointerLeave)
             parent.removeEventListener('pointerup', handlePointerUp)
         }

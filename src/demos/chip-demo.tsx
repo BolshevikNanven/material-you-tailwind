@@ -2,7 +2,6 @@
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Chip } from '@/components/ui/chip'
-import { Heart } from 'lucide-react'
 import { useState } from 'react'
 
 export function ChipDemo() {
@@ -12,10 +11,14 @@ export function ChipDemo() {
         <div className='flex flex-col gap-4'>
             <h3>Chip</h3>
             <div className='mb-6 flex flex-wrap items-center gap-4'>
-                <Chip variant='assist' leadingIcon={<Heart />}>
+                <Chip variant='assist' leadingIcon={<i className='icon-[material-symbols--favorite-outline-rounded]' />}>
                     Assist Chip
                 </Chip>
-                <Chip variant='assist' leadingIcon={<Heart />} elevated>
+                <Chip
+                    variant='assist'
+                    leadingIcon={<i className='icon-[material-symbols--favorite-outline-rounded]' />}
+                    elevated
+                >
                     Assist Chip
                 </Chip>
                 <Chip variant='filter' selected={selected} onClick={() => setSelected(prev => !prev)}>

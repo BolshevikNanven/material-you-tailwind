@@ -140,7 +140,7 @@ function TabsTrigger({
             data-slot='tabs-trigger'
             data-tab-narrow-trigger={!icon || !children}
             className={cn(
-                'flex h-12 w-full cursor-pointer px-4 text-sm leading-5 font-medium whitespace-nowrap text-on-surface-variant transition-colors not-data-[state=active]:hover:bg-on-surface/8 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-primary [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-6',
+                'flex h-12 w-full cursor-pointer px-4 text-sm leading-5 font-medium whitespace-nowrap text-on-surface-variant transition-colors not-data-[state=active]:hover:bg-on-surface/8 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-primary [&_i]:pointer-events-none [&_i]:shrink-0 [&_i:not([class*=size-])]:size-6',
                 className,
             )}
             {...props}

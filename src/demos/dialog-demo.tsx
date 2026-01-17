@@ -1,4 +1,3 @@
-import { Trash2 } from 'lucide-react'
 import { Button } from '../components/ui/button'
 
 import {
@@ -26,7 +25,7 @@ export function DialogDemo() {
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader center>
-                            <Trash2 />
+                            <i className='icon-[material-symbols--delete-outline-rounded]' />
                             <DialogTitle>Delete Settings?</DialogTitle>
                             <DialogDescription>
                                 This action cannot be undone. This will permanently delete your account and remove your data

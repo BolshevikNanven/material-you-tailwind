@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
-import { CheckIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { Ripple } from './ripple'
@@ -24,7 +23,7 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
                 data-slot='checkbox-indicator'
                 className='grid size-4 place-content-center rounded-xs bg-primary text-current transition-none'
             >
-                <CheckIcon className='size-3.5 text-on-primary' />
+                <i className='icon-[material-symbols--check-outline-rounded]' />
             </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
     )

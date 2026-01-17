@@ -1,4 +1,3 @@
-import { Stars, MoreVertical } from 'lucide-react'
 import { Button } from '../components/ui/button'
 
 export function ButtonDemo() {
@@ -7,43 +6,43 @@ export function ButtonDemo() {
             <h3>Button</h3>
             <div className='mb-6 flex flex-wrap items-center gap-4'>
                 <Button size='lg' square>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Button>
                 <Button size='lg'>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                 </Button>
                 <Button size='sm'>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Button>
                 <Button variant='tonal'>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Button>
                 <Button variant='outline'>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Button>
                 <Button variant='outline' icon>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                 </Button>
                 <Button variant='elevated'>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Button>
                 <Button size='sm' icon variant='elevated'>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                 </Button>
                 <Button variant='text'>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Button>
                 <Button size='sm' variant='text' icon>
-                    <MoreVertical />
+                    <i className='icon-[material-symbols--more-vert]' />
                 </Button>
                 <Button disabled>
-                    <Stars />
+                    <i className='icon-[material-symbols--stars-outline-rounded]' />
                     Label
                 </Button>
             </div>

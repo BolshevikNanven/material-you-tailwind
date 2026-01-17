@@ -1,5 +1,4 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Image, Music2, Video } from 'lucide-react'
 
 export function TabsDemo() {
     return (
@@ -8,13 +7,16 @@ export function TabsDemo() {
             <div className='mb-6 flex flex-wrap items-center gap-12'>
                 <Tabs defaultValue='Video' className='w-100'>
                     <TabsList>
-                        <TabsTrigger value='Video' icon={<Video />}>
+                        <TabsTrigger value='Video' icon={<i className='icon-[material-symbols--videocam-outline-rounded]' />}>
                             Video
                         </TabsTrigger>
-                        <TabsTrigger value='Photos' icon={<Image />}>
+                        <TabsTrigger value='Photos' icon={<i className='icon-[material-symbols--image-outline-rounded]' />}>
                             Photos
                         </TabsTrigger>
-                        <TabsTrigger value='Audio' icon={<Music2 />}>
+                        <TabsTrigger
+                            value='Audio'
+                            icon={<i className='icon-[material-symbols--library-music-outline-rounded]' />}
+                        >
                             Audio
                         </TabsTrigger>
                     </TabsList>

@@ -14,7 +14,6 @@ import {
     ContextMenuTrigger,
     ContextMenuShortcut,
 } from '@/components/ui/context-menu'
-import { Undo2, Redo2, RefreshCcw } from 'lucide-react'
 
 export function ContextMenuDemo() {
     return (
@@ -28,17 +27,17 @@ export function ContextMenuDemo() {
                     <ContextMenuContent className='w-52'>
                         <ContextMenuGroup>
                             <ContextMenuItem>
-                                <Undo2 />
+                                <i className='icon-[material-symbols--undo-rounded]' />
                                 Back
                                 <ContextMenuShortcut>⌘[</ContextMenuShortcut>
                             </ContextMenuItem>
                             <ContextMenuItem disabled>
-                                <Redo2 />
+                                <i className='icon-[material-symbols--redo-rounded]' />
                                 Forward
                                 <ContextMenuShortcut>⌘]</ContextMenuShortcut>
                             </ContextMenuItem>
                             <ContextMenuItem>
-                                <RefreshCcw />
+                                <i className='icon-[material-symbols--refresh-rounded]' />
                                 Reload
                                 <ContextMenuShortcut>⌘R</ContextMenuShortcut>
                             </ContextMenuItem>

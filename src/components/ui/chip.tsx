@@ -4,10 +4,9 @@ import { cn } from '@/lib/utils'
 import { cva, VariantProps } from 'class-variance-authority'
 import React from 'react'
 import { Ripple } from './ripple'
-import { Check, X } from 'lucide-react'
 
 const assitVariants = cva(
-    'group relative inline-flex h-8 cursor-pointer items-center justify-center gap-2 rounded-lg px-4 text-sm text-on-surface *:data-[slot=avatar]:size-6 [&>svg]:size-4.5 [&>svg]:text-primary',
+    'group relative inline-flex h-8 cursor-pointer items-center justify-center gap-2 rounded-lg px-4 text-sm text-on-surface *:data-[slot=avatar]:size-6 [&>i]:size-4.5 [&>i]:text-primary',
     {
         variants: {
             variant: {
@@ -44,8 +43,12 @@ function Chip({
     VariantProps<typeof assitVariants> & { leadingIcon?: React.ReactNode; trailingIcon?: React.ReactNode }) {
     variant = variant || 'assist'
 
-    const startIcon = leadingIcon ? leadingIcon : selected ? <Check /> : null
-    const endIcon = trailingIcon ? trailingIcon : variant === 'input' ? <X /> : null
+    const startIcon = leadingIcon ? leadingIcon : selected ? <i className='icon-[material-symbols--check-rounded]' /> : null
+    const endIcon = trailingIcon ? (
+        trailingIcon
+    ) : variant === 'input' ? (
+        <i className='icon-[material-symbols--close-rounded]' />
+    ) : null
 
     return (
         <span

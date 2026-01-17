@@ -57,7 +57,7 @@ function DialogHeader({ center = false, className, ...props }: React.ComponentPr
         <div
             data-slot='dialog-header'
             className={cn(
-                'flex flex-col gap-4 text-center sm:text-left [&_svg]:text-secondary [&_svg:not([class*=size-])]:size-6',
+                'flex flex-col gap-4 text-center sm:text-left [&_i]:text-secondary [&_i:not([class*=size-])]:size-6',
                 center && 'items-center justify-baseline',
                 className,
             )}
