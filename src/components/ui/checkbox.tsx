@@ -23,7 +23,7 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
                 data-slot='checkbox-indicator'
                 className='grid size-4 place-content-center rounded-xs bg-primary text-current transition-none'
             >
-                <i className='icon-[material-symbols--check-rounded]' />
+                <i className='icon-[material-symbols--check-rounded] text-on-primary' />
             </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
     )

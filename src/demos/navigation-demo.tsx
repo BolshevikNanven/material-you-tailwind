@@ -5,7 +5,7 @@ import { NavigationBar, NavigationItem } from '@/components/ui/navigation'
 export function NavigationDemo() {
     return (
         <div className='flex flex-col gap-4'>
-            <h3>Badge</h3>
+            <h3>Navigation</h3>
             <div className='mb-6 flex flex-col gap-4'>
                 <NavigationBar className='w-[412px]'>
                     <NavigationItem active icon={<i className='icon-[material-symbols--home-outline-rounded]' />}>

@@ -112,7 +112,7 @@ function ContextMenuItem({
             data-slot='context-menu-item'
             data-inset={inset}
             className={cn(
-                "relative flex h-11 cursor-default items-center gap-2 overflow-hidden rounded-sm px-3 text-sm outline-hidden transition-colors select-none hover:bg-on-surface/8 focus:bg-on-surface/8 data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-10 [&_i]:pointer-events-none [&_i]:shrink-0 [&_i]:text-on-surface-variant [&_i:not([class*='size-'])]:mx-0.5 [&_i:not([class*='size-'])]:size-5",
+                "relative flex h-11 cursor-default items-center gap-2 overflow-hidden rounded-sm px-3 text-sm outline-hidden transition-colors select-none hover:bg-on-surface/8 focus:bg-on-surface/8 data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-10 [&_i]:pointer-events-none [&_i]:shrink-0 [&_i]:text-on-surface-variant [&_i:not([class*='size-'])]:size-5",
                 className,
             )}
             {...props}
