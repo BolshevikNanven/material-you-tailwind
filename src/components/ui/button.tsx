@@ -18,7 +18,7 @@ const buttonVariants = cva(
             },
             size: {
                 sm: 'h-10 gap-2 px-4',
-                md: 'h-12 gap-2 px-6',
+                md: 'h-12 gap-2 px-4',
                 lg: 'h-14 gap-2 px-6 [&_i:not([class*=size-])]:size-6',
             },
             square: {
