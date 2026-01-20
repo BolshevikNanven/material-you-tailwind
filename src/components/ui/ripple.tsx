@@ -3,7 +3,6 @@
 import { cn } from '@/lib/utils'
 import React, { useEffect, useRef } from 'react'
 
-// --- 配置常量 (源自 Material Design 源码) ---
 const PRESS_GROW_MS = 450
 const MINIMUM_PRESS_MS = 225
 const INITIAL_ORIGIN_SCALE = 0.2
@@ -135,7 +134,6 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
         const translateStart = `${startPoint.x}px, ${startPoint.y}px`
         const translateEnd = `${endPoint.x}px, ${endPoint.y}px`
 
-        // 使用 WAAPI 执行高性能动画
         growAnimation.current = waveRef.current.animate(
             {
                 top: [0, 0],
@@ -146,7 +144,6 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
             },
             {
                 duration: PRESS_GROW_MS,
-                // Material Standard Easing
                 easing: 'cubic-bezier(0.2, 0, 0, 1.0)',
                 fill: ANIMATION_FILL,
             },
@@ -257,7 +254,6 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
         const parent = rootRef.current?.parentElement
         if (!parent) return
 
-        // 强制父元素相对定位，否则 Ripple 会跑偏
         const style = window.getComputedStyle(parent)
         if (style.position === 'static') {
             parent.style.position = 'relative'
