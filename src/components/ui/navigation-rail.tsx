@@ -45,7 +45,7 @@ const railItemVariants = cva(
                     'flex h-14 w-fit items-center gap-2 rounded-full px-4 text-sm',
                     'hover:bg-on-secondary-container/8 active:bg-on-secondary-container/10',
                 ],
-                false: 'flex w-14 flex-col items-center justify-center gap-1 py-1.5 transition-none',
+                false: 'mb-1 flex w-14 flex-col items-center justify-center gap-1 py-1.5 transition-none',
             },
         },
         defaultVariants: {
@@ -58,6 +58,7 @@ const NavigationRailItem = React.memo(function NavigationRailItem({
     icon,
     className,
     children,
+    ...props
 }: React.ComponentProps<'div'> & { icon: React.ReactNode; active?: boolean }) {
     const { expanded } = React.useContext(NavigationContext)
 
@@ -66,6 +67,7 @@ const NavigationRailItem = React.memo(function NavigationRailItem({
             data-slot='navigation-rail-item'
             data-active={!!active}
             className={cn('group', railItemVariants({ horizon: expanded, className }))}
+            {...props}
         >
             <span
                 className={cn(
@@ -84,17 +86,12 @@ const NavigationRailItem = React.memo(function NavigationRailItem({
             >
                 {icon}
             </span>
-            <div className='z-10'>{children}</div>
+            <div className='z-10 text-center'>{children}</div>
         </div>
     )
 })
 
-function NavigationRailContent({
-    className,
-    children,
-    fab,
-    ...props
-}: React.ComponentProps<'div'> & { fab?: React.ReactNode }) {
+function NavigationRailContent({ className, children, ...props }: React.ComponentProps<'div'>) {
     const { mode, expanded, setExpanded, contained, setPortalContainer, ...ctx } = React.useContext(NavigationContext)
     const anchorRef = React.useRef<HTMLSpanElement>(null)
 
@@ -130,32 +127,11 @@ function NavigationRailContent({
                     )}
                     {...props}
                 >
-                    <div className={cn('mx-4 mb-10 flex flex-col gap-1', expanded ? 'w-fit' : 'w-14')}>
-                        <button
-                            onClick={() => setExpanded(prev => !prev)}
-                            className='flex size-14 cursor-pointer rounded-full transition-colors hover:bg-on-surface-variant/8'
-                        >
-                            <Ripple />
-                            <i
-                                className={cn(
-                                    'm-auto size-6',
-                                    expanded
-                                        ? 'icon-[material-symbols--menu-open-rounded]'
-                                        : 'icon-[material-symbols--menu-rounded]',
-                                )}
-                            />
-                        </button>
-                        {fab}
-                    </div>
-                    <NavigationContext.Provider value={subContextValue}>
-                        <div className={cn('flex flex-1 flex-col', (!expanded || mode !== 'persistent') && 'gap-1')}>
-                            {children}
-                        </div>
-                    </NavigationContext.Provider>
+                    <NavigationContext.Provider value={subContextValue}>{children}</NavigationContext.Provider>
                 </div>
             )}
             {mode !== 'persistent' && (
-                <RailModalContent className={className} fab={fab} {...props}>
+                <RailModalContent className={className} {...props}>
                     {children}
                 </RailModalContent>
             )}
@@ -163,7 +139,7 @@ function NavigationRailContent({
     )
 }
 
-function RailModalContent({ className, children, fab, ...props }: React.ComponentProps<'div'> & { fab?: React.ReactNode }) {
+function RailModalContent({ className, children, ...props }: React.ComponentProps<'div'>) {
     const { mode, expanded, setExpanded, portalContainer, ...ctx } = React.useContext(NavigationContext)
 
     const close = () => {
@@ -176,7 +152,7 @@ function RailModalContent({ className, children, fab, ...props }: React.Componen
             mode,
             expanded: true,
             setExpanded,
-            portalContainer, // 保持透传
+            portalContainer,
         }),
         [ctx, setExpanded, portalContainer, mode],
     )
@@ -201,24 +177,26 @@ function RailModalContent({ className, children, fab, ...props }: React.Componen
                     {...props}
                 >
                     <Dialog.Title className='hidden'>expanded navigation</Dialog.Title>
-                    <div className='mx-4 mb-10 flex w-fit flex-col gap-1'>
-                        <button
-                            onClick={close}
-                            className='flex size-14 cursor-pointer rounded-full transition-colors hover:bg-on-surface-variant/8'
-                        >
-                            <Ripple />
-                            <i className='m-auto icon-[material-symbols--menu-open-rounded] size-6' />
-                        </button>
-                        {fab}
-                    </div>
-                    <NavigationContext.Provider value={modalContextValue}>
-                        <div className={cn('flex flex-1 flex-col')}>{children}</div>
-                    </NavigationContext.Provider>
+                    <NavigationContext.Provider value={modalContextValue}>{children}</NavigationContext.Provider>
                 </Dialog.Content>
             </Dialog.Portal>
         </Dialog.Root>
     )
 }
+
+const NavigationRailMenu = React.memo(function NavigationRailMenu({
+    className,
+    children,
+    ...props
+}: React.ComponentProps<'div'>) {
+    const { expanded } = React.useContext(NavigationContext)
+
+    return (
+        <div className={cn('mx-4 mb-10 flex flex-col gap-1', expanded ? 'w-fit' : 'w-14', className)} {...props}>
+            {children}
+        </div>
+    )
+})
 
 const NavigationRailTrigger = React.memo(function NavigationRailTrigger({
     onClick,
@@ -257,6 +235,10 @@ const NavigationRailTrigger = React.memo(function NavigationRailTrigger({
                 'flex size-14 cursor-pointer rounded-full transition-colors hover:bg-on-surface-variant/8',
                 className,
             )}
+            onClick={e => {
+                setExpanded(prev => !prev)
+                onClick?.(e)
+            }}
             {...props}
         >
             <Ripple />
@@ -308,4 +290,4 @@ function NavigationRail({ mode = 'persistent', expanded: expandedProp, onExpand,
     return <NavigationContext.Provider value={contextValue}>{children}</NavigationContext.Provider>
 }
 
-export { NavigationRail, NavigationRailContent, NavigationRailTrigger, NavigationRailItem }
+export { NavigationRail, NavigationRailContent, NavigationRailMenu, NavigationRailTrigger, NavigationRailItem }

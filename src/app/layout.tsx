@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Snakebar } from '@/components/ui/snakebar'
+import Navigation from '@/components/navigation'
+
 
 export const metadata: Metadata = {
     title: 'Material You Tailwind',
@@ -12,10 +14,12 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode
 }>) {
+    
     return (
         <html lang='en'>
-            <body>
+            <body className='flex h-screen w-screen overflow-hidden'>
                 <Snakebar />
+                <Navigation />
                 {children}
             </body>
         </html>

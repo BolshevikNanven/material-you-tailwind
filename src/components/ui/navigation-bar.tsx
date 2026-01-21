@@ -29,7 +29,7 @@ function NavigationBarItem({
             >
                 {icon}
             </span>
-            <div className='z-10'>{children}</div>
+            <div className='z-10 text-center'>{children}</div>
         </div>
     )
 }

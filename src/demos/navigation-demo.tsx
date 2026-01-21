@@ -8,6 +8,7 @@ import {
     NavigationRail,
     NavigationRailContent,
     NavigationRailItem,
+    NavigationRailMenu,
     NavigationRailTrigger,
 } from '@/components/ui/navigation-rail'
 import { Switch } from '@/components/ui/switch'
@@ -63,14 +64,13 @@ export function NavigationDemo() {
                                 </Button>
                             </NavigationRailTrigger>
                         )}
-                        <NavigationRailContent
-                            className='bg-surface-container'
-                            fab={
+                        <NavigationRailContent className='bg-surface-container'>
+                            <NavigationRailMenu>
+                                <NavigationRailTrigger />
                                 <Button square size='lg'>
                                     <i className='icon-[material-symbols--search-rounded]' />
                                 </Button>
-                            }
-                        >
+                            </NavigationRailMenu>
                             <NavigationRailItem active icon={<i className='icon-[material-symbols--home-rounded]' />}>
                                 Label
                             </NavigationRailItem>
