@@ -16,7 +16,7 @@ import { toast } from '../ui/snakebar'
 export default function Examples() {
     const [example, setExample] = useState('chat')
     const [color, setColor] = useState('#7B9168')
-    const [theme] = useTheme()
+    const { theme } = useTheme()
 
     const containerRef = useRef<HTMLDivElement>(null)
 

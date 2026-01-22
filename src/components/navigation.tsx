@@ -12,7 +12,7 @@ import Link from 'next/link'
 import { useTheme } from '@/context/theme'
 
 export default function Navigation() {
-    const [theme, setTheme] = useTheme()
+    const { theme, setTheme } = useTheme()
     const pathname = usePathname()
 
     const handleChangeMode = () => {

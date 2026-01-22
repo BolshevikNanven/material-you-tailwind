@@ -12,7 +12,7 @@ const ThemeContext = createContext<{
 export const useTheme = () => {
     const ctx = useContext(ThemeContext)
 
-    return [ctx.theme, ctx.setTheme]
+    return { theme: ctx.theme, setTheme: ctx.setTheme }
 }
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
