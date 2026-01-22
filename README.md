@@ -6,9 +6,9 @@ Work in progress. Stay tuned!
 
 ![overview](./docs/image.png)
 
-## Demo
+## Document
 
-https://material.nanven.cn/
+Visit https://material.nanven.cn/
 
 ### Components
 - [x] avatar
