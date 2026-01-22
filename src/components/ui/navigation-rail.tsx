@@ -8,10 +8,10 @@ import { Ripple } from './ripple'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Slot } from '@radix-ui/react-slot'
 
-export type NavigationMode = 'persistent' | 'modal' | 'hidden'
+export type NavigationVariant = 'persistent' | 'modal' | 'hidden'
 
 interface NavigationContextValue {
-    mode: NavigationMode
+    variant: NavigationVariant
     contained: boolean
     expanded: boolean
     setExpanded: React.Dispatch<React.SetStateAction<boolean>>
@@ -20,7 +20,7 @@ interface NavigationContextValue {
 }
 
 interface RailProps {
-    mode?: NavigationMode
+    variant?: NavigationVariant
     contained?: boolean
     expanded?: boolean
     onExpand?: (value: boolean) => void
@@ -28,7 +28,7 @@ interface RailProps {
 }
 
 const NavigationContext = React.createContext<NavigationContextValue>({
-    mode: 'persistent',
+    variant: 'persistent',
     expanded: false,
     contained: false,
     setExpanded: () => {},
@@ -58,17 +58,14 @@ const NavigationRailItem = React.memo(function NavigationRailItem({
     icon,
     className,
     children,
+    asChild,
     ...props
-}: React.ComponentProps<'div'> & { icon: React.ReactNode; active?: boolean }) {
+}: React.ComponentProps<'div'> & { icon: React.ReactNode; active?: boolean; asChild?: boolean }) {
     const { expanded } = React.useContext(NavigationContext)
+    const Comp = asChild ? Slot : 'div'
 
-    return (
-        <div
-            data-slot='navigation-rail-item'
-            data-active={!!active}
-            className={cn('group', railItemVariants({ horizon: expanded, className }))}
-            {...props}
-        >
+    const Adornments = (child: React.ReactNode) => (
+        <>
             <span
                 className={cn(
                     'absolute rounded-full bg-secondary-container transition-[scale_width] ease-out',
@@ -86,43 +83,58 @@ const NavigationRailItem = React.memo(function NavigationRailItem({
             >
                 {icon}
             </span>
-            <div className='z-10 text-center'>{children}</div>
-        </div>
+            <div className='z-10 text-center'>{child}</div>
+        </>
+    )
+
+    return (
+        <Comp
+            data-slot='navigation-rail-item'
+            data-active={!!active}
+            className={cn('group', railItemVariants({ horizon: expanded, className }))}
+            {...props}
+        >
+            {asChild && React.isValidElement(children)
+                ? React.cloneElement(children as React.ReactElement<React.PropsWithChildren>, {
+                      children: Adornments((children as React.ReactElement<React.PropsWithChildren>).props.children),
+                  })
+                : Adornments(children)}
+        </Comp>
     )
 })
 
 function NavigationRailContent({ className, children, ...props }: React.ComponentProps<'div'>) {
-    const { mode, expanded, setExpanded, contained, setPortalContainer, ...ctx } = React.useContext(NavigationContext)
+    const { variant, expanded, setExpanded, contained, setPortalContainer, ...ctx } = React.useContext(NavigationContext)
     const anchorRef = React.useRef<HTMLSpanElement>(null)
 
     React.useLayoutEffect(() => {
-        if (contained && mode === 'modal' && anchorRef.current) {
+        if (contained && variant === 'modal' && anchorRef.current) {
             setPortalContainer(anchorRef.current.parentElement)
         }
-    }, [contained, mode, setPortalContainer])
+    }, [contained, variant, setPortalContainer])
 
     const subContextValue = React.useMemo(
         () => ({
             ...ctx,
-            mode,
+            variant,
             contained,
             setPortalContainer,
-            expanded: mode === 'persistent' ? expanded : false,
+            expanded: variant === 'persistent' ? expanded : false,
             setExpanded,
             portalContainer: null,
         }),
-        [ctx, mode, contained, setPortalContainer, expanded, setExpanded],
+        [ctx, variant, contained, setPortalContainer, expanded, setExpanded],
     )
 
     return (
         <>
             <span ref={anchorRef} className='hidden' aria-hidden='true' />
-            {mode !== 'hidden' && (
+            {variant !== 'hidden' && (
                 <div
                     data-slot='navigation-rail'
                     className={cn(
                         'relative flex h-full flex-col pt-4 transition-all ease-out',
-                        expanded && mode === 'persistent' ? 'w-55' : 'w-22',
+                        expanded && variant === 'persistent' ? 'w-55' : 'w-22',
                         className,
                     )}
                     {...props}
@@ -130,7 +142,7 @@ function NavigationRailContent({ className, children, ...props }: React.Componen
                     <NavigationContext.Provider value={subContextValue}>{children}</NavigationContext.Provider>
                 </div>
             )}
-            {mode !== 'persistent' && (
+            {variant !== 'persistent' && (
                 <RailModalContent className={className} {...props}>
                     {children}
                 </RailModalContent>
@@ -140,7 +152,7 @@ function NavigationRailContent({ className, children, ...props }: React.Componen
 }
 
 function RailModalContent({ className, children, ...props }: React.ComponentProps<'div'>) {
-    const { mode, expanded, setExpanded, portalContainer, ...ctx } = React.useContext(NavigationContext)
+    const { variant, expanded, setExpanded, portalContainer, ...ctx } = React.useContext(NavigationContext)
 
     const close = () => {
         setExpanded(false)
@@ -149,12 +161,12 @@ function RailModalContent({ className, children, ...props }: React.ComponentProp
     const modalContextValue = React.useMemo(
         () => ({
             ...ctx,
-            mode,
+            variant,
             expanded: true,
             setExpanded,
             portalContainer,
         }),
-        [ctx, setExpanded, portalContainer, mode],
+        [ctx, setExpanded, portalContainer, variant],
     )
 
     return (
@@ -164,14 +176,14 @@ function RailModalContent({ className, children, ...props }: React.ComponentProp
                     onClick={close}
                     className={cn(
                         'absolute inset-0 z-98 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
-                        mode === 'hidden' && 'bg-black/20',
+                        variant === 'hidden' && 'bg-black/20',
                     )}
                 />
                 <Dialog.Content
                     className={cn(
                         'absolute top-0 left-0 z-99 flex h-full w-55 flex-col rounded-r-2xl bg-surface-container pt-4 transition-all duration-300 ease-out',
                         expanded ? 'animate-in slide-in-from-left-100' : 'animate-out slide-out-to-left-100',
-                        mode === 'modal' && 'shadow-elevation-2',
+                        variant === 'modal' && 'shadow-elevation-2',
                         className,
                     )}
                     {...props}
@@ -192,7 +204,7 @@ const NavigationRailMenu = React.memo(function NavigationRailMenu({
     const { expanded } = React.useContext(NavigationContext)
 
     return (
-        <div className={cn('mx-4 mb-10 flex flex-col gap-1', expanded ? 'w-fit' : 'w-14', className)} {...props}>
+        <div className={cn('mx-4 mb-2 flex flex-col gap-1', expanded ? 'w-fit' : 'w-14', className)} {...props}>
             {children}
         </div>
     )
@@ -204,16 +216,16 @@ const NavigationRailTrigger = React.memo(function NavigationRailTrigger({
     asChild = false,
     ...props
 }: React.ComponentProps<'div'> & { asChild?: boolean }) {
-    const { setExpanded, mode, contained, setPortalContainer } = React.useContext(NavigationContext)
+    const { expanded, setExpanded, variant, contained, setPortalContainer } = React.useContext(NavigationContext)
     const triggerRef = React.useRef<HTMLDivElement>(null)
 
     const Comp = asChild ? Slot : 'div'
 
     React.useLayoutEffect(() => {
-        if (contained && mode === 'hidden' && triggerRef.current) {
+        if (contained && variant === 'hidden' && triggerRef.current) {
             setPortalContainer(triggerRef.current.parentElement)
         }
-    }, [contained, mode, setPortalContainer])
+    }, [contained, variant, setPortalContainer])
 
     if (asChild) {
         return (
@@ -242,12 +254,17 @@ const NavigationRailTrigger = React.memo(function NavigationRailTrigger({
             {...props}
         >
             <Ripple />
-            <i className='m-auto icon-[material-symbols--menu-rounded] size-6' />
+            <i
+                className={cn(
+                    'm-auto size-6',
+                    expanded ? 'icon-[material-symbols--menu-open-rounded]' : 'icon-[material-symbols--menu-rounded]',
+                )}
+            />
         </div>
     )
 })
 
-function NavigationRail({ mode = 'persistent', expanded: expandedProp, onExpand, contained = false, children }: RailProps) {
+function NavigationRail({ variant = 'persistent', expanded: expandedProp, onExpand, contained = false, children }: RailProps) {
     const [internalExpanded, setInternalExpanded] = React.useState(false)
 
     const isControlled = expandedProp !== undefined
@@ -278,13 +295,13 @@ function NavigationRail({ mode = 'persistent', expanded: expandedProp, onExpand,
     const contextValue = React.useMemo(
         () => ({
             contained,
-            mode,
+            variant,
             expanded,
             setExpanded,
             portalContainer,
             setPortalContainer,
         }),
-        [contained, mode, expanded, setExpanded, portalContainer],
+        [contained, variant, expanded, setExpanded, portalContainer],
     )
 
     return <NavigationContext.Provider value={contextValue}>{children}</NavigationContext.Provider>

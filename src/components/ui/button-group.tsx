@@ -5,8 +5,8 @@ const buttonGroupVariants = cva('flex', {
     variants: {
         variant: {
             standard: [
-                'gap-2 *:active:scale-x-110 *:data-[square=false]:active:rounded-xl *:data-[square=true]:active:rounded-full',
-                '*:data-[state=on]:rounded-xl',
+                'gap-2 *:active:scale-x-110 *:data-[square=false]:active:rounded-xl *:data-[square=true]:active:rounded-[40px]',
+                '*:data-[square=false]:data-[state=on]:rounded-xl *:data-[square=true]:data-[state=on]:rounded-[40px]',
             ],
             connected: [
                 'gap-0.5 *:not-first:not-last:rounded-lg *:first:rounded-r-lg *:last:rounded-l-lg',

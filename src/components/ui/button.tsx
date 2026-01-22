@@ -96,11 +96,21 @@ function Button({
     size = 'md',
     square = false,
     icon = false,
+    asChild = false,
     children,
     ...props
-}: React.ComponentProps<'button'> & VariantProps<typeof buttonVariants>) {
+}: React.ComponentProps<'button'> & VariantProps<typeof buttonVariants> & { asChild?: boolean }) {
+    const Comp = asChild ? Slot : 'button'
+
+    const Adornments = (
+        <>
+            <div className={cn(layerVariants({ variant }))} />
+            <Ripple />
+        </>
+    )
+
     return (
-        <button
+        <Comp
             data-slot='button'
             data-variant={variant}
             data-square={!!square}
@@ -108,10 +118,22 @@ function Button({
             className={cn(buttonVariants({ variant, size, square, icon, className }))}
             {...props}
         >
-            <div className={cn(layerVariants({ variant }))} />
-            <Ripple />
-            {children}
-        </button>
+            {asChild && React.isValidElement(children) ? (
+                React.cloneElement(children as React.ReactElement<React.PropsWithChildren>, {
+                    children: (
+                        <>
+                            {(children as React.ReactElement<React.PropsWithChildren>).props.children}
+                            {Adornments}
+                        </>
+                    ),
+                })
+            ) : (
+                <>
+                    {children}
+                    {Adornments}
+                </>
+            )}
+        </Comp>
     )
 }
 

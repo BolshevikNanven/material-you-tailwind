@@ -7,11 +7,11 @@ import {
     NavigationRailTrigger,
 } from '@/components/ui/navigation-rail'
 import { Button } from '@/components/ui/button'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 export default function Navigation() {
     const pathname = usePathname()
-    const router = useRouter()
 
     return (
         <NavigationRail>
@@ -20,11 +20,11 @@ export default function Navigation() {
                     <NavigationRailTrigger />
                 </NavigationRailMenu>
                 <NavigationRailItem
+                    asChild
                     icon={<i className='icon-[material-symbols--home-rounded]' />}
                     active={pathname === '/'}
-                    onClick={() => router.push('/')}
                 >
-                    Home
+                    <Link href={'/'}>Home</Link>
                 </NavigationRailItem>
                 <NavigationRailItem icon={<i className='icon-[material-symbols--apps]' />} active={pathname === '/docs'}>
                     Docs
@@ -32,9 +32,8 @@ export default function Navigation() {
                 <NavigationRailItem
                     icon={<i className='icon-[material-symbols--add-circle-outline-rounded]' />}
                     active={pathname === '/components'}
-                    onClick={() => router.push('/components')}
                 >
-                    Components
+                    <Link href={'/components'}>components</Link>
                 </NavigationRailItem>
                 <div className='mt-auto flex flex-wrap p-4'>
                     <Button variant='outline' icon className='size-14 rounded-full'>

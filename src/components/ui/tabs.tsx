@@ -14,9 +14,12 @@ const tabListVariants = cva('relative flex border-b border-outline-variant', {
     variants: {
         variant: {
             primary: [
-                '**:data-[slot=tabs-tab]:flex-col **:data-[slot=tabs-tab]:gap-0.5 **:data-[tab-narrow-trigger=false]:h-16',
+                'h-16 **:data-[slot=tabs-tab]:flex-col **:data-[slot=tabs-tab]:gap-0.5 **:data-[tab-narrow-trigger=false]:h-full',
             ],
-            secondary: ['**:data-[slot=tabs-trigger]:px-0', '**:data-[slot=tabs-tab]:w-full **:data-[slot=tabs-tab]:gap-2'],
+            secondary: [
+                'h-12 **:data-[slot=tabs-trigger]:px-0',
+                '**:data-[slot=tabs-tab]:w-full **:data-[slot=tabs-tab]:gap-2',
+            ],
         },
     },
     defaultVariants: {
@@ -133,23 +136,41 @@ function TabsTrigger({
     className,
     icon,
     children,
+    asChild,
     ...props
-}: React.ComponentProps<typeof TabsPrimitive.Trigger> & { icon?: React.ReactNode }) {
+}: React.ComponentProps<typeof TabsPrimitive.Trigger> & { icon?: React.ReactNode; asChild?: boolean }) {
     return (
         <TabsPrimitive.Trigger
             data-slot='tabs-trigger'
             data-tab-narrow-trigger={!icon || !children}
             className={cn(
-                'flex h-12 w-full cursor-pointer px-4 text-sm leading-5 font-medium whitespace-nowrap text-on-surface-variant transition-colors not-data-[state=active]:hover:bg-on-surface/8 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-primary [&_i]:pointer-events-none [&_i]:shrink-0 [&_i:not([class*=size-])]:size-6',
+                'flex h-full w-full cursor-pointer px-4 text-sm leading-5 font-medium whitespace-nowrap text-on-surface-variant transition-colors not-data-[state=active]:hover:bg-on-surface/8 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-primary [&_i]:pointer-events-none [&_i]:shrink-0 [&_i:not([class*=size-])]:size-6',
                 className,
             )}
             {...props}
+            asChild={asChild}
         >
-            <Ripple />
-            <div data-slot='tabs-tab' className={cn('mx-auto flex h-full w-fit items-center justify-center')}>
-                {icon}
-                {children}
-            </div>
+            {asChild && React.isValidElement(children) ? (
+                React.cloneElement(children as React.ReactElement<React.PropsWithChildren>, {
+                    children: (
+                        <>
+                            <Ripple />
+                            <div data-slot='tabs-tab' className={cn('mx-auto flex h-full w-fit items-center justify-center')}>
+                                {icon}
+                                {(children as React.ReactElement<React.PropsWithChildren>).props.children}
+                            </div>
+                        </>
+                    ),
+                })
+            ) : (
+                <>
+                    <Ripple />
+                    <div data-slot='tabs-tab' className={cn('mx-auto flex h-full w-fit items-center justify-center')}>
+                        {icon}
+                        {children}
+                    </div>
+                </>
+            )}
         </TabsPrimitive.Trigger>
     )
 }

@@ -1,21 +1,19 @@
 import { cn } from '@/lib/utils'
+import { Slot } from '@radix-ui/react-slot'
 import { cva } from 'class-variance-authority'
+import React from 'react'
 
 function NavigationBarItem({
     active,
     icon,
     className,
+    asChild,
     children,
-}: React.ComponentProps<'div'> & { icon: React.ReactNode; active?: boolean }) {
-    return (
-        <div
-            data-slot='nav-bar-item'
-            data-active={!!active}
-            className={cn(
-                'relative flex cursor-pointer items-center justify-center gap-1 text-xs text-on-surface-variant transition-colors select-none',
-                className,
-            )}
-        >
+}: React.ComponentProps<'div'> & { icon: React.ReactNode; active?: boolean; asChild?: boolean }) {
+    const Comp = asChild ? Slot : 'div'
+
+    const Adornments = (child: React.ReactNode) => (
+        <>
             <span
                 data-slot='nav-bar-item-layer'
                 className={cn(
@@ -29,8 +27,25 @@ function NavigationBarItem({
             >
                 {icon}
             </span>
-            <div className='z-10 text-center'>{children}</div>
-        </div>
+            <div className='z-10 text-center'>{child}</div>
+        </>
+    )
+
+    return (
+        <Comp
+            data-slot='nav-bar-item'
+            data-active={!!active}
+            className={cn(
+                'relative flex cursor-pointer items-center justify-center gap-1 text-xs text-on-surface-variant transition-colors select-none',
+                className,
+            )}
+        >
+            {asChild && React.isValidElement(children)
+                ? React.cloneElement(children as React.ReactElement<React.PropsWithChildren>, {
+                      children: Adornments((children as React.ReactElement<React.PropsWithChildren>).props.children),
+                  })
+                : Adornments(children)}
+        </Comp>
     )
 }
 

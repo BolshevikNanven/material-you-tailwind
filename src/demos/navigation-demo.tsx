@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { ButtonGroup } from '@/components/ui/button-group'
 import { NavigationBar, NavigationBarItem } from '@/components/ui/navigation-bar'
 import {
-    NavigationMode,
+    NavigationVariant,
     NavigationRail,
     NavigationRailContent,
     NavigationRailItem,
@@ -16,7 +16,7 @@ import { Toggle } from '@/components/ui/toggle'
 import { useState } from 'react'
 
 export function NavigationDemo() {
-    const [mode, setMode] = useState<NavigationMode>('persistent')
+    const [mode, setMode] = useState<NavigationVariant>('persistent')
     const [contained, setContained] = useState(false)
 
     return (
@@ -56,7 +56,7 @@ export function NavigationDemo() {
             <h3>NavigationRail</h3>
             <div className='mb-6 flex flex-col gap-4'>
                 <div className='relative flex h-[720px] w-full shrink-0 overflow-hidden rounded-2xl border-4'>
-                    <NavigationRail mode={mode} contained={contained}>
+                    <NavigationRail variant={mode} contained={contained}>
                         {mode === 'hidden' && (
                             <NavigationRailTrigger asChild>
                                 <Button icon className='mt-4 ml-4'>

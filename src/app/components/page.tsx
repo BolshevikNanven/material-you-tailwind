@@ -21,7 +21,7 @@ import { ChipDemo } from '@/demos/chip-demo'
 import { AvatarDemo } from '@/demos/avatar-demo'
 import { NavigationDemo } from '@/demos/navigation-demo'
 
-export default function Components() {
+export default async function Components() {
     return (
         <div className='flex h-screen w-full flex-col overflow-hidden'>
             <div className='flex h-full flex-col gap-2 overflow-auto rounded-l-3xl bg-surface p-6'>
