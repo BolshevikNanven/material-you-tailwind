@@ -1,6 +1,157 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+import { argbFromHex, themeFromSourceColor } from '@material/material-color-utilities'
+import { hexFromArgb } from '@material/material-color-utilities'
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+    return twMerge(clsx(inputs))
+}
+
+export const generateColors = (color: string) => {
+    const theme = themeFromSourceColor(argbFromHex(color))
+
+    const { primary, secondary, tertiary, neutral, error, neutralVariant } = theme.palettes
+
+    const lightColors = new Map([
+        // Primary Colors
+        ['--primary', hexFromArgb(primary.tone(40))],
+        ['--primary-container', hexFromArgb(primary.tone(90))],
+        ['--primary-fixed', hexFromArgb(primary.tone(90))],
+        ['--primary-fixed-dim', hexFromArgb(primary.tone(80))],
+        ['--on-primary', hexFromArgb(primary.tone(100))],
+        ['--on-primary-container', hexFromArgb(primary.tone(10))],
+        ['--on-primary-fixed', hexFromArgb(primary.tone(10))],
+        ['--on-primary-fixed-variant', hexFromArgb(primary.tone(30))],
+        ['--inverse-primary', hexFromArgb(primary.tone(80))],
+
+        // Secondary Colors
+        ['--secondary', hexFromArgb(secondary.tone(40))],
+        ['--secondary-container', hexFromArgb(secondary.tone(90))],
+        ['--secondary-fixed', hexFromArgb(secondary.tone(90))],
+        ['--secondary-fixed-dim', hexFromArgb(secondary.tone(80))],
+        ['--on-secondary', hexFromArgb(secondary.tone(100))],
+        ['--on-secondary-container', hexFromArgb(secondary.tone(10))],
+        ['--on-secondary-fixed', hexFromArgb(secondary.tone(10))],
+        ['--on-secondary-fixed-variant', hexFromArgb(secondary.tone(30))],
+
+        // Tertiary Colors
+        ['--tertiary', hexFromArgb(tertiary.tone(40))],
+        ['--tertiary-container', hexFromArgb(tertiary.tone(90))],
+        ['--tertiary-fixed', hexFromArgb(tertiary.tone(90))],
+        ['--tertiary-fixed-dim', hexFromArgb(tertiary.tone(80))],
+        ['--on-tertiary', hexFromArgb(tertiary.tone(100))],
+        ['--on-tertiary-container', hexFromArgb(tertiary.tone(10))],
+        ['--on-tertiary-fixed', hexFromArgb(tertiary.tone(10))],
+        ['--on-tertiary-fixed-variant', hexFromArgb(tertiary.tone(30))],
+
+        // Surface Colors
+        ['--surface', hexFromArgb(neutral.tone(98))],
+        ['--surface-tint', hexFromArgb(primary.tone(40))],
+        ['--surface-dim', hexFromArgb(neutral.tone(87))],
+        ['--surface-bright', hexFromArgb(neutral.tone(98))],
+        ['--surface-container-lowest', hexFromArgb(neutral.tone(100))],
+        ['--surface-container-low', hexFromArgb(neutral.tone(96))],
+        ['--surface-container', hexFromArgb(neutral.tone(94))],
+        ['--surface-container-high', hexFromArgb(neutral.tone(92))],
+        ['--surface-container-highest', hexFromArgb(neutral.tone(90))],
+
+        // Error Colors
+        ['--error', hexFromArgb(error.tone(40))],
+        ['--error-container', hexFromArgb(error.tone(90))],
+        ['--on-error', hexFromArgb(error.tone(100))],
+        ['--on-error-container', hexFromArgb(error.tone(10))],
+
+        // Outline Colors
+        ['--outline', hexFromArgb(neutralVariant.tone(50))],
+        ['--outline-variant', hexFromArgb(neutralVariant.tone(80))],
+
+        // Inverse and Scrim Colors
+        ['--background', hexFromArgb(neutral.tone(98))],
+        ['--inverse-on-surface', hexFromArgb(neutral.tone(95))],
+        ['--inverse-surface', hexFromArgb(neutral.tone(20))],
+        ['--scrim', hexFromArgb(neutral.tone(0))],
+        ['--shadow', hexFromArgb(neutral.tone(0))],
+
+        // On-Surface Colors
+        ['--on-background', hexFromArgb(neutral.tone(10))],
+        ['--on-surface', hexFromArgb(neutral.tone(10))],
+        ['--on-surface-variant', hexFromArgb(neutralVariant.tone(30))],
+
+        // Surface Variant Colors
+        ['--surface-variant', hexFromArgb(neutralVariant.tone(90))],
+    ])
+
+    const darkColors = new Map([
+        // Primary Colors
+        ['--primary', hexFromArgb(primary.tone(80))],
+        ['--primary-container', hexFromArgb(primary.tone(30))],
+        ['--primary-fixed', hexFromArgb(primary.tone(90))],
+        ['--primary-fixed-dim', hexFromArgb(primary.tone(80))],
+        ['--on-primary', hexFromArgb(primary.tone(20))],
+        ['--on-primary-container', hexFromArgb(primary.tone(90))],
+        ['--on-primary-fixed', hexFromArgb(primary.tone(10))],
+        ['--on-primary-fixed-variant', hexFromArgb(primary.tone(30))],
+        ['--inverse-primary', hexFromArgb(primary.tone(40))],
+
+        // Secondary Colors
+        ['--secondary', hexFromArgb(secondary.tone(80))],
+        ['--secondary-container', hexFromArgb(secondary.tone(30))],
+        ['--secondary-fixed', hexFromArgb(secondary.tone(90))],
+        ['--secondary-fixed-dim', hexFromArgb(secondary.tone(80))],
+        ['--on-secondary', hexFromArgb(secondary.tone(20))],
+        ['--on-secondary-container', hexFromArgb(secondary.tone(90))],
+        ['--on-secondary-fixed', hexFromArgb(secondary.tone(10))],
+        ['--on-secondary-fixed-variant', hexFromArgb(secondary.tone(30))],
+
+        // Tertiary Colors
+        ['--tertiary', hexFromArgb(tertiary.tone(80))],
+        ['--tertiary-container', hexFromArgb(tertiary.tone(30))],
+        ['--tertiary-fixed', hexFromArgb(tertiary.tone(90))],
+        ['--tertiary-fixed-dim', hexFromArgb(tertiary.tone(80))],
+        ['--on-tertiary', hexFromArgb(tertiary.tone(20))],
+        ['--on-tertiary-container', hexFromArgb(tertiary.tone(90))],
+        ['--on-tertiary-fixed', hexFromArgb(tertiary.tone(10))],
+        ['--on-tertiary-fixed-variant', hexFromArgb(tertiary.tone(30))],
+
+        // Surface Colors
+        ['--surface', hexFromArgb(neutral.tone(6))],
+        ['--surface-tint', hexFromArgb(primary.tone(80))],
+        ['--surface-dim', hexFromArgb(neutral.tone(6))],
+        ['--surface-bright', hexFromArgb(neutral.tone(24))],
+        ['--surface-container-lowest', hexFromArgb(neutral.tone(4))],
+        ['--surface-container-low', hexFromArgb(neutral.tone(10))],
+        ['--surface-container', hexFromArgb(neutral.tone(12))],
+        ['--surface-container-high', hexFromArgb(neutral.tone(17))],
+        ['--surface-container-highest', hexFromArgb(neutral.tone(22))],
+
+        // Error Colors
+        ['--error', hexFromArgb(error.tone(80))],
+        ['--error-container', hexFromArgb(error.tone(30))],
+        ['--on-error', hexFromArgb(error.tone(20))],
+        ['--on-error-container', hexFromArgb(error.tone(90))],
+
+        // Outline Colors
+        ['--outline', hexFromArgb(neutralVariant.tone(60))],
+        ['--outline-variant', hexFromArgb(neutralVariant.tone(30))],
+
+        // Inverse and Scrim Colors
+        ['--background', hexFromArgb(neutral.tone(6))],
+        ['--inverse-on-surface', hexFromArgb(neutral.tone(20))],
+        ['--inverse-surface', hexFromArgb(neutral.tone(90))],
+        ['--scrim', hexFromArgb(neutral.tone(0))],
+        ['--shadow', hexFromArgb(neutral.tone(0))],
+
+        // On-Surface Colors
+        ['--on-background', hexFromArgb(neutral.tone(90))],
+        ['--on-surface', hexFromArgb(neutral.tone(90))],
+        ['--on-surface-variant', hexFromArgb(neutralVariant.tone(80))],
+
+        // Surface Variant Colors
+        ['--surface-variant', hexFromArgb(neutralVariant.tone(30))],
+    ])
+
+    return {
+        light: lightColors,
+        dark: darkColors,
+    }
 }
