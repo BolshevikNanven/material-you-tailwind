@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description: 'Material Design 3 Expressive in Tailwind CSS',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode

@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const containerVariants = cva(
-    'group relative flex h-14 w-full items-center gap-1 transition-shadow disabled:cursor-not-allowed disabled:opacity-50',
+    'group relative flex h-14 w-full items-center gap-1 p-px transition-shadow disabled:cursor-not-allowed disabled:opacity-50',
     {
         variants: {
             variant: {
@@ -97,7 +97,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
 
         return (
             <div data-slot='input-container' className={cn('flex flex-col gap-1.5', className)}>
-                <div className={cn(containerVariants({ variant, error: isError }), !startIcon && 'pl-4', !endIcon && 'pr-4')}>
+                <div className={cn(containerVariants({ variant, error: isError }))}>
                     {startIcon && (
                         <div className='flex h-12 w-12 shrink-0 items-center justify-center text-on-surface-variant [&_i:not([class*=size-])]:size-5'>
                             {startIcon}
@@ -108,7 +108,12 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
                         <input
                             id={inputId}
                             type={type}
-                            className={cn(inputVariants({ variant }), label && 'placeholder:text-transparent')}
+                            className={cn(
+                                inputVariants({ variant }),
+                                label && 'placeholder:text-transparent',
+                                !startIcon && 'pl-4',
+                                !endIcon && 'pr-4',
+                            )}
                             placeholder={placeholder}
                             ref={ref}
                             {...props}
@@ -121,6 +126,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
                                     startIcon &&
                                         variant === 'outlined' &&
                                         'peer-focus:-translate-x-9 peer-[:not(:placeholder-shown)]:-translate-x-9',
+                                    !startIcon && 'translate-x-4',
                                 )}
                             >
                                 {label}

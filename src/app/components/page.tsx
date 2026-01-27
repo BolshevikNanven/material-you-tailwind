@@ -1,58 +1,50 @@
-import { ButtonDemo } from '@/demos/button-demo'
-import { ToggleDemo } from '@/demos/toggle-demo'
-import { CheckboxDemo } from '@/demos/checkbox-demo'
-import { SwitchDemo } from '@/demos/switch-demo'
-import { RadioGroupDemo } from '@/demos/radio-group-demo'
-import { SliderDemo } from '@/demos/slider-demo'
-import { BadgeDemo } from '@/demos/badge-demo'
-import { CardDemo } from '@/demos/card-demo'
-import { ContextMenuDemo } from '@/demos/context-menu-demo'
-import { DropdownMenuDemo } from '@/demos/dropdown-menu-demo'
-import { TextFieldDemo } from '@/demos/text-field-demo'
-import { DialogDemo } from '@/demos/dialog-demo'
-import { ButtonGroupDemo } from '@/demos/button-group-demo'
-import { DividerDemo } from '@/demos/divider-demo'
-import { TooltipDemo } from '@/demos/tooltip-demo'
-import { TabsDemo } from '@/demos/tabs-demo'
-import { SnakebarDemo } from '@/demos/snakebar-demo'
-import { LoadingDemo } from '@/demos/loading-demo'
-import { ProgressDemo } from '@/demos/progress-demo'
-import { ChipDemo } from '@/demos/chip-demo'
-import { AvatarDemo } from '@/demos/avatar-demo'
-import { NavigationDemo } from '@/demos/navigation-demo'
+import { Card, CardContent } from '@/components/ui/card'
+import { componentsSource } from '@/lib/source'
+import Link from 'next/link'
 
-export default async function Components() {
+export default function ComponentsOverviewPage() {
+    const components = componentsSource.getPages()
+    const grouped = components.reduce(
+        (acc, component) => {
+            const firstLetter = component.data.title[0].toUpperCase()
+            if (!acc[firstLetter]) {
+                acc[firstLetter] = []
+            }
+            acc[firstLetter].push(component)
+            return acc
+        },
+        {} as Record<string, typeof components>,
+    )
+
+    const sortedKeys = Object.keys(grouped).sort()
+
     return (
-        <div className='flex h-screen w-full flex-col overflow-hidden'>
-            <div className='flex h-full flex-col gap-2 overflow-auto rounded-l-3xl bg-surface p-6'>
-                <ButtonDemo />
-                <ToggleDemo />
-                <ButtonGroupDemo />
-                <div className='flex w-full gap-12'>
-                    <CheckboxDemo />
-                    <SwitchDemo />
-                    <BadgeDemo />
-                    <TooltipDemo />
-                    <SnakebarDemo />
+        <div className='mx-auto flex h-full w-full max-w-221 flex-col px-8'>
+            <header className='mt-28'>
+                <h3 className='text-6xl'>Components</h3>
+                <div className='mt-4 flex'>
+                    <p className='mr-10 text-xl text-on-surface-variant'>
+                        A collection of all the components available in the library.
+                    </p>
                 </div>
-                <TextFieldDemo />
-                <DividerDemo />
-                <div className='flex gap-12'>
-                    <RadioGroupDemo />
-                    <SliderDemo />
-                    <ContextMenuDemo />
-                    <DropdownMenuDemo />
-                    <DialogDemo />
-                </div>
-                <div className='flex gap-12'>
-                    <ChipDemo />
-                    <AvatarDemo />
-                </div>
-                <CardDemo />
-                <TabsDemo />
-                <LoadingDemo />
-                <ProgressDemo />
-                <NavigationDemo />
+            </header>
+            <div className='mt-8 flex flex-col gap-8 pb-10'>
+                {sortedKeys.map(key => (
+                    <div key={key}>
+                        <h4 className='pb-2 text-lg font-medium text-on-surface'>{key}</h4>
+                        <div className='grid grid-cols-3 gap-4'>
+                            {grouped[key].map(component => (
+                                <Card key={component.url} actionable asChild>
+                                    <Link href={component.url}>
+                                        <CardContent>
+                                            <p className='font-medium'>{component.data.title}</p>
+                                        </CardContent>
+                                    </Link>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     )

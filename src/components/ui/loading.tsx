@@ -1,9 +1,7 @@
 'use client'
 
-import { motion, useMotionValue, useTransform, animate } from 'motion/react'
-import { interpolate } from 'flubber'
-
 import * as React from 'react'
+import { interpolate } from 'flubber'
 import { cn } from '@/lib/utils'
 
 const SHAPES = [
@@ -36,23 +34,39 @@ const SHAPES = [
         d: 'M23.1309 23.1309C16.1705 30.0913 6.88765 32.0935 2.39707 27.6029C-2.09352 23.1123 -0.0913343 13.8295 6.86908 6.86908C13.8295 -0.0913329 23.1123 -2.09352 27.6029 2.39707C32.0935 6.88765 30.0913 16.1705 23.1309 23.1309Z',
     },
 ]
-const interpolatorCache = new Map<string, (t: number) => string>()
 
+const customEase = (() => {
+    const x1 = 0.72,
+        y1 = 0.18,
+        x2 = 0.64,
+        y2 = 0.95
+    return (t: number) => {
+        if (t === 0) return 0
+        if (t === 1) return 1
+
+        const oneMinusT = 1 - t
+        return 3 * oneMinusT * oneMinusT * t * y1 + 3 * oneMinusT * t * t * y2 + t * t * t
+    }
+})()
+
+const interpolatorCache = new Map<string, (t: number) => string>()
 const parseViewBox = (vb: string) => vb.split(' ').map(Number)
+const lerp = (start: number, end: number, t: number) => start + (end - start) * t
+
 interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
     contained?: boolean
     duration?: number
 }
+
 export function Loading({ duration = 680, contained, className, ...props }: LoadingProps) {
+    const svgRef = React.useRef<SVGSVGElement>(null)
+    const pathRef = React.useRef<SVGPathElement>(null)
+
     const [index, setIndex] = React.useState(0)
-
     const [baseRotation, setBaseRotation] = React.useState(0)
-
-    const progress = useMotionValue(0)
 
     const currentShape = SHAPES[index]
     const nextShape = SHAPES[(index + 1) % SHAPES.length]
-
     const stepRotation = 180
 
     const interpolator = React.useMemo(() => {
@@ -62,44 +76,70 @@ export function Loading({ duration = 680, contained, className, ...props }: Load
         if (interpolatorCache.has(cacheKey)) {
             return interpolatorCache.get(cacheKey)!
         }
-
         const newInterpolator = interpolate(currentShape.d, nextShape.d, {
             maxSegmentLength: 1,
         })
 
         interpolatorCache.set(cacheKey, newInterpolator)
         return newInterpolator
-    }, [index, currentShape, nextShape])
-
-    const path = useTransform(progress, value => {
-        return interpolator(value)
-    })
-
-    const rotate = useTransform(progress, [0, 1], [baseRotation, baseRotation + stepRotation])
-    const scale = useTransform(progress, [0, 0.8, 1], [1, 1.14, 1])
-
-    const viewBox = useTransform(progress, value => {
-        const currentVB = parseViewBox(currentShape.viewBox)
-        const nextVB = parseViewBox(nextShape.viewBox)
-        return `${currentVB[0] + (nextVB[0] - currentVB[0]) * value} ${currentVB[1] + (nextVB[1] - currentVB[1]) * value} ${
-            currentVB[2] + (nextVB[2] - currentVB[2]) * value
-        } ${currentVB[3] + (nextVB[3] - currentVB[3]) * value}`
-    })
+    }, [index, currentShape.d, nextShape.d])
 
     React.useEffect(() => {
-        const controls = animate(progress, 1, {
-            duration: duration / 1000,
-            ease: [0.72, 0.18, 0.64, 0.95],
-            onComplete: () => {
+        let animationFrameId: number
+        let startTime: number | null = null
+
+        const animate = (time: number) => {
+            if (startTime === null) startTime = time
+            const elapsed = time - startTime
+
+            const rawProgress = Math.min(elapsed / duration, 1)
+
+            const progress = customEase(rawProgress)
+
+            // 1. 更新路径 (Path Morphing)
+            if (pathRef.current) {
+                pathRef.current.setAttribute('d', interpolator(progress))
+            }
+
+            // 2. 更新 ViewBox
+            if (svgRef.current) {
+                const startVB = parseViewBox(currentShape.viewBox)
+                const endVB = parseViewBox(nextShape.viewBox)
+                const currentVB = startVB.map((val, i) => lerp(val, endVB[i], progress))
+                svgRef.current.setAttribute('viewBox', currentVB.join(' '))
+
+                // 3. 更新旋转 (Rotate)
+                const currentRotation = baseRotation + stepRotation * progress
+
+                // 4. 更新缩放 (Scale) - 逻辑: 0->0.8 (放大), 0.8->1 (回缩)
+                // 原逻辑: [0, 0.8, 1], [1, 1.14, 1]
+                let currentScale = 1
+                if (progress < 0.8) {
+                    // 0 -> 0.8 映射到 1 -> 1.14
+                    currentScale = 1 + 0.14 * (progress / 0.8)
+                } else {
+                    // 0.8 -> 1 映射到 1.14 -> 1
+                    currentScale = 1.14 - 0.14 * ((progress - 0.8) / 0.2)
+                }
+
+                // 直接应用样式以获得最佳性能
+                svgRef.current.style.transform = `rotate(${currentRotation}deg) scale(${currentScale})`
+            }
+
+            if (rawProgress < 1) {
+                animationFrameId = requestAnimationFrame(animate)
+            } else {
                 setIndex(prev => (prev + 1) % SHAPES.length)
-                setBaseRotation(prev => (prev + stepRotation) % 360)
+                setBaseRotation(prev => prev + stepRotation)
+            }
+        }
 
-                progress.set(0)
-            },
-        })
+        animationFrameId = requestAnimationFrame(animate)
 
-        return () => controls.stop()
-    }, [index, duration, progress, stepRotation])
+        return () => {
+            cancelAnimationFrame(animationFrameId)
+        }
+    }, [index, duration, interpolator, baseRotation, currentShape.viewBox, nextShape.viewBox])
 
     return (
         <div
@@ -110,14 +150,17 @@ export function Loading({ duration = 680, contained, className, ...props }: Load
             )}
             {...props}
         >
-            <motion.svg
-                viewBox={viewBox}
+            <svg
+                ref={svgRef}
+                viewBox={currentShape.viewBox}
                 className={cn('text-primary will-change-transform')}
                 fill='currentColor'
-                style={{ rotate, scale }}
+                style={{
+                    transform: `rotate(${baseRotation}deg) scale(1)`,
+                }}
             >
-                <motion.path d={path} />
-            </motion.svg>
+                <path ref={pathRef} d={currentShape.d} />
+            </svg>
         </div>
     )
 }

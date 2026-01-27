@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/navigation-rail'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
 export default function ChatExample() {
     const listData = [
@@ -141,7 +142,33 @@ export default function ChatExample() {
                                     </TabsTrigger>
                                 </TabsList>
                             </Tabs>
-                            <div className='flex flex-1 flex-col'></div>
+                            <div className='flex flex-1 flex-col gap-6 py-5'>
+                                <div className='flex gap-4 px-8'>
+                                    <Avatar className='size-8'>
+                                        <AvatarFallback>D</AvatarFallback>
+                                    </Avatar>
+                                    <div className='flex flex-col gap-1'>
+                                        <div className='flex gap-3 text-xs text-on-surface-variant'>
+                                            Dagmar Bachmann
+                                            <span className='text-outline'>20 min</span>
+                                        </div>
+                                        <p className='text-sm'>I think I&apos;m going to finally adopt that scruffy dog :)</p>
+                                    </div>
+                                </div>
+                                <div className='flex gap-4 px-8'>
+                                    <Avatar className='size-8'>
+                                        <AvatarImage src={'https://github.com/mirrorange.png'} alt='avatar' />
+                                        <AvatarFallback>O</AvatarFallback>
+                                    </Avatar>
+                                    <div className='flex flex-col gap-1'>
+                                        <div className='flex gap-3 text-xs text-on-surface-variant'>
+                                            Orange
+                                            <span className='text-outline'>15 min</span>
+                                        </div>
+                                        <p className='text-sm'>amazing!!!!! do you need a ride to the shelter?</p>
+                                    </div>
+                                </div>
+                            </div>
                             <div className='flex gap-1 p-5'>
                                 <Button variant='text' className='text-on-surface-variant' icon>
                                     <i className='icon-[material-symbols--add-circle-outline-rounded]' />

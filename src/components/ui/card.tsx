@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
+import { Slot } from '@radix-ui/react-slot'
 
 const cardVariants = cva('group relative rounded-xl transition-shadow', {
     variants: {
@@ -42,19 +43,37 @@ function Card({
     actionable,
     className,
     children,
+    asChild,
     ...props
-}: React.ComponentProps<'div'> & VariantProps<typeof cardVariants>) {
-    return (
-        <div data-slot='card' className={cn(cardVariants({ variant, actionable, className }))} {...props}>
-            {actionable && (
-                <div
-                    className={cn(
-                        'absolute inset-0 rounded-xl transition-colors group-hover:bg-on-surface/8 group-active:bg-on-surface/10',
-                    )}
-                />
+}: React.ComponentProps<'div'> & VariantProps<typeof cardVariants> & { asChild?: boolean }) {
+    const Comp = asChild ? Slot : 'div'
+
+    const mask = (
+        <div
+            className={cn(
+                'absolute inset-0 rounded-xl transition-colors group-hover:bg-on-surface/8 group-active:bg-on-surface/10',
             )}
-            {children}
-        </div>
+        />
+    )
+
+    return (
+        <Comp data-slot='card' className={cn(cardVariants({ variant, actionable, className }))} {...props}>
+            {asChild && actionable && React.isValidElement(children) ? (
+                React.cloneElement(children as React.ReactElement<React.PropsWithChildren>, {
+                    children: (
+                        <>
+                            {mask}
+                            {(children as React.ReactElement<React.PropsWithChildren>).props.children}
+                        </>
+                    ),
+                })
+            ) : (
+                <>
+                    {actionable && mask}
+                    {children}
+                </>
+            )}
+        </Comp>
     )
 }
 function CardContent({ className, ...props }: React.ComponentProps<'div'>) {

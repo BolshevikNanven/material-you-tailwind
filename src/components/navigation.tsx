@@ -32,13 +32,17 @@ export default function Navigation() {
                 >
                     <Link href={'/'}>Home</Link>
                 </NavigationRailItem>
-                <NavigationRailItem icon={<i className='icon-[material-symbols--apps]' />} active={pathname === '/docs'}>
-                    Docs
+                <NavigationRailItem
+                    asChild
+                    icon={<i className='icon-[material-symbols--apps]' />}
+                    active={pathname.startsWith('/docs')}
+                >
+                    <Link href={'/docs'}>docs</Link>
                 </NavigationRailItem>
                 <NavigationRailItem
                     asChild
                     icon={<i className='icon-[material-symbols--add-circle-outline-rounded]' />}
-                    active={pathname === '/components'}
+                    active={pathname.startsWith('/components')}
                 >
                     <Link href={'/components'}>components</Link>
                 </NavigationRailItem>
