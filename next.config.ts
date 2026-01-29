@@ -1,13 +1,19 @@
 import type { NextConfig } from 'next'
 import { createMDX } from 'fumadocs-mdx/next'
+import path from 'path'
 
 const nextConfig: NextConfig = {
-    /* config options here */
     reactCompiler: true,
+    turbopack: {
+        rules: {
+            '**/components.tsx': {
+                loaders: [path.resolve('plugins/component-loader.js')],
+                as: '*.tsx',
+            },
+        },
+    },
 }
 
-const withMDX = createMDX({
-    // customise the config file path
-    // configPath: "source.config.ts"
-})
+const withMDX = createMDX({})
+
 export default withMDX(nextConfig)

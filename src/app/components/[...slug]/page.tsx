@@ -1,5 +1,6 @@
 import { componentsSource } from '@/lib/source'
 import { notFound } from 'next/navigation'
+import components from '../../../../components'
 
 export default async function ComponentsPage(props: { params: Promise<{ slug: string[] }> }) {
     const params = await props.params
@@ -16,7 +17,7 @@ export default async function ComponentsPage(props: { params: Promise<{ slug: st
                     <p className='mr-10 text-xl text-on-surface-variant'>{page.data.description}</p>
                 </div>
             </header>
-            <MDX />
+            <MDX components={components} />
         </div>
     )
 }

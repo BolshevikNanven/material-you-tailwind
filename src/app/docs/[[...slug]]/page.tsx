@@ -1,5 +1,6 @@
 import { docsSource } from '@/lib/source'
 import { notFound } from 'next/navigation'
+import components from '../../../../components'
 
 export default async function DocsPage(props: { params: Promise<{ slug?: string[] }> }) {
     const params = await props.params
@@ -9,12 +10,16 @@ export default async function DocsPage(props: { params: Promise<{ slug?: string[
     const MDX = page.data.body
 
     return (
-        <div className='flex h-screen flex-1 flex-col overflow-hidden'>
-            <div className='flex h-full w-full flex-col gap-2 overflow-auto rounded-l-3xl bg-surface p-6'>
-                <h1>{page.data.title}</h1>
-                <p>{page.data.description}</p>
-                <MDX />
-            </div>
+        <div className='mx-auto flex h-full w-full max-w-221 flex-col px-8'>
+            <header className='mt-28'>
+                <h3 className='text-6xl'>{page.data.title}</h3>
+                <div className='mt-4 flex'>
+                    <p className='mr-10 text-xl text-on-surface-variant'>{page.data.description}</p>
+                </div>
+            </header>
+            <main>
+                <MDX components={components} />
+            </main>
         </div>
     )
 }

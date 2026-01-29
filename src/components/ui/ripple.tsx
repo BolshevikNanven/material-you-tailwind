@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from 'react'
 
 const PRESS_GROW_MS = 450
 const MINIMUM_PRESS_MS = 225
-const INITIAL_ORIGIN_SCALE = 0.2
+const INITIAL_ORIGIN_SCALE = 0.1
 const PADDING = 10
 const SOFT_EDGE_MINIMUM_SIZE = 75
 const SOFT_EDGE_CONTAINER_RATIO = 0.35
@@ -291,7 +291,7 @@ export const Ripple: React.FC<RippleProps> = ({ disabled = false, className = ''
                 ref={waveRef}
                 className={`absolute inset-0 opacity-0 transition-opacity ease-linear`}
                 style={{
-                    background: `radial-gradient(closest-side, currentColor 60%, transparent 100%)`,
+                    background: `radial-gradient(closest-side, currentColor 80%, transparent 100%)`,
                 }}
             />
         </div>
