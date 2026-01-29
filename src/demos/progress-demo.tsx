@@ -13,16 +13,13 @@ export function ProgressDemo() {
     }, [])
 
     return (
-        <div className='flex flex-col gap-4'>
-            <h3>Progress</h3>
-            <div className='mb-6 flex flex-wrap items-center gap-8'>
-                <div className='flex gap-8'>
-                    <Progress wave variant='circle' value={value} stroke={6}/>
-                    <Progress variant='circle' value={value} />
-                </div>
-                <Progress wave value={value} stroke={6}/>
-                <Progress value={value} stroke={6} />
+        <div className='flex w-full flex-wrap items-center gap-8'>
+            <div className='flex gap-8'>
+                <Progress wave variant='circle' value={value} stroke={6} />
+                <Progress variant='circle' value={value} />
             </div>
+            <Progress wave value={value} stroke={6} />
+            <Progress value={value} stroke={6} />
         </div>
     )
 }

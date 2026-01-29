@@ -181,7 +181,7 @@ function RailModalContent({ className, children, ...props }: React.ComponentProp
                 />
                 <Dialog.Content
                     className={cn(
-                        'absolute top-0 left-0 z-99 flex h-full w-55 flex-col rounded-r-2xl bg-surface-container pt-4 transition-all duration-300 ease-out',
+                        'absolute top-0 left-0 z-99 flex h-full w-55 flex-col rounded-r-2xl bg-surface-container pt-4 transition-all duration-300 ease-out outline-none',
                         expanded ? 'animate-in slide-in-from-left-100' : 'animate-out slide-out-to-left-100',
                         variant === 'modal' && 'shadow-elevation-2',
                         className,

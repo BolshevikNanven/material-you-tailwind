@@ -18,10 +18,10 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Button } from '../components/ui/button'
+import { Button } from '@/components/ui/button'
 import type { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu'
 
-export function DropdownMenuRadioGroupDemo() {
+function DropdownMenuRadioGroupDemo() {
     const [position, setPosition] = React.useState('bottom')
     return (
         <DropdownMenu>
@@ -42,7 +42,7 @@ export function DropdownMenuRadioGroupDemo() {
 }
 
 type Checked = DropdownMenuCheckboxItemProps['checked']
-export function DropdownMenuCheckboxes() {
+function DropdownMenuCheckboxes() {
     const [showStatusBar, setShowStatusBar] = React.useState<Checked>(true)
     const [showActivityBar, setShowActivityBar] = React.useState<Checked>(false)
     const [showPanel, setShowPanel] = React.useState<Checked>(false)
@@ -71,66 +71,63 @@ export function DropdownMenuCheckboxes() {
 
 export function DropdownMenuDemo() {
     return (
-        <div className='flex flex-col gap-4'>
-            <h3>Dropdown Menu</h3>
-            <div className='mb-6 flex flex-wrap items-center gap-4'>
-                <DropdownMenuRadioGroupDemo />
-                <DropdownMenuCheckboxes />
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant='outline'>Open</Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className='w-56' align='start'>
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                Profile
-                                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                Billing
-                                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                Settings
-                                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                Keyboard shortcuts
-                                <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem>Team</DropdownMenuItem>
-                            <DropdownMenuSub>
-                                <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-                                <DropdownMenuPortal>
-                                    <DropdownMenuSubContent>
-                                        <DropdownMenuGroup>
-                                            <DropdownMenuItem>Email</DropdownMenuItem>
-                                            <DropdownMenuItem>Message</DropdownMenuItem>
-                                            <DropdownMenuSeparator />
-                                            <DropdownMenuItem>More...</DropdownMenuItem>
-                                        </DropdownMenuGroup>
-                                    </DropdownMenuSubContent>
-                                </DropdownMenuPortal>
-                            </DropdownMenuSub>
-                            <DropdownMenuItem>
-                                New Team
-                                <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem>GitHub</DropdownMenuItem>
-                            <DropdownMenuItem>Support</DropdownMenuItem>
-                            <DropdownMenuItem disabled>API</DropdownMenuItem>
-                            <DropdownMenuItem>
-                                Log out
-                                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
+        <div className='flex flex-wrap items-center gap-4'>
+            <DropdownMenuRadioGroupDemo />
+            <DropdownMenuCheckboxes />
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant='outline'>Open</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className='w-56' align='start'>
+                    <DropdownMenuGroup>
+                        <DropdownMenuItem>
+                            Profile
+                            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            Billing
+                            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            Settings
+                            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                            Keyboard shortcuts
+                            <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuGroup>
+                        <DropdownMenuItem>Team</DropdownMenuItem>
+                        <DropdownMenuSub>
+                            <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+                            <DropdownMenuPortal>
+                                <DropdownMenuSubContent>
+                                    <DropdownMenuGroup>
+                                        <DropdownMenuItem>Email</DropdownMenuItem>
+                                        <DropdownMenuItem>Message</DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>More...</DropdownMenuItem>
+                                    </DropdownMenuGroup>
+                                </DropdownMenuSubContent>
+                            </DropdownMenuPortal>
+                        </DropdownMenuSub>
+                        <DropdownMenuItem>
+                            New Team
+                            <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuGroup>
+                        <DropdownMenuItem>GitHub</DropdownMenuItem>
+                        <DropdownMenuItem>Support</DropdownMenuItem>
+                        <DropdownMenuItem disabled>API</DropdownMenuItem>
+                        <DropdownMenuItem>
+                            Log out
+                            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                </DropdownMenuContent>
+            </DropdownMenu>
         </div>
     )
 }

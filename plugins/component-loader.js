@@ -18,9 +18,12 @@ export default function componentLoader(source) {
 
         const injections = []
         const exportList = []
+        const sourceMap = {}
 
         dirs.forEach(dir => {
             if (!existsSync(dir)) return
+            this.addContextDependency(dir)
+
             const files = readdirSync(dir).filter(f => f.endsWith('.tsx') && !f.startsWith('index'))
             files.forEach(file => {
                 const fullPath = join(dir, file)
@@ -50,14 +53,26 @@ export default function componentLoader(source) {
                     const importPath = request.startsWith('.') ? request : './' + request
                     injections.push(`import { ${names.join(', ')} } from '${importPath}';`)
                     exportList.push(...names)
+
+                    // Map names to content
+                    names.forEach(name => {
+                        sourceMap[name] = content
+                    })
                 }
             })
         })
 
-        // Code Injection
-        let newSource = source
+        // Create source code map export
+        const sourceEntries = Object.entries(sourceMap).map(([name, src]) => {
+            const escaped = src.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
+            return `${name}: \`${escaped}\``
+        })
 
-        newSource = `${injections.join('\n')}\n${newSource}`
+        // Export componentSources
+        const sourceExport = `export const componentSources = {\n${sourceEntries.join(',\n')}\n};`
+        const registryExport = `export const componentRegistry = {\n${exportList.join(',\n')}\n};`
+
+        let newSource = `${injections.join('\n')}\n${sourceExport}\n${registryExport}\n${source}`
 
         if (exportList.length > 0) {
             const exportDefaultRegex = /export\s+default\s+([\w\d_]+)/

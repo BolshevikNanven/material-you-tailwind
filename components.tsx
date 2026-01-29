@@ -1,6 +1,7 @@
+import ComponentPreview from '@/components/component-preview'
 import { cn } from '@/lib/utils'
 
-export const dirs = ['./src/components/ui']
+export const dirs = ['./src/components/ui', './src/demos']
 
 const components = {
     h1: ({ className, ...props }: React.ComponentProps<'h1'>) => (
@@ -82,7 +83,7 @@ const components = {
     pre: ({ className, ...props }: React.ComponentProps<'pre'>) => (
         <pre
             className={cn(
-                'mt-6 mb-4 overflow-x-auto rounded-xl bg-inverse-surface px-4 py-4 text-inverse-on-surface',
+                'mt-6 mb-4 overflow-x-auto rounded-xl bg-inverse-surface px-4 py-4 text-inverse-on-surface **:[code]:bg-transparent',
                 className,
             )}
             {...props}
@@ -97,6 +98,7 @@ const components = {
             {...props}
         />
     ),
+    ComponentPreview,
 }
 
 export default components
