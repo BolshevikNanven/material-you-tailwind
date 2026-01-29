@@ -20,6 +20,8 @@ export default function componentLoader(source) {
         const exportList = []
         const sourceMap = {}
 
+        const assignments = []
+
         dirs.forEach(dir => {
             if (!existsSync(dir)) return
             this.addContextDependency(dir)
@@ -52,6 +54,14 @@ export default function componentLoader(source) {
                         .replace(/\.tsx$/, '')
                     const importPath = request.startsWith('.') ? request : './' + request
                     injections.push(`import { ${names.join(', ')} } from '${importPath}';`)
+
+                    names.forEach(name => {
+                        // Assign source code and displayName directly to the component object
+                        // This fixes issues where displayName is lost in production builds
+                        assignments.push(`try { ${name}.displayName = "${name}"; } catch(e) {}`)
+                        assignments.push(`try { ${name}.__source = componentSources["${name}"]; } catch(e) {}`)
+                    })
+
                     exportList.push(...names)
 
                     // Map names to content
@@ -72,7 +82,9 @@ export default function componentLoader(source) {
         const sourceExport = `export const componentSources = {\n${sourceEntries.join(',\n')}\n};`
         const registryExport = `export const componentRegistry = {\n${exportList.join(',\n')}\n};`
 
-        let newSource = `${injections.join('\n')}\n${sourceExport}\n${registryExport}\n${source}`
+        // Assignments must come AFTER componentSources is defined
+        const assignmentsCode = assignments.join('\n')
+        let newSource = `${injections.join('\n')}\n${sourceExport}\n${assignmentsCode}\n${registryExport}\n${source}`
 
         if (exportList.length > 0) {
             const exportDefaultRegex = /export\s+default\s+([\w\d_]+)/

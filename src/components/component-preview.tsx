@@ -11,19 +11,28 @@ export default async function ComponentPreview({ children, className }: { childr
     if (children?.type) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const type = children.type as any
-        let name = type.displayName || type.name
 
-        if (!name) {
-            for (const [key, value] of Object.entries(componentRegistry)) {
-                if (value === type) {
-                    name = key
-                    break
-                }
-            }
+        // 1. Try to get source directly from component (injected by loader)
+        if (type.__source) {
+            code = type.__source
         }
 
-        if (name && componentSources[name]) {
-            code = componentSources[name]
+        // 2. Fallback: Try to get the name from component properties or registry
+        if (!code) {
+            let name = type.displayName || type.name
+
+            if (!name) {
+                for (const [key, value] of Object.entries(componentRegistry)) {
+                    if (value === type) {
+                        name = key
+                        break
+                    }
+                }
+            }
+
+            if (name && componentSources[name]) {
+                code = componentSources[name]
+            }
         }
     }
 
