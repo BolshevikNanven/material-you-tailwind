@@ -53,6 +53,12 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.8
         version: 1.2.8(@types/react-dom@19.2.3(@types/react@19.2.8))(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@shikijs/langs':
+        specifier: ^3.21.0
+        version: 3.21.0
+      '@shikijs/themes':
+        specifier: ^3.21.0
+        version: 3.21.0
       '@types/flubber':
         specifier: ^0.4.0
         version: 0.4.0
@@ -105,9 +111,6 @@ importers:
       babel-plugin-react-compiler:
         specifier: 1.0.0
         version: 1.0.0
-      chokidar:
-        specifier: ^5.0.0
-        version: 5.0.0
       eslint:
         specifier: ^9
         version: 9.39.2(jiti@2.6.1)
@@ -126,6 +129,9 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.7.1
         version: 0.7.2(prettier@3.7.4)
+      shiki:
+        specifier: ^3.21.0
+        version: 3.21.0
       tailwindcss:
         specifier: ^4
         version: 4.1.18

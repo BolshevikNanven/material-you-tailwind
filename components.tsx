@@ -83,7 +83,8 @@ const components = {
     pre: ({ className, ...props }: React.ComponentProps<'pre'>) => (
         <pre
             className={cn(
-                'mt-6 mb-4 overflow-x-auto rounded-xl bg-inverse-surface px-4 py-4 text-inverse-on-surface **:[code]:bg-transparent',
+                'my-4 overflow-auto rounded-xl bg-surface-container px-4 py-4 text-on-surface',
+                '**:[code]:bg-transparent **:[code]:p-0 **:[code]:text-on-surface',
                 className,
             )}
             {...props}
@@ -92,7 +93,7 @@ const components = {
     code: ({ className, ...props }: React.ComponentProps<'code'>) => (
         <code
             className={cn(
-                'relative rounded-md bg-surface-variant px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold text-on-surface-variant',
+                'relative rounded-md bg-surface-variant px-[0.3rem] py-[0.2rem] font-mono text-sm text-on-surface-variant',
                 className,
             )}
             {...props}

@@ -7,10 +7,12 @@ import { ComponentSourceViewer } from './component-source-viewer'
 
 export default async function ComponentPreview({ children, className }: { children: React.ReactElement; className?: string }) {
     let code = ''
+    let title = ''
 
     if (children?.type) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const type = children.type as any
+        title = type.displayName || ''
 
         // 1. Try to get source directly from component (injected by loader)
         if (type.__source) {
@@ -37,9 +39,9 @@ export default async function ComponentPreview({ children, className }: { childr
     }
 
     return (
-        <div className={cn('mt-8 flex flex-col rounded-3xl border border-outline-variant', className)}>
+        <div className={cn('mt-8 flex flex-col overflow-hidden rounded-3xl border border-outline-variant', className)}>
             <div className='flex min-h-38 shrink-0 items-center justify-center rounded-3xl p-8'>{children}</div>
-            {code && <ComponentSourceViewer code={code} />}
+            {code && <ComponentSourceViewer title={title} code={code} />}
         </div>
     )
 }
