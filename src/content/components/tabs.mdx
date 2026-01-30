@@ -6,3 +6,30 @@ description: "Tabs organize content across different screens, data sets, and oth
 <ComponentPreview>
     <TabsDemo />
 </ComponentPreview>
+
+### Installation
+- Install the following dependencies
+```bash
+pnpm add @radix-ui/react-tabs class-variance-authority
+```
+
+- Copy and paste the following code into your project
+<ComponentSource>
+    <Tabs />
+</ComponentSource>
+
+### Usage
+```tsx
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+```
+
+```tsx
+<Tabs defaultValue="account" className="w-[400px]">
+  <TabsList>
+    <TabsTrigger value="account">Account</TabsTrigger>
+    <TabsTrigger value="password">Password</TabsTrigger>
+  </TabsList>
+  <TabsContent value="account">Make changes to your account here.</TabsContent>
+  <TabsContent value="password">Change your password here.</TabsContent>
+</Tabs>
+```

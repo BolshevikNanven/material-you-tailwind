@@ -6,3 +6,32 @@ description: "Radio buttons allow the user to select one option from a set."
 <ComponentPreview>
     <RadioGroupDemo />
 </ComponentPreview>
+
+### Installation
+- Install the following dependencies
+```bash
+pnpm add @radix-ui/react-radio-group
+```
+
+- Copy and paste the following code into your project
+<ComponentSource>
+    <RadioGroup />
+</ComponentSource>
+
+### Usage
+```tsx
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+```
+
+```tsx
+<RadioGroup defaultValue="option-one">
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-one" id="option-one" />
+    <label htmlFor="option-one">Option One</label>
+  </div>
+  <div className="flex items-center space-x-2">
+    <RadioGroupItem value="option-two" id="option-two" />
+    <label htmlFor="option-two">Option Two</label>
+  </div>
+</RadioGroup>
+```

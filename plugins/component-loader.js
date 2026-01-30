@@ -17,10 +17,10 @@ export default function componentLoader(source) {
             .map(d => resolve(rootDir, d))
 
         const injections = []
-        const exportList = []
+        const registryEntries = []
         const sourceMap = {}
-
         const assignments = []
+        let uniqueId = 0
 
         dirs.forEach(dir => {
             if (!existsSync(dir)) return
@@ -53,20 +53,28 @@ export default function componentLoader(source) {
                         .replace(/\\/g, '/')
                         .replace(/\.tsx$/, '')
                     const importPath = request.startsWith('.') ? request : './' + request
-                    injections.push(`import { ${names.join(', ')} } from '${importPath}';`)
 
-                    names.forEach(name => {
-                        // Assign source code and displayName directly to the component object
-                        // This fixes issues where displayName is lost in production builds
-                        assignments.push(`try { ${name}.displayName = "${name}"; } catch(e) {}`)
-                        assignments.push(`try { ${name}.__source = componentSources["${name}"]; } catch(e) {}`)
+                    const imports = names.map(name => {
+                        uniqueId++
+                        const aliasedName = `${name}_${uniqueId}`
+                        // Return object to easily pass both names
+                        return { original: name, aliased: aliasedName }
                     })
 
-                    exportList.push(...names)
+                    // import { Button as Button_1 } from ...
+                    const importClause = imports.map(i => `${i.original} as ${i.aliased}`).join(', ')
+                    injections.push(`import { ${importClause} } from '${importPath}';`)
 
-                    // Map names to content
-                    names.forEach(name => {
-                        sourceMap[name] = content
+                    imports.forEach(({ original, aliased }) => {
+                        // Assign source code and displayName directly to the component object
+                        assignments.push(`try { ${aliased}.displayName = "${original}"; } catch(e) {}`)
+                        assignments.push(`try { ${aliased}.__source = componentSources["${original}"]; } catch(e) {}`)
+
+                        // Add to registry: Button: Button_1
+                        registryEntries.push(`${original}: ${aliased}`)
+
+                        // Map names to content
+                        sourceMap[original] = content
                     })
                 }
             })
@@ -80,21 +88,24 @@ export default function componentLoader(source) {
 
         // Export componentSources
         const sourceExport = `export const componentSources = {\n${sourceEntries.join(',\n')}\n};`
-        const registryExport = `export const componentRegistry = {\n${exportList.join(',\n')}\n};`
+        const registryExport = `export const componentRegistry = {\n${registryEntries.join(',\n')}\n};`
 
         // Assignments must come AFTER componentSources is defined
         const assignmentsCode = assignments.join('\n')
         let newSource = `${injections.join('\n')}\n${sourceExport}\n${assignmentsCode}\n${registryExport}\n${source}`
 
-        if (exportList.length > 0) {
+        if (registryEntries.length > 0) {
             const exportDefaultRegex = /export\s+default\s+([\w\d_]+)/
             const matchDefault = newSource.match(exportDefaultRegex)
 
             if (matchDefault) {
                 const varName = matchDefault[1]
-                newSource = newSource.replace(exportDefaultRegex, `export default { ...${varName}, ${exportList.join(', ')} }`)
+                newSource = newSource.replace(
+                    exportDefaultRegex,
+                    `export default { ...${varName}, ${registryEntries.join(', ')} }`,
+                )
             } else {
-                newSource = newSource.replace(/export\s+default\s+\{/, `export default { ${exportList.join(', ')}, `)
+                newSource = newSource.replace(/export\s+default\s+\{/, `export default { ${registryEntries.join(', ')}, `)
             }
         }
 

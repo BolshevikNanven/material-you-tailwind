@@ -6,3 +6,36 @@ description: "Context menus behave like dropdown menus, but the trigger is a rig
 <ComponentPreview>
     <ContextMenuDemo />
 </ComponentPreview>
+
+### Installation
+- Install the following dependencies
+```bash
+pnpm add @radix-ui/react-context-menu
+```
+
+- Copy and paste the following code into your project
+<ComponentSource>
+    <ContextMenu />
+</ComponentSource>
+
+### Usage
+```tsx
+import {
+    ContextMenu,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuTrigger,
+} from '@/components/ui/context-menu'
+```
+
+```tsx
+<ContextMenu>
+    <ContextMenuTrigger>Right click</ContextMenuTrigger>
+    <ContextMenuContent>
+        <ContextMenuItem>Profile</ContextMenuItem>
+        <ContextMenuItem>Billing</ContextMenuItem>
+        <ContextMenuItem>Team</ContextMenuItem>
+        <ContextMenuItem>Subscription</ContextMenuItem>
+    </ContextMenuContent>
+</ContextMenu>
+```

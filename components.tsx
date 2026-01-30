@@ -1,26 +1,26 @@
 import ComponentPreview from '@/components/component-preview'
+import { CodeViewer } from '@/components/code-viewer'
 import { cn } from '@/lib/utils'
+import ComponentSource from '@/components/component-source'
+import { Button } from '@/components/ui/button'
 
 export const dirs = ['./src/components/ui', './src/demos']
 
 const components = {
     h1: ({ className, ...props }: React.ComponentProps<'h1'>) => (
-        <h1 className={cn('my-4 text-5xl text-on-surface', className)} {...props} />
+        <h1 className={cn('mt-10 mb-6 text-4xl font-medium text-on-surface', className)} {...props} />
     ),
     h2: ({ className, ...props }: React.ComponentProps<'h2'>) => (
-        <h2 className={cn('my-4 text-4xl text-on-surface', className)} {...props} />
+        <h2 className={cn('mt-10 mb-6 text-3xl font-medium text-on-surface', className)} {...props} />
     ),
     h3: ({ className, ...props }: React.ComponentProps<'h3'>) => (
-        <h3 className={cn('my-4 text-3xl text-on-surface', className)} {...props} />
+        <h3 className={cn('mt-10 mb-6 text-2xl font-medium text-on-surface', className)} {...props} />
     ),
     h4: ({ className, ...props }: React.ComponentProps<'h4'>) => (
-        <h4 className={cn('my-4 text-2xl text-on-surface', className)} {...props} />
+        <h4 className={cn('my-4 text-xl text-on-surface', className)} {...props} />
     ),
     h5: ({ className, ...props }: React.ComponentProps<'h5'>) => (
-        <h5 className={cn('my-2 text-xl text-on-surface', className)} {...props} />
-    ),
-    h6: ({ className, ...props }: React.ComponentProps<'h6'>) => (
-        <h6 className={cn('my-2 text-lg text-on-surface', className)} {...props} />
+        <h5 className={cn('my-2 text-lg text-on-surface', className)} {...props} />
     ),
     a: ({ className, ...props }: React.ComponentProps<'a'>) => (
         <a
@@ -80,26 +80,33 @@ const components = {
     td: ({ className, ...props }: React.ComponentProps<'td'>) => (
         <td className={cn('p-4 align-middle text-on-surface [&:has([role=checkbox])]:pr-0', className)} {...props} />
     ),
-    pre: ({ className, ...props }: React.ComponentProps<'pre'>) => (
+    pre: ({ className, children, ...props }: React.ComponentProps<'pre'>) => (
         <pre
             className={cn(
-                'my-4 overflow-auto rounded-xl bg-surface-container px-4 py-4 text-on-surface',
+                'relative my-4 overflow-auto rounded-xl bg-surface-container px-4 py-4 text-on-surface',
                 '**:[code]:bg-transparent **:[code]:p-0 **:[code]:text-on-surface',
                 className,
             )}
             {...props}
-        />
+        >
+            <Button className='absolute top-2 right-3' variant={'text'} size={'sm'} icon>
+                <i className='icon-[material-symbols--content-copy-outline-rounded]' />
+            </Button>
+            {children}
+        </pre>
     ),
     code: ({ className, ...props }: React.ComponentProps<'code'>) => (
         <code
             className={cn(
-                'relative rounded-md bg-surface-variant px-[0.3rem] py-[0.2rem] font-mono text-sm text-on-surface-variant',
+                'relative rounded-md bg-surface-variant px-[0.3rem] py-[0.2rem] font-mono text-sm **:[span]:text-(--shiki-light) dark:**:[span]:text-(--shiki-dark)',
                 className,
             )}
             {...props}
         />
     ),
     ComponentPreview,
+    ComponentSource,
+    CodeViewer,
 }
 
 export default components

@@ -6,3 +6,27 @@ description: "Navigation bars let users switch between top-level views on smalle
 <ComponentPreview>
     <NavigationBarDemo />
 </ComponentPreview>
+
+### Installation
+- Install the following dependencies
+```bash
+pnpm add @radix-ui/react-slot class-variance-authority
+```
+
+- Copy and paste the following code into your project
+<ComponentSource>
+    <NavigationBar />
+</ComponentSource>
+
+### Usage
+```tsx
+import { NavigationBar, NavigationBarItem } from '@/components/ui/navigation-bar'
+```
+
+```tsx
+<NavigationBar>
+    <NavigationBarItem icon={<Icon />}>Label</NavigationBarItem>
+    <NavigationBarItem icon={<Icon />}>Label</NavigationBarItem>
+    <NavigationBarItem icon={<Icon />}>Label</NavigationBarItem>
+</NavigationBar>
+```

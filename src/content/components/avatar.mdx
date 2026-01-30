@@ -6,3 +6,26 @@ description: "Avatars are used to show a thumbnail representation of an individu
 <ComponentPreview>
     <AvatarDemo />
 </ComponentPreview>
+
+### Installation
+- Install the following dependencies
+```bash
+pnpm add @radix-ui/react-avatar
+```
+
+- Copy and paste the following code into your project
+<ComponentSource>
+    <Avatar />
+</ComponentSource>
+
+### Usage
+```tsx
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+```
+
+```tsx
+<Avatar>
+    <AvatarImage src={'https://github.com/bolsheviknanven.png'} alt='avatar' />
+    <AvatarFallback>A</AvatarFallback>
+</Avatar>
+```

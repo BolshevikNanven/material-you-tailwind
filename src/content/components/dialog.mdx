@@ -6,3 +6,40 @@ description: "Dialogs provide important information or ask for a decision."
 <ComponentPreview>
     <DialogDemo />
 </ComponentPreview>
+
+### Installation
+- Install the following dependencies
+```bash
+pnpm add @radix-ui/react-dialog
+```
+
+- Copy and paste the following code into your project
+<ComponentSource>
+    <Dialog />
+</ComponentSource>
+
+### Usage
+```tsx
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog'
+```
+
+```tsx
+<Dialog>
+    <DialogTrigger>Open</DialogTrigger>
+    <DialogContent>
+        <DialogHeader>
+            <DialogTitle>Are you sure absolutely sure?</DialogTitle>
+            <DialogDescription>
+                This action cannot be undone.
+            </DialogDescription>
+        </DialogHeader>
+    </DialogContent>
+</Dialog>
+```

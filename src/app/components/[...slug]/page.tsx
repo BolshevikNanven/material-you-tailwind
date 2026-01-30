@@ -17,7 +17,9 @@ export default async function ComponentsPage(props: { params: Promise<{ slug: st
                     <p className='mr-10 text-xl text-on-surface-variant'>{page.data.description}</p>
                 </div>
             </header>
-            <MDX components={components} />
+            <main>
+                <MDX components={components} />
+            </main>
         </div>
     )
 }

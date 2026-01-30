@@ -6,3 +6,36 @@ description: "Snackbars provide brief messages about app processes at the bottom
 <ComponentPreview>
     <SnakebarDemo />
 </ComponentPreview>
+
+### Installation
+- Install the following dependencies
+```bash
+pnpm add sonner
+```
+
+- Copy and paste the following code into your project
+<ComponentSource>
+    <Snakebar />
+</ComponentSource>
+
+### Usage
+```tsx
+import { toast } from '@/components/ui/snakebar'
+```
+
+```tsx
+<Button
+  variant="outline"
+  onClick={() =>
+    toast({
+        message: "Event has been created",
+        action: {
+            label: "Undo",
+            onClick: () => console.log("Undo"),
+        },
+    })
+  }
+>
+  Show Snakebar
+</Button>
+```

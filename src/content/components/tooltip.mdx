@@ -6,3 +6,35 @@ description: "Tooltips display informative text when users hover over, focus on,
 <ComponentPreview>
     <TooltipDemo />
 </ComponentPreview>
+
+### Installation
+- Install the following dependencies
+```bash
+pnpm add @radix-ui/react-tooltip
+```
+
+- Copy and paste the following code into your project
+<ComponentSource>
+    <Tooltip />
+</ComponentSource>
+
+### Usage
+```tsx
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+```
+
+```tsx
+<TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger>Hover</TooltipTrigger>
+    <TooltipContent>
+      <p>Add to library</p>
+    </TooltipContent>
+  </Tooltip>
+</TooltipProvider>
+```

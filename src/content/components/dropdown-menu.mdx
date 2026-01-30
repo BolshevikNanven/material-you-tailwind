@@ -6,3 +6,35 @@ description: "Dropdown menus display a list of choices on a temporary surface."
 <ComponentPreview>
     <DropdownMenuDemo />
 </ComponentPreview>
+
+### Installation
+- Install the following dependencies
+```bash
+pnpm add @radix-ui/react-dropdown-menu
+```
+
+- Copy and paste the following code into your project
+<ComponentSource>
+    <DropdownMenu />
+</ComponentSource>
+
+### Usage
+```tsx
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+```
+
+```tsx
+<DropdownMenu>
+    <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+    <DropdownMenuContent>
+        <DropdownMenuItem>Item 1</DropdownMenuItem>
+        <DropdownMenuItem>Item 2</DropdownMenuItem>
+        <DropdownMenuItem>Item 3</DropdownMenuItem>
+    </DropdownMenuContent>
+</DropdownMenu>
+```

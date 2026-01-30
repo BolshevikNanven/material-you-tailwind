@@ -1,11 +1,10 @@
 import React from 'react'
-import { cn } from '@/lib/utils'
 // @ts-expect-error - componentSources is injected by component-loader
 import { componentSources, componentRegistry } from '../../components'
 
 import { CodeViewer } from './code-viewer'
 
-export default async function ComponentPreview({ children, className }: { children: React.ReactElement; className?: string }) {
+export default async function ComponentSource({ children }: { children: React.ReactElement; className?: string }) {
     let code = ''
     let title = ''
 
@@ -38,10 +37,5 @@ export default async function ComponentPreview({ children, className }: { childr
         }
     }
 
-    return (
-        <div className={cn('mt-8 flex flex-col overflow-hidden rounded-3xl border border-outline-variant', className)}>
-            <div className='flex min-h-38 shrink-0 items-center justify-center rounded-3xl p-8'>{children}</div>
-            {code && <CodeViewer className='border-none' title={title} code={code} />}
-        </div>
-    )
+    return <CodeViewer className='border-none' title={title} code={code} />
 }

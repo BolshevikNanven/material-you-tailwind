@@ -6,3 +6,36 @@ description: "Navigation rails let users switch between top-level views on large
 <ComponentPreview>
     <NavigationRailDemo />
 </ComponentPreview>
+
+### Installation
+- Install the following dependencies
+```bash
+pnpm add @radix-ui/react-dialog @radix-ui/react-slot class-variance-authority
+```
+
+- Copy and paste the following code into your project
+<ComponentSource>
+    <NavigationRail />
+</ComponentSource>
+
+### Usage
+```tsx
+import {
+    NavigationRail,
+    NavigationRailContent,
+    NavigationRailItem,
+    NavigationRailMenu,
+    NavigationRailTrigger,
+} from '@/components/ui/navigation-rail'
+```
+
+```tsx
+<NavigationRail>
+    <NavigationRailContent>
+        <NavigationRailMenu>
+            <NavigationRailTrigger />
+        </NavigationRailMenu>
+        <NavigationRailItem icon={<Icon />}>Label</NavigationRailItem>
+    </NavigationRailContent>
+</NavigationRail>
+```

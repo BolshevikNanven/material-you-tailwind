@@ -6,3 +6,31 @@ description: "Cards contain content and actions about a single subject."
 <ComponentPreview>
     <CardDemo />
 </ComponentPreview>
+
+### Installation
+- Install the following dependencies
+```bash
+pnpm add @radix-ui/react-slot class-variance-authority
+```
+
+- Copy and paste the following code into your project
+<ComponentSource>
+    <Card />
+</ComponentSource>
+
+### Usage
+```tsx
+import { Card, CardContent, CardFooter, CardImage } from '@/components/ui/card'
+```
+
+```tsx
+<Card>
+    <CardImage />
+    <CardContent>
+        <p>Card Content</p>
+    </CardContent>
+    <CardFooter>
+        <p>Card Footer</p>
+    </CardFooter>
+</Card>
+```
