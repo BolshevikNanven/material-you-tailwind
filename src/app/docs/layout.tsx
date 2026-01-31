@@ -1,5 +1,6 @@
 import DocContainer from '@/components/doc-container'
 import { docsSource } from '@/lib/source'
+import { sortDocsPages } from '@/lib/order'
 
 export default async function ComponentLayout({
     children,
@@ -7,15 +8,7 @@ export default async function ComponentLayout({
     children: React.ReactNode
 }>) {
     const pages = docsSource.getPages()
-    const ORDER = ['Introduction', 'Installation', 'Colors', 'Icons']
-
-    const sortedPages = pages.sort((a, b) => {
-        const indexA = ORDER.indexOf(a.data.title)
-        const indexB = ORDER.indexOf(b.data.title)
-        if (indexA === -1) return 1
-        if (indexB === -1) return -1
-        return indexA - indexB
-    })
+    const sortedPages = sortDocsPages(pages)
 
     return <DocContainer data={sortedPages.map(page => ({ title: page.data.title, href: page.url }))}>{children}</DocContainer>
 }
