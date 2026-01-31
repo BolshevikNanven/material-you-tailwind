@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useTheme } from '@/context/theme'
+import { SimpleIconsGithub } from './logos/github'
 
 export default function Navigation() {
     const { theme, setTheme } = useTheme()
@@ -46,7 +47,12 @@ export default function Navigation() {
                 >
                     <Link href={'/components'}>components</Link>
                 </NavigationRailItem>
-                <div className='mt-auto flex flex-wrap p-4'>
+                <div className='mt-auto flex flex-wrap gap-2 p-4'>
+                    <Button variant='outline' icon className='size-14 rounded-full' asChild>
+                        <a href='https://github.com/BolshevikNanven/material-you-tailwind' target='_blank'>
+                            <SimpleIconsGithub className='size-6' />
+                        </a>
+                    </Button>
                     <Button variant='outline' icon className='size-14 rounded-full' onClick={handleChangeMode}>
                         {theme === 'dark' ? (
                             <i className='icon-[material-symbols--sunny-outline-rounded] size-6' />
