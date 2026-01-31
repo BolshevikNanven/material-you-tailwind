@@ -55,25 +55,19 @@ const components = {
     ),
     hr: ({ ...props }: React.ComponentProps<'hr'>) => <hr className='my-4 border-outline-variant md:my-8' {...props} />,
     table: ({ className, ...props }: React.ComponentProps<'table'>) => (
-        <div className='my-6 w-full overflow-y-auto rounded-xl border border-outline-variant'>
+        <div className='my-6 w-full overflow-y-auto rounded-3xl border border-outline-variant'>
             <table className={cn('w-full caption-bottom text-sm', className)} {...props} />
         </div>
     ),
+    thead: ({ className, ...props }: React.ComponentProps<'thead'>) => (
+        <thead className={cn('border-b bg-surface-variant font-semibold', className)} {...props} />
+    ),
     tr: ({ className, ...props }: React.ComponentProps<'tr'>) => (
-        <tr
-            className={cn(
-                'border-b border-outline-variant transition-colors hover:bg-surface-container-high/50 data-[state=selected]:bg-surface-container-highest',
-                className,
-            )}
-            {...props}
-        />
+        <tr className={cn('border-outline-variant not-last:border-b', className)} {...props} />
     ),
     th: ({ className, ...props }: React.ComponentProps<'th'>) => (
         <th
-            className={cn(
-                'h-12 bg-surface-container px-4 text-left align-middle font-medium text-on-surface-variant [&:has([role=checkbox])]:pr-0',
-                className,
-            )}
+            className={cn('h-12 px-4 text-left align-middle text-on-surface-variant [&:has([role=checkbox])]:pr-0', className)}
             {...props}
         />
     ),

@@ -33,3 +33,42 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
   <TabsContent value="password">Change your password here.</TabsContent>
 </Tabs>
 ```
+
+## API Reference
+
+### Tabs
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| defaultValue | `string` | |
+| value | `string` | |
+| onValueChange | `function` | |
+| orientation | `horizontal` \| `vertical` | `horizontal` |
+| dir | `ltr` \| `rtl` | |
+| activationMode | `automatic` \| `manual` | `automatic` |
+| asChild | `boolean` | `false` |
+
+### TabsList
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| loop | `boolean` | `true` |
+| asChild | `boolean` | `false` |
+| variant | `primary` \| `secondary` | `primary` |
+
+### TabsTrigger
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| value | `string` | |
+| disabled | `boolean` | `false` |
+| asChild | `boolean` | `false` |
+| icon | `React.ReactNode` | |
+
+### TabsContent
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| value | `string` | |
+| forceMount | `boolean` | |
+| asChild | `boolean` | `false` |

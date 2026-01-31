@@ -19,7 +19,7 @@ export default function DocOverview({ toc }: { toc: TOCItem[] }) {
 
         const handleScroll = () => {
             const headings = parent.querySelectorAll<HTMLElement>('[data-slot="heading"]')
-            const topOffset = window.innerHeight - 80
+            const topOffset = 100
             let newActiveId = ''
 
             for (const heading of headings) {
@@ -42,10 +42,10 @@ export default function DocOverview({ toc }: { toc: TOCItem[] }) {
     }, [])
 
     return (
-        <div ref={containerRef} className='shrink-0overflow-y-auto sticky top-0 flex h-screen items-center pr-8'>
-            <div className='flex flex-col'>
+        <div ref={containerRef} className='sticky top-0 flex h-screen shrink-0 items-center overflow-hidden'>
+            <div className='flex max-h-full flex-col'>
                 <h3 className='mb-2 pl-4 text-xs font-semibold text-on-surface-variant'>On This Page</h3>
-                <ul className='flex flex-col'>
+                <ul className='flex flex-col overflow-y-auto pr-8'>
                     {toc.map(item => (
                         <a
                             key={item.url}

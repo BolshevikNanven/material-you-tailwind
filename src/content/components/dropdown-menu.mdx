@@ -38,3 +38,129 @@ import {
     </DropdownMenuContent>
 </DropdownMenu>
 ```
+
+## API Reference
+
+### DropdownMenu
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| dir | `ltr` \| `rtl` | |
+| open | `boolean` | |
+| defaultOpen | `boolean` | |
+| onOpenChange | `function` | |
+| modal | `boolean` | `true` |
+
+### DropdownMenuTrigger
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| asChild | `boolean` | `false` |
+
+### DropdownMenuContent
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| loop | `boolean` | `false` |
+| onCloseAutoFocus | `function` | |
+| onEscapeKeyDown | `function` | |
+| onPointerDownOutside | `function` | |
+| onFocusOutside | `function` | |
+| onInteractOutside | `function` | |
+| forceMount | `boolean` | |
+| sideOffset | `number` | `4` |
+| alignOffset | `number` | `0` |
+| avoidCollisions | `boolean` | `true` |
+| collisionBoundary | `element` \| `element[]` | |
+| collisionPadding | `number` \| `padding` | `0` |
+| arrowPadding | `number` | `0` |
+| sticky | `partial` \| `always` | `partial` |
+| hideWhenDetached | `boolean` | `false` |
+
+### DropdownMenuItem
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| disabled | `boolean` | `false` |
+| onSelect | `function` | |
+| textValue | `string` | |
+| asChild | `boolean` | `false` |
+| inset | `boolean` | `false` |
+
+### DropdownMenuCheckboxItem
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| checked | `boolean` \| `indeterminate` | |
+| onCheckedChange | `function` | |
+| disabled | `boolean` | `false` |
+| onSelect | `function` | |
+| textValue | `string` | |
+| asChild | `boolean` | `false` |
+
+### DropdownMenuRadioItem
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| value | `string` | |
+| disabled | `boolean` | `false` |
+| onSelect | `function` | |
+| textValue | `string` | |
+| asChild | `boolean` | `false` |
+
+### DropdownMenuLabel
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| inset | `boolean` | `false` |
+| asChild | `boolean` | `false` |
+
+### DropdownMenuSeparator
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| asChild | `boolean` | `false` |
+
+### DropdownMenuSub
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| defaultOpen | `boolean` | |
+| open | `boolean` | |
+| onOpenChange | `function` | |
+
+### DropdownMenuSubTrigger
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| disabled | `boolean` | `false` |
+| textValue | `string` | |
+| asChild | `boolean` | `false` |
+| inset | `boolean` | `false` |
+
+### DropdownMenuSubContent
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| loop | `boolean` | `false` |
+| onEscapeKeyDown | `function` | |
+| onPointerDownOutside | `function` | |
+| onFocusOutside | `function` | |
+| onInteractOutside | `function` | |
+| forceMount | `boolean` | |
+| sideOffset | `number` | `0` |
+| alignOffset | `number` | `0` |
+| avoidCollisions | `boolean` | `true` |
+| collisionBoundary | `element` \| `element[]` | |
+| collisionPadding | `number` \| `padding` | `0` |
+| arrowPadding | `number` | `0` |
+| sticky | `partial` \| `always` | `partial` |
+| hideWhenDetached | `boolean` | `false` |
+
+### DropdownMenuRadioGroup
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| value | `string` | |
+| onValueChange | `function` | |
+| asChild | `boolean` | `false` |

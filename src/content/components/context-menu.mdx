@@ -39,3 +39,126 @@ import {
     </ContextMenuContent>
 </ContextMenu>
 ```
+
+## API Reference
+
+### ContextMenu
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| dir | `ltr` \| `rtl` | |
+| onOpenChange | `function` | |
+| modal | `boolean` | `true` |
+
+### ContextMenuTrigger
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| disabled | `boolean` | `false` |
+| asChild | `boolean` | `false` |
+
+### ContextMenuContent
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| loop | `boolean` | `false` |
+| onCloseAutoFocus | `function` | |
+| onEscapeKeyDown | `function` | |
+| onPointerDownOutside | `function` | |
+| onFocusOutside | `function` | |
+| onInteractOutside | `function` | |
+| forceMount | `boolean` | |
+| sticky | `partial` \| `always` | `partial` |
+| hideWhenDetached | `boolean` | `false` |
+| alignOffset | `number` | `0` |
+| avoidCollisions | `boolean` | `true` |
+| collisionBoundary | `element` \| `element[]` | |
+| collisionPadding | `number` \| `padding` | `0` |
+| arrowPadding | `number` | `0` |
+
+### ContextMenuItem
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| asChild | `boolean` | `false` |
+| disabled | `boolean` | `false` |
+| onSelect | `function` | |
+| textValue | `string` | |
+| inset | `boolean` | `false` |
+
+### ContextMenuCheckboxItem
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| checked | `boolean` \| `indeterminate` | |
+| onCheckedChange | `function` | |
+| disabled | `boolean` | `false` |
+| onSelect | `function` | |
+| textValue | `string` | |
+| asChild | `boolean` | `false` |
+
+### ContextMenuRadioItem
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| value | `string` | |
+| disabled | `boolean` | `false` |
+| onSelect | `function` | |
+| textValue | `string` | |
+| asChild | `boolean` | `false` |
+
+### ContextMenuLabel
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| inset | `boolean` | `false` |
+| asChild | `boolean` | `false` |
+
+### ContextMenuSeparator
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| asChild | `boolean` | `false` |
+
+### ContextMenuSub
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| defaultOpen | `boolean` | |
+| open | `boolean` | |
+| onOpenChange | `function` | |
+
+### ContextMenuSubTrigger
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| disabled | `boolean` | `false` |
+| textValue | `string` | |
+| asChild | `boolean` | `false` |
+| inset | `boolean` | `false` |
+
+### ContextMenuSubContent
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| loop | `boolean` | `false` |
+| onEscapeKeyDown | `function` | |
+| onPointerDownOutside | `function` | |
+| onFocusOutside | `function` | |
+| onInteractOutside | `function` | |
+| forceMount | `boolean` | |
+| sticky | `partial` \| `always` | `partial` |
+| hideWhenDetached | `boolean` | `false` |
+| alignOffset | `number` | `0` |
+| avoidCollisions | `boolean` | `true` |
+| collisionBoundary | `element` \| `element[]` | |
+| collisionPadding | `number` \| `padding` | `0` |
+| arrowPadding | `number` | `0` |
+
+### ContextMenuRadioGroup
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| value | `string` | |
+| onValueChange | `function` | |
+| asChild | `boolean` | `false` |

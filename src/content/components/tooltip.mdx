@@ -38,3 +38,48 @@ import {
   </Tooltip>
 </TooltipProvider>
 ```
+
+## API Reference
+
+### TooltipProvider
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| delayDuration | `number` | `700` |
+| skipDelayDuration | `number` | `300` |
+| disableHoverableContent | `boolean` | `false` |
+
+### Tooltip
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| open | `boolean` | |
+| defaultOpen | `boolean` | |
+| onOpenChange | `function` | |
+| delayDuration | `number` | `700` |
+| disableHoverableContent | `boolean` | `false` |
+
+### TooltipTrigger
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| asChild | `boolean` | `false` |
+
+### TooltipContent
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| aria-label | `string` | |
+| onEscapeKeyDown | `function` | |
+| onPointerDownOutside | `function` | |
+| forceMount | `boolean` | |
+| side | `top` \| `right` \| `bottom` \| `left` | `top` |
+| sideOffset | `number` | `4` |
+| align | `start` \| `center` \| `end` | `center` |
+| alignOffset | `number` | `0` |
+| avoidCollisions | `boolean` | `true` |
+| collisionBoundary | `element` \| `element[]` | |
+| collisionPadding | `number` \| `padding` | `0` |
+| arrowPadding | `number` | `0` |
+| sticky | `partial` \| `always` | `partial` |
+| hideWhenDetached | `boolean` | `false` |
