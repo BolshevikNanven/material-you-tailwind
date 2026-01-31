@@ -1,0 +1,45 @@
+---
+title: Icons
+description: Using icons in your project with Iconify and Tailwind CSS.
+image: '/icon.png'
+---
+
+## Icons
+
+We use [Iconify](https://iconify.design/) with the [Tailwind CSS plugin](https://iconify.design/docs/usage/css/tailwind/) to rendering icons. This allows you to use any icon set available on Iconify with a simple class name.
+
+### Installation
+
+If you followed the Manual Installation guide, you should already have the necessary packages installed. If not, install them now:
+
+```bash
+pnpm add -D @iconify/tailwind4 @iconify-json/material-symbols
+```
+
+Then add the plugin to your `globals.css` (or wherever you import Tailwind):
+
+```css title="src/app/globals.css"
+@import "tailwindcss";
+@plugin "@iconify/tailwind4";
+```
+
+### Usage
+
+You can use any icon from the `material-symbols` collection by using the `icon-[set--name]` class syntax.
+
+```tsx
+<span className="icon-[material-symbols--home-outline-rounded]" />
+<span className="icon-[material-symbols--search-rounded]" />
+<span className="icon-[material-symbols--settings-outline-rounded]" />
+```
+
+You can control the size and color of the icon using standard Tailwind utility classes.
+
+```tsx
+<span className="icon-[material-symbols--favorite-rounded] text-error size-6" />
+<span className="icon-[material-symbols--info-outline-rounded] text-primary h-8 w-8" />
+```
+
+### Finding Icons
+
+You can browse the full collection of Material Symbols on the [Iconify website](https://icon-sets.iconify.design/material-symbols/).

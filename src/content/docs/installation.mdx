@@ -1,0 +1,275 @@
+---
+title: Installation
+description: How to install and configure the components manually.
+image: '/develop.png'
+---
+
+## Manual Installation
+
+Since this is not a component library, you need to configure your project to support the components.
+
+### 1. Create a Next.js project
+
+Start by creating a new Next.js project using `create-next-app`.
+
+```bash
+npx create-next-app@latest my-app --typescript --tailwind --eslint
+cd my-app
+```
+
+### 2. Install dependencies
+
+Install the required dependencies for styling and utilities.
+
+```bash
+pnpm add tailwindcss @tailwindcss/postcss clsx tailwind-merge class-variance-authority tw-animate-css @iconify/tailwind4
+```
+
+### 3. Configure PostCSS
+
+Create or update your `postcss.config.mjs` file to include the Tailwind CSS plugin.
+
+```js title="postcss.config.mjs"
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+```
+
+### 4. Create utils
+
+Create a `src/lib/utils.ts` file. This file contains the `cn` helper for merging Tailwind classes.
+
+```typescript title="src/lib/utils.ts"
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
+
+### 5. Configure Global Styles
+
+Update `src/app/globals.css` to include the Material Design 3 variables and Tailwind configuration.
+
+```css title="src/app/globals.css"
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@plugin "@iconify/tailwind4";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --shadow-elevation-1: 0 1px 3px 1px rgba(0, 0, 0, 0.15),
+    0 1px 2px 0px rgba(0, 0, 0, 0.30);
+  --shadow-elevation-2: 0 2px 6px 2px rgba(0, 0, 0, 0.15),
+    0 1px 2px 0px rgba(0, 0, 0, 0.30);
+  --shadow-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15),
+    0 1px 3px 0px rgba(0, 0, 0, 0.30);
+  --shadow-elevation-4: 0 6px 10px 4px rgba(0, 0, 0, 0.15),
+    0 2px 3px 0px rgba(0, 0, 0, 0.30);
+  --shadow-elevation-5: 0 8px 12px 6px rgba(0, 0, 0, 0.15),
+    0 4px 4px 0px rgba(0, 0, 0, 0.30);
+
+  --color-primary: var(--primary);
+  --color-primary-container: var(--primary-container);
+  --color-primary-fixed: var(--primary-fixed);
+  --color-primary-fixed-dim: var(--primary-fixed-dim);
+  --color-on-primary: var(--on-primary);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-on-primary-fixed: var(--on-primary-fixed);
+  --color-on-primary-fixed-variant: var(--on-primary-fixed-variant);
+  --color-inverse-primary: var(--inverse-primary);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-secondary-fixed: var(--secondary-fixed);
+  --color-secondary-fixed-dim: var(--secondary-fixed-dim);
+  --color-on-secondary: var(--on-secondary);
+  --color-on-secondary-container: var(--on-secondary-container);
+  --color-on-secondary-fixed: var(--on-secondary-fixed);
+  --color-on-secondary-fixed-variant: var(--on-secondary-fixed-variant);
+
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-tertiary-fixed: var(--tertiary-fixed);
+  --color-tertiary-fixed-dim: var(--tertiary-fixed-dim);
+  --color-on-tertiary: var(--on-tertiary);
+  --color-on-tertiary-container: var(--on-tertiary-container);
+  --color-on-tertiary-fixed: var(--on-tertiary-fixed);
+  --color-on-tertiary-fixed-variant: var(--on-tertiary-fixed-variant);
+
+  --color-surface: var(--surface);
+  --color-surface-tint: var(--surface-tint);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+
+  --color-error: var(--error);
+  --color-error-container: var(--error-container);
+  --color-on-error: var(--on-error);
+  --color-on-error-container: var(--on-error-container);
+
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+
+  --color-background: var(--background);
+  --color-inverse-on-surface: var(--inverse-on-surface);
+  --color-inverse-surface: var(--inverse-surface);
+  --color-scrim: var(--scrim);
+  --color-shadow: var(--shadow);
+  --color-on-background: var(--on-background);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-surface-variant: var(--surface-variant);
+}
+
+:root {
+  --primary: #3d691b;
+  --primary-container: #bcf293;
+  --primary-fixed: #bcf293;
+  --primary-fixed-dim: #a1d579;
+  --on-primary: #ffffff;
+  --on-primary-container: #0b2000;
+  --on-primary-fixed: #0b2000;
+  --on-primary-fixed-variant: #265101;
+  --inverse-primary: #a1d579;
+  --secondary: #56624b;
+  --secondary-container: #dae7c9;
+  --secondary-fixed: #dae7c9;
+  --secondary-fixed-dim: #becbae;
+  --on-secondary: #ffffff;
+  --on-secondary-container: #141e0c;
+  --on-secondary-fixed: #141e0c;
+  --on-secondary-fixed-variant: #3f4a35;
+  --tertiary: #386665;
+  --tertiary-container: #bbecea;
+  --tertiary-fixed: #bbecea;
+  --tertiary-fixed-dim: #a0cfce;
+  --on-tertiary: #ffffff;
+  --on-tertiary-container: #002020;
+  --on-tertiary-fixed: #002020;
+  --on-tertiary-fixed-variant: #1e4e4d;
+  --surface: #fafaf2;
+  --surface-tint: #3d691b;
+  --surface-dim: #dadad3;
+  --surface-bright: #fafaf2;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f4f4ed;
+  --surface-container: #eeeee7;
+  --surface-container-high: #e9e8e1;
+  --surface-container-highest: #e3e3dc;
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+  --on-error: #ffffff;
+  --on-error-container: #410002;
+  --outline: #74796d;
+  --outline-variant: #c4c8ba;
+  --background: #fafaf2;
+  --inverse-on-surface: #f1f1ea;
+  --inverse-surface: #2f312c;
+  --scrim: #000000;
+  --shadow: #000000;
+  --on-background: #1a1c18;
+  --on-surface: #1a1c18;
+  --on-surface-variant: #44483e;
+  --surface-variant: #e0e4d6;
+}
+
+.dark {
+  --primary: #a1d579;
+  --primary-container: #265101;
+  --primary-fixed: #bcf293;
+  --primary-fixed-dim: #a1d579;
+  --on-primary: #183800;
+  --on-primary-container: #bcf293;
+  --on-primary-fixed: #0b2000;
+  --on-primary-fixed-variant: #265101;
+  --inverse-primary: #3d691b;
+  --secondary: #becbae;
+  --secondary-container: #3f4a35;
+  --secondary-fixed: #dae7c9;
+  --secondary-fixed-dim: #becbae;
+  --on-secondary: #293420;
+  --on-secondary-container: #dae7c9;
+  --on-secondary-fixed: #141e0c;
+  --on-secondary-fixed-variant: #3f4a35;
+  --tertiary: #a0cfce;
+  --tertiary-container: #1e4e4d;
+  --tertiary-fixed: #bbecea;
+  --tertiary-fixed-dim: #a0cfce;
+  --on-tertiary: #003736;
+  --on-tertiary-container: #bbecea;
+  --on-tertiary-fixed: #002020;
+  --on-tertiary-fixed-variant: #1e4e4d;
+  --surface: #121410;
+  --surface-tint: #a1d579;
+  --surface-dim: #121410;
+  --surface-bright: #383a35;
+  --surface-container-lowest: #0d0f0b;
+  --surface-container-low: #1a1c18;
+  --surface-container: #1e201c;
+  --surface-container-high: #292b26;
+  --surface-container-highest: #343531;
+  --error: #ffb4ab;
+  --error-container: #93000a;
+  --on-error: #690005;
+  --on-error-container: #ffdad6;
+  --outline: #8e9286;
+  --outline-variant: #44483e;
+  --background: #121410;
+  --inverse-on-surface: #2f312c;
+  --inverse-surface: #e3e3dc;
+  --scrim: #000000;
+  --shadow: #000000;
+  --on-background: #e3e3dc;
+  --on-surface: #e3e3dc;
+  --on-surface-variant: #c4c8ba;
+  --surface-variant: #44483e;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--primary);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+@layer base {
+  * {
+    @apply border-outline-variant outline-outline;
+  }
+
+  body {
+    @apply bg-surface-container text-on-surface;
+  }
+}
+```
+
+You can now start adding components to your project.

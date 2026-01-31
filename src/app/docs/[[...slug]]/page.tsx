@@ -2,6 +2,7 @@ import { docsSource } from '@/lib/source'
 import { notFound } from 'next/navigation'
 import components from '../../../../components'
 import DocOverview from '@/components/doc-overview'
+import Image from 'next/image'
 
 export default async function DocsPage(props: { params: Promise<{ slug?: string[] }> }) {
     const params = await props.params
@@ -18,6 +19,11 @@ export default async function DocsPage(props: { params: Promise<{ slug?: string[
                     <div className='mt-4 flex'>
                         <p className='mr-10 text-xl text-on-surface-variant'>{page.data.description}</p>
                     </div>
+                    {page.data.image && (
+                        <div className='relative mt-8 aspect-video w-full overflow-hidden rounded-3xl'>
+                            <Image src={page.data.image} alt={page.data.title} fill className='object-cover' />
+                        </div>
+                    )}
                 </header>
                 <main>
                     <MDX components={components} />

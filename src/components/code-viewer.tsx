@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
+import { CopyButton } from './ui/copy-button'
 
 import { highlight } from '@/lib/highlight'
 
@@ -41,9 +42,7 @@ export function CodeViewer({ title, code, className }: CodeViewerProps) {
                     />
                     {isOpen ? 'Collapse Code' : 'Expand Code'}
                 </Button>
-                <Button size='sm' variant='text' icon>
-                    <i className='icon-[material-symbols--content-copy-outline-rounded]' />
-                </Button>
+                <CopyButton size='sm' variant='text' text={code} />
             </div>
 
             <div className='relative h-full'>

@@ -2,7 +2,7 @@ import ComponentPreview from '@/components/component-preview'
 import { CodeViewer } from '@/components/code-viewer'
 import { cn } from '@/lib/utils'
 import ComponentSource from '@/components/component-source'
-import { Button } from '@/components/ui/button'
+import { CopyButton } from '@/components/ui/copy-button'
 
 export const dirs = ['./src/components/ui', './src/demos']
 
@@ -75,19 +75,19 @@ const components = {
         <td className={cn('p-4 align-middle text-on-surface [&:has([role=checkbox])]:pr-0', className)} {...props} />
     ),
     pre: ({ className, children, ...props }: React.ComponentProps<'pre'>) => (
-        <pre
-            className={cn(
-                'relative my-4 overflow-auto rounded-xl bg-surface-container px-4 py-4 text-on-surface',
-                '**:[code]:bg-transparent **:[code]:p-0 **:[code]:text-on-surface',
-                className,
-            )}
-            {...props}
-        >
-            <Button className='absolute top-2 right-3' variant={'text'} size={'sm'} icon>
-                <i className='icon-[material-symbols--content-copy-outline-rounded]' />
-            </Button>
-            {children}
-        </pre>
+        <div className='relative'>
+            <pre
+                className={cn(
+                    'relative my-4 overflow-auto rounded-xl bg-surface-container px-4 py-4 text-on-surface',
+                    '**:[code]:bg-transparent **:[code]:p-0 **:[code]:text-on-surface',
+                    className,
+                )}
+                {...props}
+            >
+                {children}
+            </pre>
+            <CopyButton className='absolute top-2 right-3' />
+        </div>
     ),
     code: ({ className, ...props }: React.ComponentProps<'code'>) => (
         <code

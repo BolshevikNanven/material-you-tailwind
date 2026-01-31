@@ -7,7 +7,7 @@ async function getHighlighter() {
     if (!highlighterPromise) {
         highlighterPromise = createHighlighterCore({
             themes: [import('@shikijs/themes/github-light'), import('@shikijs/themes/github-dark')],
-            langs: [import('@shikijs/langs/tsx'), import('@shikijs/langs/typescript')],
+            langs: [import('@shikijs/langs/tsx'), import('@shikijs/langs/typescript'), import('@shikijs/langs/css')],
             engine: createOnigurumaEngine(import('shiki/wasm')),
         })
     }

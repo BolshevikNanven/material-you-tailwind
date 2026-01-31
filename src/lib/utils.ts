@@ -1,7 +1,6 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import { argbFromHex, themeFromSourceColor } from '@material/material-color-utilities'
-import { hexFromArgb } from '@material/material-color-utilities'
+import { argbFromHex, themeFromSourceColor, hexFromArgb } from '@material/material-color-utilities'
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
