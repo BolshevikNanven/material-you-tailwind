@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
-export default function Overview({ data }: { data: { title: string; href: string }[] }) {
+export default function DocList({ data }: { data: { title: string; href: string }[] }) {
     const pathname = usePathname()
 
     return (

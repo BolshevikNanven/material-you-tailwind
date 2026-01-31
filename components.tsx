@@ -8,19 +8,19 @@ export const dirs = ['./src/components/ui', './src/demos']
 
 const components = {
     h1: ({ className, ...props }: React.ComponentProps<'h1'>) => (
-        <h1 className={cn('mt-10 mb-6 text-4xl font-medium text-on-surface', className)} {...props} />
+        <h1 data-slot='heading' className={cn('mt-10 mb-6 text-4xl font-medium text-on-surface', className)} {...props} />
     ),
     h2: ({ className, ...props }: React.ComponentProps<'h2'>) => (
-        <h2 className={cn('mt-10 mb-6 text-3xl font-medium text-on-surface', className)} {...props} />
+        <h2 data-slot='heading' className={cn('mt-10 mb-6 text-3xl font-medium text-on-surface', className)} {...props} />
     ),
     h3: ({ className, ...props }: React.ComponentProps<'h3'>) => (
-        <h3 className={cn('mt-10 mb-6 text-2xl font-medium text-on-surface', className)} {...props} />
+        <h3 data-slot='heading' className={cn('mt-10 mb-6 text-2xl font-medium text-on-surface', className)} {...props} />
     ),
     h4: ({ className, ...props }: React.ComponentProps<'h4'>) => (
-        <h4 className={cn('my-4 text-xl text-on-surface', className)} {...props} />
+        <h4 data-slot='heading' className={cn('my-4 text-xl text-on-surface', className)} {...props} />
     ),
     h5: ({ className, ...props }: React.ComponentProps<'h5'>) => (
-        <h5 className={cn('my-2 text-lg text-on-surface', className)} {...props} />
+        <h5 data-slot='heading' className={cn('my-2 text-lg text-on-surface', className)} {...props} />
     ),
     a: ({ className, ...props }: React.ComponentProps<'a'>) => (
         <a

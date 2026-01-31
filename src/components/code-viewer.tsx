@@ -29,12 +29,7 @@ export function CodeViewer({ title, code, className }: CodeViewerProps) {
     }, [code, theme, highlightCode])
 
     return (
-        <div
-            className={cn(
-                'relative flex h-full flex-col overflow-hidden rounded-2xl border bg-surface-container-high',
-                className,
-            )}
-        >
+        <div className={cn('flex flex-col overflow-hidden rounded-2xl border bg-surface-container-high', className)}>
             <div className='flex items-center gap-2 px-3 py-1'>
                 <h3 className='mr-auto pl-1 text-sm'>{title}</h3>
                 <Button onClick={() => setIsOpen(!isOpen)} size='sm' variant='text'>
