@@ -22,24 +22,10 @@ cd my-app
 Install the required dependencies for styling and utilities.
 
 ```bash
-pnpm add tailwindcss @tailwindcss/postcss clsx tailwind-merge class-variance-authority tw-animate-css @iconify/tailwind4
+pnpm add clsx tailwind-merge class-variance-authority -D tw-animate-css @iconify/tailwind4 @iconify-json/material-symbols
 ```
 
-### 3. Configure PostCSS
-
-Create or update your `postcss.config.mjs` file to include the Tailwind CSS plugin.
-
-```js title="postcss.config.mjs"
-const config = {
-  plugins: {
-    "@tailwindcss/postcss": {},
-  },
-};
-
-export default config;
-```
-
-### 4. Create utils
+### 3. Create utils
 
 Create a `src/lib/utils.ts` file. This file contains the `cn` helper for merging Tailwind classes.
 
@@ -52,7 +38,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 ```
 
-### 5. Configure Global Styles
+### 4. Configure Global Styles
 
 Update `src/app/globals.css` to include the Material Design 3 variables and Tailwind configuration.
 

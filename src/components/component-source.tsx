@@ -3,15 +3,25 @@ import React from 'react'
 import { componentSources, componentRegistry } from '../../components'
 
 import { CodeViewer } from './code-viewer'
+import { cn } from '@/lib/utils'
 
-export default async function ComponentSource({ children }: { children: React.ReactElement; className?: string }) {
+export default async function ComponentSource({
+    children,
+    title,
+    className,
+}: {
+    children: React.ReactElement
+    title?: string
+    className?: string
+}) {
     let code = ''
-    let title = ''
 
     if (children?.type) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const type = children.type as any
-        title = type.displayName || ''
+        if (!title) {
+            title = type.displayName || ''
+        }
 
         // 1. Try to get source directly from component (injected by loader)
         if (type.__source) {
@@ -37,5 +47,5 @@ export default async function ComponentSource({ children }: { children: React.Re
         }
     }
 
-    return <CodeViewer className='border-none' title={title} code={code} />
+    return <CodeViewer className={cn('border-none', className)} title={title} code={code} />
 }
