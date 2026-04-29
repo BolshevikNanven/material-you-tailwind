@@ -28,7 +28,7 @@ Visit https://material.nanven.cn/
 - [x] navigation
 - [x] radio-group
 - [x] ripple
-- [ ] search
+- [x] search
 - [x] slider
 - [x] snakebar
 - [x] switch

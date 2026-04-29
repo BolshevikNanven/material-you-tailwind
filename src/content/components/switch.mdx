@@ -1,6 +1,6 @@
 ---
 title: Switch
-description: "Switches toggle the state of a single setting on or off."
+description: 'Switches toggle the state of a single setting on or off.'
 ---
 
 <ComponentPreview>
@@ -8,17 +8,20 @@ description: "Switches toggle the state of a single setting on or off."
 </ComponentPreview>
 
 ## Installation
+
 - Install the following dependencies
+
 ```bash
 pnpm add @radix-ui/react-switch
 ```
 
 - Copy and paste the following code into your project
-<ComponentSource title='src/components/ui/switch.tsx'>
-    <Switch />
-</ComponentSource>
+    <ComponentSource title='src/components/ui/switch.tsx'>
+        <Switch />
+    </ComponentSource>
 
 ## Usage
+
 ```tsx
 import { Switch } from '@/components/ui/switch'
 ```
@@ -31,13 +34,14 @@ import { Switch } from '@/components/ui/switch'
 
 ### Switch
 
-| Prop | type | default |
-| :--- | :--- | :--- |
-| asChild | `boolean` | `false` |
-| checked | `boolean` | |
-| defaultChecked | `boolean` | |
-| required | `boolean` | `false` |
-| onCheckedChange | `function` | |
-| disabled | `boolean` | `false` |
-| name | `string` | |
-| value | `string` | `on` |
+| Prop            | type       | default |
+| :-------------- | :--------- | :------ |
+| asChild         | `boolean`  | `false` |
+| checked         | `boolean`  |         |
+| defaultChecked  | `boolean`  |         |
+| icon            | `boolean`  | `false` |
+| required        | `boolean`  | `false` |
+| onCheckedChange | `function` |         |
+| disabled        | `boolean`  | `false` |
+| name            | `string`   |         |
+| value           | `string`   | `on`    |

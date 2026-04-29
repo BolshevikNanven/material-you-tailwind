@@ -42,6 +42,22 @@ import {
 </DropdownMenu>
 ```
 
+## Examples
+
+### Compact
+Use `compact` on `DropdownMenuContent` to render a denser menu surface and smaller menu rows.
+
+<ComponentPreview>
+    <DropdownMenuCompactDemo />
+</ComponentPreview>
+
+### Inset
+Use `inset` on labels and items to align text with rows that reserve leading icon space.
+
+<ComponentPreview>
+    <DropdownMenuInsetDemo />
+</ComponentPreview>
+
 ## API Reference
 
 ### DropdownMenu
@@ -71,6 +87,7 @@ import {
 | onFocusOutside | `function` | |
 | onInteractOutside | `function` | |
 | forceMount | `boolean` | |
+| compact | `boolean` | `false` |
 | sideOffset | `number` | `4` |
 | alignOffset | `number` | `0` |
 | avoidCollisions | `boolean` | `true` |

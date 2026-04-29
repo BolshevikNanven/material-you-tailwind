@@ -35,11 +35,103 @@ const SHAPES = [
     },
 ]
 
+const NORMALIZED_VIEW_BOX = '0 0 34 34'
+const NORMALIZED_SIZE = 34
+
+const parseViewBox = (vb: string) => vb.split(' ').map(Number)
+
+const formatNumber = (value: number) => Number(value.toFixed(4)).toString()
+
+const normalizePath = (d: string, viewBox: string) => {
+    const [minX, minY, width, height] = parseViewBox(viewBox)
+    const scale = NORMALIZED_SIZE / Math.max(width, height)
+    const offsetX = (NORMALIZED_SIZE - width * scale) / 2
+    const offsetY = (NORMALIZED_SIZE - height * scale) / 2
+
+    const transformX = (value: number, isRelative: boolean) =>
+        isRelative ? value * scale : (value - minX) * scale + offsetX
+    const transformY = (value: number, isRelative: boolean) =>
+        isRelative ? value * scale : (value - minY) * scale + offsetY
+    const transformLength = (value: number) => value * scale
+
+    const tokens = d.match(/[a-zA-Z]|[-+]?(?:\d*\.\d+|\d+\.?)(?:e[-+]?\d+)?/gi) ?? []
+    const paramCounts: Record<string, number> = {
+        m: 2,
+        l: 2,
+        h: 1,
+        v: 1,
+        c: 6,
+        s: 4,
+        q: 4,
+        t: 2,
+        a: 7,
+    }
+
+    let index = 0
+    let command = ''
+    const result: string[] = []
+
+    const readNumber = () => Number(tokens[index++])
+    const hasNumber = () => index < tokens.length && !/^[a-zA-Z]$/.test(tokens[index])
+
+    while (index < tokens.length) {
+        if (/^[a-zA-Z]$/.test(tokens[index])) {
+            command = tokens[index++]
+            result.push(command)
+        }
+
+        const lowerCommand = command.toLowerCase()
+        if (lowerCommand === 'z') continue
+
+        const paramCount = paramCounts[lowerCommand]
+        if (!paramCount) break
+
+        const isRelative = command === lowerCommand
+
+        while (hasNumber()) {
+            const values = Array.from({ length: paramCount }, readNumber)
+
+            switch (lowerCommand) {
+                case 'h':
+                    result.push(formatNumber(transformX(values[0], isRelative)))
+                    break
+                case 'v':
+                    result.push(formatNumber(transformY(values[0], isRelative)))
+                    break
+                case 'a':
+                    result.push(
+                        formatNumber(transformLength(values[0])),
+                        formatNumber(transformLength(values[1])),
+                        formatNumber(values[2]),
+                        formatNumber(values[3]),
+                        formatNumber(values[4]),
+                        formatNumber(transformX(values[5], isRelative)),
+                        formatNumber(transformY(values[6], isRelative)),
+                    )
+                    break
+                default:
+                    values.forEach((value, valueIndex) => {
+                        const transformed =
+                            valueIndex % 2 === 0
+                                ? transformX(value, isRelative)
+                                : transformY(value, isRelative)
+                        result.push(formatNumber(transformed))
+                    })
+            }
+        }
+    }
+
+    return result.join(' ')
+}
+
+const NORMALIZED_SHAPES = SHAPES.map(shape => ({
+    viewBox: NORMALIZED_VIEW_BOX,
+    d: normalizePath(shape.d, shape.viewBox),
+}))
+
 const customEase = (() => {
-    const x1 = 0.72,
-        y1 = 0.18,
-        x2 = 0.64,
-        y2 = 0.95
+    const y1 = 0.18
+    const y2 = 0.95
     return (t: number) => {
         if (t === 0) return 0
         if (t === 1) return 1
@@ -50,8 +142,6 @@ const customEase = (() => {
 })()
 
 const interpolatorCache = new Map<string, (t: number) => string>()
-const parseViewBox = (vb: string) => vb.split(' ').map(Number)
-const lerp = (start: number, end: number, t: number) => start + (end - start) * t
 
 interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {
     contained?: boolean
@@ -65,12 +155,12 @@ export function Loading({ duration = 680, contained, className, ...props }: Load
     const [index, setIndex] = React.useState(0)
     const [baseRotation, setBaseRotation] = React.useState(0)
 
-    const currentShape = SHAPES[index]
-    const nextShape = SHAPES[(index + 1) % SHAPES.length]
+    const currentShape = NORMALIZED_SHAPES[index]
+    const nextShape = NORMALIZED_SHAPES[(index + 1) % NORMALIZED_SHAPES.length]
     const stepRotation = 180
 
     const interpolator = React.useMemo(() => {
-        const nextIndex = (index + 1) % SHAPES.length
+        const nextIndex = (index + 1) % NORMALIZED_SHAPES.length
         const cacheKey = `${index}-${nextIndex}`
 
         if (interpolatorCache.has(cacheKey)) {
@@ -101,17 +191,11 @@ export function Loading({ duration = 680, contained, className, ...props }: Load
                 pathRef.current.setAttribute('d', interpolator(progress))
             }
 
-            // 2. 更新 ViewBox
             if (svgRef.current) {
-                const startVB = parseViewBox(currentShape.viewBox)
-                const endVB = parseViewBox(nextShape.viewBox)
-                const currentVB = startVB.map((val, i) => lerp(val, endVB[i], progress))
-                svgRef.current.setAttribute('viewBox', currentVB.join(' '))
-
-                // 3. 更新旋转 (Rotate)
+                // 2. 更新旋转 (Rotate)
                 const currentRotation = baseRotation + stepRotation * progress
 
-                // 4. 更新缩放 (Scale) - 逻辑: 0->0.8 (放大), 0.8->1 (回缩)
+                // 3. 更新缩放 (Scale) - 逻辑: 0->0.8 (放大), 0.8->1 (回缩)
                 // 原逻辑: [0, 0.8, 1], [1, 1.14, 1]
                 let currentScale = 1
                 if (progress < 0.8) {
@@ -129,7 +213,7 @@ export function Loading({ duration = 680, contained, className, ...props }: Load
             if (rawProgress < 1) {
                 animationFrameId = requestAnimationFrame(animate)
             } else {
-                setIndex(prev => (prev + 1) % SHAPES.length)
+                setIndex(prev => (prev + 1) % NORMALIZED_SHAPES.length)
                 setBaseRotation(prev => prev + stepRotation)
             }
         }
@@ -139,7 +223,7 @@ export function Loading({ duration = 680, contained, className, ...props }: Load
         return () => {
             cancelAnimationFrame(animationFrameId)
         }
-    }, [index, duration, interpolator, baseRotation, currentShape.viewBox, nextShape.viewBox])
+    }, [index, duration, interpolator, baseRotation])
 
     return (
         <div
@@ -153,10 +237,13 @@ export function Loading({ duration = 680, contained, className, ...props }: Load
             <svg
                 ref={svgRef}
                 viewBox={currentShape.viewBox}
-                className={cn('text-primary will-change-transform')}
+                className='block size-full text-primary will-change-transform'
                 fill='currentColor'
+                preserveAspectRatio='xMidYMid meet'
                 style={{
                     transform: `rotate(${baseRotation}deg) scale(1)`,
+                    transformBox: 'fill-box',
+                    transformOrigin: 'center',
                 }}
             >
                 <path ref={pathRef} d={currentShape.d} />

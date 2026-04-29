@@ -1,6 +1,6 @@
 ---
 title: Slider
-description: "Sliders allow users to make selections from a range of values."
+description: 'Sliders allow users to make selections from a range of values.'
 ---
 
 <ComponentPreview>
@@ -8,40 +8,117 @@ description: "Sliders allow users to make selections from a range of values."
 </ComponentPreview>
 
 ## Installation
+
 - Install the following dependencies
+
 ```bash
 pnpm add @radix-ui/react-slider
 ```
 
 - Copy and paste the following code into your project
-<ComponentSource title='src/components/ui/slider.tsx'>
-    <Slider />
-</ComponentSource>
+    <ComponentSource title='src/components/ui/slider.tsx'>
+        <Slider />
+    </ComponentSource>
 
 ## Usage
+
 ```tsx
 import { Slider } from '@/components/ui/slider'
 ```
 
 ```tsx
-<Slider defaultValue={[33]} max={100} step={1} />
+<Slider defaultValue={[50]} max={100} step={1} />
 ```
+
+## Examples
+
+### Sizes
+
+Use `size` to switch between the Material 3 density and emphasis levels.
+
+<ComponentPreview>
+    <SliderSizesDemo />
+</ComponentPreview>
+
+### Discrete
+
+Use `showStops` with `step` to render a discrete slider.
+
+<ComponentPreview>
+    <SliderDiscreteDemo />
+</ComponentPreview>
+
+### Centered
+
+Use `variant='centered'` for ranges that begin from a middle origin.
+
+<ComponentPreview>
+    <SliderCenteredDemo />
+</ComponentPreview>
+
+### Range
+
+Pass two values to render a range slider with two handles.
+
+<ComponentPreview>
+    <SliderRangeDemo />
+</ComponentPreview>
+
+### Vertical
+
+Use `orientation='vertical'` and give the slider an explicit height.
+
+<ComponentPreview>
+    <SliderVerticalDemo />
+</ComponentPreview>
+
+### Value indicator
+
+Use `showValueIndicator` to display the current value while the handle is focused or pressed.
+
+<ComponentPreview>
+    <SliderValueIndicatorDemo />
+</ComponentPreview>
+
+### Icon
+
+Use `icon` with larger sliders to place an affordance at the active track start.
+
+<ComponentPreview>
+    <SliderIconDemo />
+</ComponentPreview>
+
+### Disabled
+
+Use `disabled` to show non-interactive slider values.
+
+<ComponentPreview>
+    <SliderDisabledDemo />
+</ComponentPreview>
 
 ## API Reference
 
 ### Slider
 
-| Prop | type | default |
-| :--- | :--- | :--- |
-| defaultValue | `number[]` | |
-| value | `number[]` | |
-| disabled | `boolean` | `false` |
-| name | `string` | |
-| orientation | `horizontal` \| `vertical` | `horizontal` |
-| dir | `ltr` \| `rtl` | |
-| min | `number` | `0` |
-| max | `number` | `100` |
-| step | `number` | `1` |
-| minStepsBetweenThumbs | `number` | `0` |
-| inverted | `boolean` | `false` |
-| asChild | `boolean` | `false` |
+| Prop                  | type                                                   | default      |
+| :-------------------- | :----------------------------------------------------- | :----------- |
+| defaultValue          | `number[]`                                             |              |
+| value                 | `number[]`                                             |              |
+| disabled              | `boolean`                                              | `false`      |
+| name                  | `string`                                               |              |
+| orientation           | `horizontal` \| `vertical`                             | `horizontal` |
+| size                  | `xsmall` \| `small` \| `medium` \| `large` \| `xlarge` | `xsmall`     |
+| variant               | `standard` \| `centered`                               | `standard`   |
+| showStops             | `boolean`                                              | `false`      |
+| stops                 | `number`                                               | `11`         |
+| showValueIndicator    | `boolean`                                              | `false`      |
+| centerValue           | `number`                                               |              |
+| icon                  | `ReactNode`                                            |              |
+| formatValue           | `function`                                             |              |
+| dir                   | `ltr` \| `rtl`                                         |              |
+| min                   | `number`                                               | `0`          |
+| max                   | `number`                                               | `100`        |
+| step                  | `number`                                               | `1`          |
+| minStepsBetweenThumbs | `number`                                               | `0`          |
+| inverted              | `boolean`                                              | `false`      |
+| asChild               | `boolean`                                              | `false`      |

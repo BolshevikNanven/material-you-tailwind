@@ -1,0 +1,180 @@
+---
+title: Search
+description: "Search allows users to enter a keyword or phrase and get relevant information."
+---
+
+<ComponentPreview>
+    <SearchDemo />
+</ComponentPreview>
+
+## Installation
+- Copy and paste the following code into your project
+<ComponentSource title='src/components/ui/search.tsx'>
+    <Search />
+</ComponentSource>
+
+## Usage
+```tsx
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Search, SearchInput, SearchList, SearchListItem, SearchTrigger } from '@/components/ui/search'
+```
+
+`Search` is a compound component. `SearchTrigger` renders its children while closed. Once open, it hides those children and renders the Material search view header with built-in back and clear buttons.
+
+The first direct `SearchInput` child of `SearchTrigger` is reused in the open header, so you can keep value, default value, placeholder, and change handlers on the input.
+
+```tsx
+<Search variant="docked">
+    <SearchTrigger>
+        <span data-slot="search-leading">
+            <i className="icon-[material-symbols--search-rounded]" />
+        </span>
+        <SearchInput placeholder="Search" />
+        <button data-slot="search-trailing" type="button" aria-label="Voice search">
+            <i className="icon-[material-symbols--mic-rounded]" />
+        </button>
+    </SearchTrigger>
+    <SearchList>
+        <SearchListItem>
+            <span data-slot="search-list-item-leading">
+                <Avatar className="size-10 bg-surface-container-high">
+                    <AvatarFallback>
+                        <i className="icon-[material-symbols--category-rounded]" />
+                    </AvatarFallback>
+                </Avatar>
+            </span>
+            <span data-slot="search-list-item-content">
+                <span data-slot="search-list-item-title">Label text</span>
+                <span data-slot="search-list-item-supporting">Supporting line text, lorem ipsum dolor</span>
+            </span>
+        </SearchListItem>
+    </SearchList>
+</Search>
+```
+
+## Variants
+
+### Docked
+Docked search opens a list surface directly below the trigger. The list is absolutely positioned with a 2px gap and uses the width of the `Search` root.
+
+Set the width on `Search` or a parent layout. The component does not apply a max width.
+
+```tsx
+<Search className="w-[360px]" variant="docked">
+    <SearchTrigger>
+        <span data-slot="search-leading">
+            <i className="icon-[material-symbols--search-rounded]" />
+        </span>
+        <SearchInput placeholder="Search" />
+    </SearchTrigger>
+    <SearchList>
+        <SearchListItem>Result</SearchListItem>
+    </SearchList>
+</Search>
+```
+
+Docked search closes automatically when focus leaves the entire search area, including the list.
+
+### Fullscreen
+Fullscreen search opens a full-screen result surface. The trigger becomes a fixed search header at the top of the viewport.
+
+```tsx
+<Search variant="fullscreen">
+    <SearchTrigger>
+        <span data-slot="search-leading">
+            <i className="icon-[material-symbols--search-rounded]" />
+        </span>
+        <SearchInput placeholder="Search full screen" />
+    </SearchTrigger>
+    <SearchList>
+        <SearchListItem>Result</SearchListItem>
+    </SearchList>
+</Search>
+```
+
+## Trigger Content
+Closed trigger content is fully slotted by children. Use `data-slot="search-leading"` and `data-slot="search-trailing"` for 48px icon targets that match the Material search bar layout.
+
+```tsx
+<SearchTrigger>
+    <span data-slot="search-leading">
+        <i className="icon-[material-symbols--menu-rounded]" />
+    </span>
+    <SearchInput placeholder="Hinted search text" />
+    <button data-slot="search-trailing" type="button" aria-label="Voice search">
+        <i className="icon-[material-symbols--mic-rounded]" />
+    </button>
+</SearchTrigger>
+```
+
+Buttons and links inside closed trigger content do not open search when clicked or focused. Add `data-search-no-open` to any custom interactive element that should also avoid opening search.
+
+## Result Items
+`SearchListItem` is styled for Material 3 result rows. Compose each row with optional leading, content, title, supporting, and trailing slots.
+
+```tsx
+<SearchListItem closeOnSelect={false}>
+    <span data-slot="search-list-item-leading">
+        <Avatar className="size-10 bg-surface-container-high">
+            <AvatarFallback>
+                <i className="icon-[material-symbols--category-rounded]" />
+            </AvatarFallback>
+        </Avatar>
+    </span>
+    <span data-slot="search-list-item-content">
+        <span data-slot="search-list-item-title">Label text</span>
+        <span data-slot="search-list-item-supporting">Supporting line text, lorem ipsum dolor</span>
+    </span>
+    <span data-slot="search-list-item-trailing">Meta</span>
+</SearchListItem>
+```
+
+By default, selecting a result closes search. Use `closeOnSelect={false}` to keep it open.
+
+## API Reference
+
+### Search
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| variant | `docked` \| `fullscreen` | `docked` |
+| open | `boolean` | |
+| defaultOpen | `boolean` | `false` |
+| onOpenChange | `(open: boolean) => void` | |
+| disabled | `boolean` | `false` |
+
+### SearchTrigger
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| onSearch | `(query: string) => void` | |
+
+`SearchTrigger` also accepts standard `form` props.
+
+### SearchInput
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| placeholder | `string` | `Hinted search text` |
+| value | `string` | |
+| defaultValue | `string` | |
+| onValueChange | `(value: string) => void` | |
+
+`SearchInput` also accepts standard `input` props except `type`; it always renders `type="search"`.
+
+### SearchList
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| forceMount | `boolean` | `false` |
+| contentClassName | `string` | |
+
+### SearchListItem
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| selected | `boolean` | `false` |
+| closeOnSelect | `boolean` | `true` |
+| asChild | `boolean` | `false` |
+
+`SearchListItem` also accepts standard `button` props.

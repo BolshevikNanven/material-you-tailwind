@@ -43,6 +43,22 @@ import {
 </ContextMenu>
 ```
 
+## Examples
+
+### Compact
+Use `compact` on `ContextMenuContent` when a contextual menu needs a tighter footprint.
+
+<ComponentPreview>
+    <ContextMenuCompactDemo />
+</ComponentPreview>
+
+### Inset
+Use `inset` to align text-only items with entries that reserve leading icon space.
+
+<ComponentPreview>
+    <ContextMenuInsetDemo />
+</ComponentPreview>
+
 ## API Reference
 
 ### ContextMenu
@@ -71,6 +87,7 @@ import {
 | onFocusOutside | `function` | |
 | onInteractOutside | `function` | |
 | forceMount | `boolean` | |
+| compact | `boolean` | `false` |
 | sticky | `partial` \| `always` | `partial` |
 | hideWhenDetached | `boolean` | `false` |
 | alignOffset | `number` | `0` |
