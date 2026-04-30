@@ -235,15 +235,13 @@ type SearchTriggerProps = Omit<React.ComponentProps<'form'>, 'onSubmit'> & {
 
 const triggerContentClassName = [
     'relative z-10 flex h-full w-full items-center gap-1 px-1',
-    '[&>[data-slot=search-leading]]:flex [&>[data-slot=search-leading]]:size-12 [&>[data-slot=search-leading]]:shrink-0 [&>[data-slot=search-leading]]:items-center [&>[data-slot=search-leading]]:justify-center [&>[data-slot=search-leading]]:rounded-full [&>[data-slot=search-leading]]:text-on-surface-variant [&>[data-slot=search-leading]]:[&_i:not([class*=size-])]:size-6',
-    '[&>[data-slot=search-trailing]]:flex [&>[data-slot=search-trailing]]:size-12 [&>[data-slot=search-trailing]]:shrink-0 [&>[data-slot=search-trailing]]:items-center [&>[data-slot=search-trailing]]:justify-center [&>[data-slot=search-trailing]]:rounded-full [&>[data-slot=search-trailing]]:text-on-surface-variant [&>[data-slot=search-trailing]]:[&_i:not([class*=size-])]:size-6',
-    '[&>button[data-slot=search-leading]]:cursor-pointer [&>button[data-slot=search-leading]]:hover:bg-on-surface-variant/8 [&>button[data-slot=search-leading]]:active:bg-on-surface-variant/10',
-    '[&>button[data-slot=search-trailing]]:cursor-pointer [&>button[data-slot=search-trailing]]:hover:bg-on-surface-variant/8 [&>button[data-slot=search-trailing]]:active:bg-on-surface-variant/10',
+    '[&>:is([data-slot=search-button],[data-slot=search-icon],[data-slot=search-leading],[data-slot=search-trailing])]:flex [&>:is([data-slot=search-button],[data-slot=search-icon],[data-slot=search-leading],[data-slot=search-trailing])]:size-12 [&>:is([data-slot=search-button],[data-slot=search-icon],[data-slot=search-leading],[data-slot=search-trailing])]:shrink-0 [&>:is([data-slot=search-button],[data-slot=search-icon],[data-slot=search-leading],[data-slot=search-trailing])]:items-center [&>:is([data-slot=search-button],[data-slot=search-icon],[data-slot=search-leading],[data-slot=search-trailing])]:justify-center [&>:is([data-slot=search-button],[data-slot=search-icon],[data-slot=search-leading],[data-slot=search-trailing])]:rounded-full [&>:is([data-slot=search-button],[data-slot=search-icon],[data-slot=search-leading],[data-slot=search-trailing])]:text-on-surface-variant [&>:is([data-slot=search-button],[data-slot=search-icon],[data-slot=search-leading],[data-slot=search-trailing])]:[&_i:not([class*=size-])]:size-6',
+    '[&>:is([data-slot=search-button],button[data-slot=search-leading],button[data-slot=search-trailing])]:cursor-pointer [&>:is([data-slot=search-button],button[data-slot=search-leading],button[data-slot=search-trailing])]:hover:bg-on-surface-variant/8 [&>:is([data-slot=search-button],button[data-slot=search-leading],button[data-slot=search-trailing])]:active:bg-on-surface-variant/10',
     '[&>[data-slot=avatar]]:mx-2 [&>[data-slot=avatar]]:size-[30px] [&>[data-slot=avatar]]:bg-primary [&>[data-slot=avatar-fallback]]:text-on-primary',
 ]
 
 function SearchTrigger({ className, children, onClick, onFocusCapture, onSearch, onSubmit, ...props }: SearchTriggerProps) {
-    const { clearInput, disabled, open, setOpen, variant } = useSearchContext('SearchTrigger')
+    const { clearInput, disabled, inputRef, open, setOpen, variant } = useSearchContext('SearchTrigger')
     const isFullscreenOpen = variant === 'fullscreen' && open
     const inputChild = getSearchInputChild(children)
 
@@ -284,7 +282,13 @@ function SearchTrigger({ className, children, onClick, onFocusCapture, onSearch,
     const handleClear = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         event.stopPropagation()
-        clearInput()
+
+        if (inputRef.current?.value) {
+            clearInput()
+            return
+        }
+
+        setOpen(false)
     }
 
     const openInput = inputChild ? (
@@ -319,11 +323,11 @@ function SearchTrigger({ className, children, onClick, onFocusCapture, onSearch,
             <div data-slot='search-trigger-content' className={cn(triggerContentClassName)}>
                 {open ? (
                     <>
-                        <button data-slot='search-leading' type='button' aria-label='Close search' onClick={handleClose}>
+                        <button data-slot='search-button' type='button' aria-label='Close search' onClick={handleClose}>
                             <i className='icon-[material-symbols--arrow-back-rounded]' />
                         </button>
                         {openInput}
-                        <button data-slot='search-trailing' type='button' aria-label='Clear search' onClick={handleClear}>
+                        <button data-slot='search-button' type='button' aria-label='Clear search' onClick={handleClear}>
                             <i className='icon-[material-symbols--close-rounded]' />
                         </button>
                     </>

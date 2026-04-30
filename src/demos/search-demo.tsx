@@ -4,7 +4,6 @@ import * as React from 'react'
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Search, SearchInput, SearchList, SearchListItem, SearchTrigger } from '@/components/ui/search'
-import { Button } from '@/components/ui/button'
 
 const results = [
     {
@@ -53,11 +52,11 @@ export function SearchDemo() {
         <div className='flex w-full flex-col items-center gap-8'>
             <Search className='w-[360px]' variant='docked'>
                 <SearchTrigger>
-                    <Button icon>
+                    <button data-slot='search-button' type='button' aria-label='Open navigation'>
                         <i className='icon-[material-symbols--menu-rounded]' />
-                    </Button>
+                    </button>
                     <SearchInput />
-                    <button data-slot='search-trailing' type='button' aria-label='Voice search'>
+                    <button data-slot='search-button' type='button' aria-label='Voice search'>
                         <i className='icon-[material-symbols--mic-rounded]' />
                     </button>
                 </SearchTrigger>
@@ -68,10 +67,10 @@ export function SearchDemo() {
 
             <Search className='w-[412px]' open={fullscreenOpen} onOpenChange={setFullscreenOpen} variant='fullscreen'>
                 <SearchTrigger>
-                    <button data-slot='search-leading' type='button' data-search-open>
-                            <i className='icon-[material-symbols--search-rounded]' />
-                        </button>
-                    <SearchInput className='pl-0'/>
+                    <button data-slot='search-button' type='button' data-search-open aria-label='Open search'>
+                        <i className='icon-[material-symbols--search-rounded]' />
+                    </button>
+                    <SearchInput className='pl-0' />
                 </SearchTrigger>
                 <SearchList>
                     <SearchResults />
