@@ -1,0 +1,140 @@
+---
+title: Calendar
+description: "A calendar component that allows users to select a date or a range of dates."
+---
+
+<ComponentPreview>
+    <CalendarDemo />
+</ComponentPreview>
+
+## Installation
+- Install the following dependencies
+```bash
+pnpm add react-day-picker
+```
+
+- Copy and paste the following code into your project
+<ComponentSource title='src/components/ui/calendar.tsx'>
+    <Calendar />
+</ComponentSource>
+
+## Usage
+
+```tsx
+import {
+    Calendar,
+    CalendarCancelButton,
+    CalendarClearButton,
+    CalendarCompactPicker,
+    CalendarConfirmButton,
+    CalendarFooter,
+    CalendarHeader,
+    CalendarInputPicker,
+    CalendarPicker,
+    CalendarRangeInputPicker,
+    CalendarRangePicker,
+    CalendarTodayButton,
+} from '@/components/ui/calendar'
+```
+
+```tsx
+<Calendar mode='single' selected={date} onSelect={value => setDate(value as Date | undefined)}>
+    <CalendarHeader />
+    <CalendarCompactPicker />
+    <CalendarFooter>
+        <CalendarClearButton>Clear</CalendarClearButton>
+        <CalendarCancelButton>Cancel</CalendarCancelButton>
+        <CalendarConfirmButton>OK</CalendarConfirmButton>
+    </CalendarFooter>
+</Calendar>
+```
+
+Use `disabled` with any Day Picker matcher to block dates from the calendar grid, input picker, and today action.
+
+## Examples
+
+### Input picker
+
+Use `CalendarInputPicker` when the user should type a date directly.
+
+<ComponentPreview>
+    <CalendarInputDemo />
+</ComponentPreview>
+
+### Docked picker
+
+Use `CalendarPicker` for the docked layout with month and year controls.
+
+<ComponentPreview>
+    <CalendarDockedDemo />
+</ComponentPreview>
+
+### Range picker
+
+Use `CalendarRangePicker` for scrolling range selection.
+
+<ComponentPreview>
+    <CalendarRangeDemo />
+</ComponentPreview>
+
+### Toggle picker
+
+Use `showVariantToggle` and external state to switch between picker bodies.
+
+<ComponentPreview>
+    <CalendarToggleDemo />
+</ComponentPreview>
+
+### Button styles
+
+Use `asChild` on footer buttons to provide your own `Button` component while keeping the calendar action behavior.
+
+<ComponentPreview>
+    <CalendarButtonDemo />
+</ComponentPreview>
+
+
+### Header label
+
+Pass `title` and `label` to customize the header copy and selected-date formatting. Footer buttons use their children as labels, so they can be localized the same way.
+
+<ComponentPreview>
+    <CalendarLabelDemo />
+</ComponentPreview>
+
+
+## API Reference
+
+### Calendar
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| mode | `single` \| `range` | `single` |
+| selected | `Date` \| `DateRange` | |
+| onSelect | `function` | |
+| children | `ReactNode` | |
+| disabled | `Matcher` \| `Matcher[]` | |
+| locale | `Locale` | |
+
+### CalendarHeader
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| title | `ReactNode` | `Select date` |
+| label | `(value: Date \| DateRange \| undefined) => string` | locale-formatted selected value |
+| showVariantToggle | `boolean` | `false` |
+| onVariantToggle | `function` | |
+
+### Pickers
+
+| Component | usage |
+| :--- | :--- |
+| CalendarCompactPicker | Single-date modal picker body |
+| CalendarInputPicker | Single-date input picker body |
+| CalendarPicker | Single-date docked picker body |
+| CalendarRangePicker | Range picker body |
+| CalendarRangeInputPicker | Range input picker body |
+
+### CalendarFooter
+
+Pass `CalendarClearButton`, `CalendarTodayButton`, `CalendarCancelButton`, and `CalendarConfirmButton` as children. Button children are used as labels, each callback lives on the button itself, and every calendar footer button supports `asChild`.

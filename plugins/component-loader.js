@@ -39,6 +39,7 @@ export default function componentLoader(source) {
                     m[1].split(',').forEach(e => {
                         const trimmed = e.trim()
                         if (!trimmed) return
+                        if (trimmed.startsWith('type ')) return
                         const asMatch = trimmed.match(/(\w+)\s+as\s+(\w+)/)
                         names.push(asMatch ? asMatch[2] : trimmed)
                     })
