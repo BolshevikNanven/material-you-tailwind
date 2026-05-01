@@ -20,6 +20,7 @@ Visit https://material.nanven.cn/
 - [x] checkbox
 - [x] chip
 - [x] context-menu
+- [x] calendar
 - [ ] date-picker
 - [x] dialog
 - [x] dropdown-menu
