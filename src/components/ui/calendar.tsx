@@ -9,6 +9,7 @@ import {
     SelectionState,
     UI,
     dateMatchModifiers,
+    defaultLocale,
     formatCaption,
     formatMonthDropdown,
     formatWeekdayName,
@@ -35,7 +36,7 @@ type CalendarProps = Omit<DayPickerProps, 'mode' | 'selected' | 'onSelect' | 'mo
 }
 
 type CalendarDayPickerOptions = Omit<CalendarProps, 'mode' | 'selected' | 'onSelect' | 'children'>
-type CalendarDateLibOptions = ConstructorParameters<typeof DateLib>[0]
+type CalendarDateLibOptions = NonNullable<ConstructorParameters<typeof DateLib>[0]>
 
 type YearRange = {
     start: number
@@ -762,7 +763,7 @@ function DockedList() {
                           return (
                               <DockedListItem
                                   key={year}
-                                  itemRef={selected ? selectedYearRef : undefined}
+                                  buttonRef={selected ? selectedYearRef : undefined}
                                   selected={selected}
                                   onClick={() => {
                                       setDisplayMonth(dateLib.setYear(displayMonth, year))
@@ -780,17 +781,17 @@ function DockedList() {
 
 function DockedListItem({
     selected,
-    itemRef,
+    buttonRef,
     children,
     className,
     ...props
 }: React.ComponentProps<'button'> & {
     selected: boolean
-    itemRef?: React.Ref<HTMLButtonElement>
+    buttonRef?: React.Ref<HTMLButtonElement>
 }) {
     return (
         <button
-            ref={itemRef}
+            ref={buttonRef}
             type='button'
             className={cn(
                 'relative flex min-h-12 items-center gap-4 px-4 py-1 text-left text-base leading-6 transition-colors hover:bg-on-surface/8',
@@ -944,6 +945,9 @@ function CalendarActionButton({
 
     if (asChild) {
         const slotButtonProps = { type } satisfies Pick<React.ComponentProps<'button'>, 'type'>
+        const slotDisabledProps = disabled
+            ? ({ disabled } satisfies Pick<React.ComponentProps<'button'>, 'disabled'>)
+            : {}
 
         return (
             <Slot
@@ -951,9 +955,9 @@ function CalendarActionButton({
                 data-disabled={disabled || undefined}
                 aria-disabled={disabled || undefined}
                 className={className}
-                disabled={disabled}
                 onClick={handleClick}
                 {...slotButtonProps}
+                {...slotDisabledProps}
                 {...props}
             >
                 {children}
@@ -1216,7 +1220,7 @@ function formatDataDay(date: Date, dateLib: DateLib) {
 
 function getDateLibOptions(options: CalendarDayPickerOptions): CalendarDateLibOptions {
     return {
-        locale: options.locale,
+        locale: getDateLibLocale(options.locale),
         weekStartsOn: options.weekStartsOn,
         firstWeekContainsDate: options.firstWeekContainsDate,
         useAdditionalWeekYearTokens: options.useAdditionalWeekYearTokens,
@@ -1224,6 +1228,16 @@ function getDateLibOptions(options: CalendarDayPickerOptions): CalendarDateLibOp
         timeZone: options.timeZone,
         numerals: options.numerals,
     }
+}
+
+function getDateLibLocale(locale: CalendarDayPickerOptions['locale']): CalendarDateLibOptions['locale'] {
+    if (!locale) return undefined
+
+    return {
+        ...defaultLocale,
+        ...locale,
+        code: locale.code ?? defaultLocale.code,
+    } as CalendarDateLibOptions['locale']
 }
 
 function formatInputDate(date?: Date) {
