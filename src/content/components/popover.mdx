@@ -1,0 +1,110 @@
+---
+title: Popover
+description: 'Popovers display rich content in a temporary surface anchored to a trigger.'
+---
+
+<ComponentPreview>
+    <PopoverDemo />
+</ComponentPreview>
+
+## Installation
+
+- Install the following dependencies
+
+```bash
+pnpm add @radix-ui/react-popover
+```
+
+- Copy and paste the following code into your project
+
+<ComponentSource title='src/components/ui/popover.tsx'>
+    <Popover />
+</ComponentSource>
+
+## Usage
+
+```tsx
+import {
+    Popover,
+    PopoverContent,
+    PopoverDescription,
+    PopoverHeader,
+    PopoverTitle,
+    PopoverTrigger,
+} from '@/components/ui/popover'
+```
+
+```tsx
+<Popover>
+    <PopoverTrigger>Open</PopoverTrigger>
+    <PopoverContent>
+        <PopoverHeader>
+            <PopoverTitle>Notifications</PopoverTitle>
+            <PopoverDescription>Manage how you receive activity updates.</PopoverDescription>
+        </PopoverHeader>
+    </PopoverContent>
+</Popover>
+```
+
+## API Reference
+
+### Popover
+
+| Prop         | type       | default |
+| :----------- | :--------- | :------ |
+| open         | `boolean`  |         |
+| defaultOpen  | `boolean`  |         |
+| onOpenChange | `function` |         |
+| modal        | `boolean`  | `false` |
+
+### PopoverTrigger
+
+| Prop    | type      | default |
+| :------ | :-------- | :------ |
+| asChild | `boolean` | `false` |
+
+### PopoverContent
+
+| Prop                 | type                                   | default   |
+| :------------------- | :------------------------------------- | :-------- |
+| onOpenAutoFocus      | `function`                             |           |
+| onCloseAutoFocus     | `function`                             |           |
+| onEscapeKeyDown      | `function`                             |           |
+| onPointerDownOutside | `function`                             |           |
+| onFocusOutside       | `function`                             |           |
+| onInteractOutside    | `function`                             |           |
+| forceMount           | `boolean`                              |           |
+| side                 | `top` \| `right` \| `bottom` \| `left` | `bottom`  |
+| sideOffset           | `number`                               | `4`       |
+| align                | `start` \| `center` \| `end`           | `center`  |
+| alignOffset          | `number`                               | `0`       |
+| avoidCollisions      | `boolean`                              | `true`    |
+| collisionBoundary    | `element` \| `element[]`               |           |
+| collisionPadding     | `number` \| `padding`                  | `0`       |
+| arrowPadding         | `number`                               | `0`       |
+| sticky               | `partial` \| `always`                  | `partial` |
+| hideWhenDetached     | `boolean`                              | `false`   |
+
+### PopoverAnchor
+
+| Prop    | type      | default |
+| :------ | :-------- | :------ |
+| asChild | `boolean` | `false` |
+
+### PopoverHeader
+
+| Prop | type | default |
+| :--- | :--- | :------ |
+| -    | -    | -       |
+
+### PopoverTitle
+
+| Prop | type | default |
+| :--- | :--- | :------ |
+| -    | -    | -       |
+
+### PopoverDescription
+
+| Prop | type | default |
+| :--- | :--- | :------ |
+| -    | -    | -       |
