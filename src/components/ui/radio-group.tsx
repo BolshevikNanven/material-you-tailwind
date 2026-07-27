@@ -15,12 +15,12 @@ function RadioGroupItem({ className, ...props }: React.ComponentProps<typeof Rad
         <RadioGroupPrimitive.Item
             data-slot='radio-group-item'
             className={cn(
-                'group relative size-5 cursor-pointer rounded-full border-2 border-on-surface-variant text-primary transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-primary',
+                'group/radio-item relative size-5 cursor-pointer rounded-full border-2 border-on-surface-variant text-primary transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-primary',
                 className,
             )}
             {...props}
         >
-            <span className='absolute top-1/2 left-1/2 block h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors group-hover:bg-on-surface/8 group-active:bg-on-surface/10'>
+            <span className='absolute top-1/2 left-1/2 block h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors group-hover/radio-item:bg-on-surface/8 group-active/radio-item:bg-on-surface/10'>
                 <Ripple />
             </span>
             <RadioGroupPrimitive.Indicator

@@ -78,7 +78,7 @@ const NavigationRailItem = React.memo(function NavigationRailItem({
                 className={cn(
                     'flex items-center justify-center text-on-secondary-container transition-colors *:[i]:size-6',
                     !expanded &&
-                        'h-8 w-14 rounded-2xl group-hover:bg-on-secondary-container/8 group-active:bg-on-secondary-container/10',
+                        'h-8 w-14 rounded-2xl group-hover/navigation-rail-item:bg-on-secondary-container/8 group-active/navigation-rail-item:bg-on-secondary-container/10',
                 )}
             >
                 {icon}
@@ -91,7 +91,7 @@ const NavigationRailItem = React.memo(function NavigationRailItem({
         <Comp
             data-slot='navigation-rail-item'
             data-active={!!active}
-            className={cn('group', railItemVariants({ horizon: expanded, className }))}
+            className={cn('group/navigation-rail-item', railItemVariants({ horizon: expanded, className }))}
             {...props}
         >
             {asChild && React.isValidElement(children)

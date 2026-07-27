@@ -16,7 +16,7 @@ function Switch({ className, icon = false, disabled, ...props }: SwitchProps) {
             data-slot='switch'
             className={cn(
                 [
-                    'peer group relative inline-flex h-8 w-13 shrink-0 cursor-pointer items-center rounded-full border-2',
+                    'peer group/switch relative inline-flex h-8 w-13 shrink-0 cursor-pointer items-center rounded-full border-2',
                     'transition-colors outline-none',
                     'disabled:pointer-events-none disabled:cursor-not-allowed',
                 ],
@@ -41,19 +41,19 @@ function Switch({ className, icon = false, disabled, ...props }: SwitchProps) {
                     [
                         'absolute top-1/2 -left-1.5 z-0 grid size-10 -translate-y-1/2 place-items-center rounded-full',
                         'text-on-surface transition-[left,background-color,color] duration-200 ease-out',
-                        'group-disabled:hidden',
+                        'group-disabled/switch:hidden',
                     ],
                     [
-                        'group-data-[state=checked]:left-3.5',
-                        'group-data-[state=checked]:text-primary',
-                        'group-data-[state=checked]:group-hover:bg-primary/8',
-                        'group-data-[state=checked]:group-focus-visible:bg-primary/10',
-                        'group-data-[state=checked]:group-active:bg-primary/10',
+                        'group-data-[state=checked]/switch:left-3.5',
+                        'group-data-[state=checked]/switch:text-primary',
+                        'group-data-[state=checked]/switch:group-hover/switch:bg-primary/8',
+                        'group-data-[state=checked]/switch:group-focus-visible/switch:bg-primary/10',
+                        'group-data-[state=checked]/switch:group-active/switch:bg-primary/10',
                     ],
                     [
-                        'group-data-[state=unchecked]:group-hover:bg-on-surface/8',
-                        'group-data-[state=unchecked]:group-focus-visible:bg-on-surface/10',
-                        'group-data-[state=unchecked]:group-active:bg-on-surface/10',
+                        'group-data-[state=unchecked]/switch:group-hover/switch:bg-on-surface/8',
+                        'group-data-[state=unchecked]/switch:group-focus-visible/switch:bg-on-surface/10',
+                        'group-data-[state=unchecked]/switch:group-active/switch:bg-on-surface/10',
                     ],
                 )}
             >
@@ -73,22 +73,22 @@ function Switch({ className, icon = false, disabled, ...props }: SwitchProps) {
                         'data-[state=checked]:size-6',
                         'data-[state=checked]:bg-on-primary',
                         'data-[state=checked]:text-primary',
-                        'data-[state=checked]:group-hover:bg-primary-container',
-                        'data-[state=checked]:group-focus-visible:bg-primary-container',
-                        'data-[state=checked]:group-active:left-[20px]',
-                        'data-[state=checked]:group-active:size-7',
-                        'data-[state=checked]:group-active:bg-primary-container',
-                        'data-[state=checked]:group-disabled:bg-surface',
-                        'data-[state=checked]:group-disabled:text-on-surface/38',
+                        'data-[state=checked]:group-hover/switch:bg-primary-container',
+                        'data-[state=checked]:group-focus-visible/switch:bg-primary-container',
+                        'data-[state=checked]:group-active/switch:left-[20px]',
+                        'data-[state=checked]:group-active/switch:size-7',
+                        'data-[state=checked]:group-active/switch:bg-primary-container',
+                        'data-[state=checked]:group-disabled/switch:bg-surface',
+                        'data-[state=checked]:group-disabled/switch:text-on-surface/38',
                     ],
                     [
-                        'data-[state=unchecked]:group-hover:bg-on-surface-variant',
-                        'data-[state=unchecked]:group-focus-visible:bg-on-surface-variant',
-                        'data-[state=unchecked]:group-active:left-0',
-                        'data-[state=unchecked]:group-active:size-7',
-                        'data-[state=unchecked]:group-active:bg-on-surface-variant',
-                        'data-[state=unchecked]:group-disabled:bg-on-surface/38',
-                        'data-[state=unchecked]:group-disabled:text-surface-container-highest',
+                        'data-[state=unchecked]:group-hover/switch:bg-on-surface-variant',
+                        'data-[state=unchecked]:group-focus-visible/switch:bg-on-surface-variant',
+                        'data-[state=unchecked]:group-active/switch:left-0',
+                        'data-[state=unchecked]:group-active/switch:size-7',
+                        'data-[state=unchecked]:group-active/switch:bg-on-surface-variant',
+                        'data-[state=unchecked]:group-disabled/switch:bg-on-surface/38',
+                        'data-[state=unchecked]:group-disabled/switch:text-surface-container-highest',
                     ],
                 )}
             >
@@ -97,13 +97,13 @@ function Switch({ className, icon = false, disabled, ...props }: SwitchProps) {
                         <i
                             className={cn(
                                 ['hidden size-4'],
-                                'icon-[material-symbols--check-rounded] group-data-[state=checked]:block',
+                                'icon-[material-symbols--check-rounded] group-data-[state=checked]/switch:block',
                             )}
                         />
                         <i
                             className={cn(
                                 ['hidden size-4'],
-                                'icon-[material-symbols--close-rounded] group-data-[state=unchecked]:block',
+                                'icon-[material-symbols--close-rounded] group-data-[state=unchecked]/switch:block',
                             )}
                         />
                     </>

@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { Slot } from '@radix-ui/react-slot'
 
-const cardVariants = cva('group relative rounded-xl transition-shadow', {
+const cardVariants = cva('relative rounded-xl transition-shadow', {
     variants: {
         variant: {
             elevated: 'bg-surface-container-low shadow-elevation-1',
@@ -11,7 +11,7 @@ const cardVariants = cva('group relative rounded-xl transition-shadow', {
             outlined: 'border border-outline-variant bg-surface',
         },
         actionable: {
-            true: 'cursor-pointer hover:shadow-elevation-1',
+            true: 'group/card cursor-pointer hover:shadow-elevation-1',
             false: '',
         },
     },
@@ -51,7 +51,7 @@ function Card({
     const mask = (
         <div
             className={cn(
-                'absolute inset-0 rounded-xl transition-colors group-hover:bg-on-surface/8 group-active:bg-on-surface/10',
+                'absolute inset-0 rounded-xl transition-colors group-hover/card:bg-on-surface/8 group-active/card:bg-on-surface/10',
             )}
         />
     )

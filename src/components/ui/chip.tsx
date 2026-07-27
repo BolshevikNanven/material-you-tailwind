@@ -7,7 +7,7 @@ import { Ripple } from './ripple'
 import { Slot } from '@radix-ui/react-slot'
 
 const assitVariants = cva(
-    'group relative inline-flex h-8 cursor-pointer items-center justify-center gap-2 rounded-lg px-4 text-sm text-on-surface *:data-[slot=avatar]:size-6 [&>i]:size-4.5 [&>i]:text-primary',
+    'group/chip relative inline-flex h-8 cursor-pointer items-center justify-center gap-2 rounded-lg px-4 text-sm text-on-surface *:data-[slot=avatar]:size-6 [&>i]:size-4.5 [&>i]:text-primary',
     {
         variants: {
             variant: {
@@ -60,8 +60,8 @@ function Chip({
                 className={cn(
                     'absolute inset-0 rounded-[inherit] transition-all',
                     selected
-                        ? 'group-hover:bg-on-secondary-container/8 group-active:bg-on-secondary-container/10'
-                        : 'group-hover:bg-on-surface/8 group-active:bg-on-surface-variant/10',
+                        ? 'group-hover/chip:bg-on-secondary-container/8 group-active/chip:bg-on-secondary-container/10'
+                        : 'group-hover/chip:bg-on-surface/8 group-active/chip:bg-on-surface-variant/10',
                 )}
             />
             <Ripple />

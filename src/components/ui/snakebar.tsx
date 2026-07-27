@@ -43,7 +43,7 @@ function toast({ message, action, closable }: Omit<ToastProps, 'id'>) {
 }
 
 const Snakebar = ({ ...props }: ToasterProps) => (
-    <Sonner className='toaster group' position='bottom-right' expand visibleToasts={5} {...props} />
+    <Sonner className='toaster' position='bottom-right' expand visibleToasts={5} {...props} />
 )
 
 export { toast, Snakebar }

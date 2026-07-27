@@ -11,12 +11,12 @@ function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxP
         <CheckboxPrimitive.Root
             data-slot='checkbox'
             className={cn(
-                'group relative flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-xs border-2 border-on-surface-variant transition-all outline-none group-data-[state=checked]:border-0 hover:bg-primary/8 active:bg-primary/10 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-primary',
+                'group/checkbox relative flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-xs border-2 border-on-surface-variant transition-all outline-none hover:bg-primary/8 active:bg-primary/10 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-0 data-[state=checked]:border-primary',
                 className,
             )}
             {...props}
         >
-            <span className='absolute top-1/2 left-1/2 block h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors group-hover:bg-on-surface/8 group-active:bg-on-surface/10'>
+            <span className='absolute top-1/2 left-1/2 block h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors group-hover/checkbox:bg-on-surface/8 group-active/checkbox:bg-on-surface/10'>
                 <Ripple />
             </span>
             <CheckboxPrimitive.Indicator

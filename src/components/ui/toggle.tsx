@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 import { Ripple } from './ripple'
 
 const toggleVariants = cva(
-    "group relative inline-flex shrink-0 cursor-pointer items-center justify-center text-sm font-medium whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:bg-on-surface/10 disabled:text-on-surface/38 [&_i]:pointer-events-none [&_i]:shrink-0 [&_i:not([class*='size-'])]:size-5",
+    "group/toggle relative inline-flex shrink-0 cursor-pointer items-center justify-center text-sm font-medium whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:bg-on-surface/10 disabled:text-on-surface/38 [&_i]:pointer-events-none [&_i]:shrink-0 [&_i:not([class*='size-'])]:size-5",
     {
         variants: {
             variant: {
@@ -80,11 +80,11 @@ const toggleVariants = cva(
 const layerVariants = cva('absolute inset-0 rounded-[inherit] transition-all', {
     variants: {
         variant: {
-            default: 'group-hover:bg-on-surface-variant/8 group-active:bg-on-surface-variant/10',
-            tonal: 'group-hover:bg-on-secondary-container/8 group-active:bg-on-secondary-container/10',
-            outline: 'group-hover:bg-on-surface-variant/8 group-active:bg-on-surface-variant/10',
-            elevated: 'group-hover:bg-primary/8 group-active:bg-primary/10',
-            text: 'group-hover:bg-primary/8 group-active:bg-primary/10',
+            default: 'group-hover/toggle:bg-on-surface-variant/8 group-active/toggle:bg-on-surface-variant/10',
+            tonal: 'group-hover/toggle:bg-on-secondary-container/8 group-active/toggle:bg-on-secondary-container/10',
+            outline: 'group-hover/toggle:bg-on-surface-variant/8 group-active/toggle:bg-on-surface-variant/10',
+            elevated: 'group-hover/toggle:bg-primary/8 group-active/toggle:bg-primary/10',
+            text: 'group-hover/toggle:bg-primary/8 group-active/toggle:bg-primary/10',
         },
     },
 
