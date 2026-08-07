@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const containerVariants = cva(
-    'group relative flex h-14 w-full items-center gap-1 p-px transition-shadow disabled:cursor-not-allowed disabled:opacity-50',
+    'relative flex h-14 w-full items-center gap-1 p-px transition-shadow disabled:cursor-not-allowed disabled:opacity-50',
     {
         variants: {
             variant: {

@@ -35,7 +35,11 @@ function ContextMenuRadioGroup({ className, ...props }: React.ComponentProps<typ
         <ContextMenuPrimitive.RadioGroup
             data-slot='context-menu-radio-group'
             data-compact={compact ? '' : undefined}
-            className={cn('flex flex-col gap-0.5', compact && 'gap-px', className)}
+            className={cn(
+                'flex flex-col gap-0.5 first:[&>*:first-child]:rounded-t-xl last:[&>*:last-child]:rounded-b-xl',
+                compact && 'gap-px first:[&>*:first-child]:rounded-t-lg last:[&>*:last-child]:rounded-b-lg',
+                className,
+            )}
             {...props}
         />
     )
@@ -80,12 +84,12 @@ function ContextMenuGroup({ className, children, ...props }: React.ComponentProp
                 'first:rounded-t-2xl last:rounded-b-2xl first:[&>div>*:first-child]:rounded-t-xl last:[&>div>*:last-child]:rounded-b-xl',
                 'w-full overflow-hidden overflow-y-auto rounded-lg bg-surface-container-low p-1 shadow-elevation-3',
                 compact &&
-                    'rounded-md p-0.5 first:rounded-t-xl last:rounded-b-2xl first:[&>div>*:first-child]:rounded-t-lg last:[&>div>*:last-child]:rounded-b-lg',
+                    'rounded-md p-0.5 first:rounded-t-xl last:rounded-b-xl first:[&>div>*:first-child]:rounded-t-lg last:[&>div>*:last-child]:rounded-b-lg',
                 className,
             )}
             {...props}
         >
-            <div className={cn('flex w-full flex-col gap-0.5 overflow-hidden rounded-sm', compact && 'gap-px')}>
+            <div className={cn('flex w-full flex-col gap-0.5', compact && 'gap-px')}>
                 {children}
             </div>
         </ContextMenuPrimitive.Group>
