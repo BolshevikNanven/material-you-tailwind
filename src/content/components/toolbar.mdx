@@ -1,0 +1,94 @@
+---
+title: Toolbar
+description: 'Toolbars group related actions in a floating or docked container.'
+---
+
+<ComponentPreview>
+    <ToolbarDemo />
+</ComponentPreview>
+
+## Installation
+
+- Install the following dependency
+
+```bash
+pnpm add @radix-ui/react-slot
+```
+
+- Add the [Ripple](/components/ripple) component. For composed actions, also add [Button](/components/button) and [Toggle](/components/toggle).
+- Copy and paste the following code into your project
+
+<ComponentSource title='src/components/ui/toolbar.tsx'>
+    <Toolbar />
+</ComponentSource>
+
+## Usage
+
+```tsx
+import { Toolbar, ToolbarItem } from '@/components/ui/toolbar'
+import { Button } from '@/components/ui/button'
+import { Toggle } from '@/components/ui/toggle'
+```
+
+```tsx
+<Toolbar>
+    <ToolbarItem>
+        <i className='icon-[material-symbols--undo-rounded]' />
+    </ToolbarItem>
+    <ToolbarItem asChild>
+        <Button icon>
+            <i className='icon-[material-symbols--add-rounded]' />
+        </Button>
+    </ToolbarItem>
+    <ToolbarItem asChild>
+        <Toggle icon variant='tonal'>
+            <i className='icon-[material-symbols--format-bold-rounded]' />
+        </Toggle>
+    </ToolbarItem>
+</Toolbar>
+```
+
+Place `ToolbarItem` inside `Toolbar`. Use `asChild` to wrap a Button or Toggle, and add `icon` for an icon-only control.
+
+## Orientation
+
+Set `orientation` to `vertical` or `horizontal` on a floating Toolbar.
+
+<ComponentPreview>
+    <ToolbarVerticalDemo />
+</ComponentPreview>
+
+## Compact
+
+Add `compact` for a 56px-high horizontal toolbar or a 56px-wide vertical toolbar, keeping control sizes unchanged. Floating toolbars use 8px padding and 4px gaps.
+
+<ComponentPreview>
+    <ToolbarCompactDemo />
+</ComponentPreview>
+
+## API Reference
+
+### Toolbar
+
+| Prop        | Type                                    | Default      |
+| :---------- | :-------------------------------------- | :----------- |
+| variant     | `docked` \| `float`                     | `float`      |
+| color       | `standard` \| `vibrant`                 | `standard`   |
+| orientation | `horizontal` \| `vertical` (float only) | `horizontal` |
+| compact     | `boolean`                               | `false`      |
+| children    | `React.ReactNode`                       |              |
+| className   | `string`                                |              |
+
+All other div props and refs are forwarded to the container.
+
+### ToolbarItem
+
+| Prop      | Type                                           | Default                        |
+| :-------- | :--------------------------------------------- | :----------------------------- |
+| asChild   | `boolean`                                      | `false`                        |
+| children  | `React.ReactNode` (one element when `asChild`) |                                |
+| disabled  | `boolean`                                      | `false`                        |
+| type      | `button` \| `submit` \| `reset`                | `button` (native control only) |
+| className | `string` (inner control)                       |                                |
+
+All other button props and refs are forwarded to the inner control. With `asChild`, the child retains its own element type and behavior.

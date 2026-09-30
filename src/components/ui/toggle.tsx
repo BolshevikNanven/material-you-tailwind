@@ -106,10 +106,11 @@ function Toggle({
         <TogglePrimitive.Root
             data-slot='toggle'
             data-square={!!square}
+            data-icon={!!icon}
             className={cn(toggleVariants({ variant, size, icon, square, className }))}
             {...props}
         >
-            <div className={cn(layerVariants({ variant }))} />
+            <div data-slot='toggle-layer' className={cn(layerVariants({ variant }))} />
             <Ripple />
             {children}
         </TogglePrimitive.Root>

@@ -104,7 +104,7 @@ function Button({
 
     const Adornments = (
         <>
-            <div className={cn(layerVariants({ variant }))} />
+            <div data-slot='button-layer' className={cn(layerVariants({ variant }))} />
             <Ripple />
         </>
     )
@@ -114,6 +114,7 @@ function Button({
             data-slot='button'
             data-variant={variant}
             data-square={!!square}
+            data-icon={!!icon}
             data-size={size}
             className={cn(buttonVariants({ variant, size, square, icon, className }))}
             {...props}
