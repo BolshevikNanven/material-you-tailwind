@@ -43,5 +43,5 @@ See the [Changelog](https://material.nanven.cn/docs/changelog) for component upd
 - [x] toggle
 - [x] tab
 - [x] tooltip
-- [x] <b>toolbar [new]</b>
+- [x] <b>toolbar [NEW]</b>
 - [x] progress
