@@ -9,7 +9,7 @@ export /* eslint-disable @typescript-eslint/no-explicit-any */ interface Page {
     }
 }
 
-export const DOCS_ORDER = ['Introduction', 'Installation', 'Colors', 'Icons']
+export const DOCS_ORDER = ['Introduction', 'Installation', 'Colors', 'Icons', 'Changelog']
 
 export function sortDocsPages(pages: Page[]): Page[] {
     return [...pages].sort((a, b) => {

@@ -10,7 +10,12 @@ Work in progress. Stay tuned!
 
 Visit https://material.nanven.cn/
 
+## Changelog
+
+See the [Changelog](https://material.nanven.cn/docs/changelog) for component updates.
+
 ### Components
+
 - [x] avatar
 - [x] badge
 - [x] button-group
@@ -38,4 +43,5 @@ Visit https://material.nanven.cn/
 - [x] toggle
 - [x] tab
 - [x] tooltip
+- [x] <b>toolbar [new]</b>
 - [x] progress
