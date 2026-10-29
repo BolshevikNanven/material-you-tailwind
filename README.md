@@ -22,7 +22,7 @@ See the [Changelog](https://material.nanven.cn/docs/changelog) for component upd
 - [x] button
 - [x] calendar
 - [x] card
-- [ ] carousel
+- [x] <b>carousel [new]</b>
 - [x] checkbox
 - [x] chip
 - [x] context-menu
@@ -43,5 +43,5 @@ See the [Changelog](https://material.nanven.cn/docs/changelog) for component upd
 - [x] toggle
 - [x] tab
 - [x] tooltip
-- [x] <b>toolbar [NEW]</b>
+- [x] toolbar
 - [x] progress

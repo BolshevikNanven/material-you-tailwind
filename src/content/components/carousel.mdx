@@ -1,0 +1,108 @@
+---
+title: Carousel
+description: 'Carousels show a collection of items that can be scrolled on and off the screen.'
+---
+
+<ComponentPreview>
+    <CarouselDemo />
+</ComponentPreview>
+
+## Installation
+
+- Copy and paste the following code into your project
+
+<ComponentSource title='src/components/ui/carousel.tsx'>
+    <Carousel />
+</ComponentSource>
+
+## Usage
+
+```tsx
+import { Carousel, CarouselItem, CarouselItemLabel } from '@/components/ui/carousel'
+```
+
+```tsx
+<Carousel>
+    <CarouselItem>
+        <img src='/photo.jpg' alt='' className='size-full object-cover' />
+        <CarouselItemLabel className='text-white'>Mountains</CarouselItemLabel>
+    </CarouselItem>
+    ...
+</Carousel>
+```
+
+Items are masks with 28px corners and 8px gaps, inset 16px from the leading and trailing edges and 8px from the top and bottom. Their content keeps the large item's size and stays centered, so it is cropped rather than squeezed as the item shrinks, and items scrolling off bleed over the padding. `CarouselItemLabel` follows the visible part of its item, stays on large and medium items, and fades out on small ones. It inherits the text color, so add `text-white` over photos. Pass `onClick` to `CarouselItem` to make it interactive with hover and pressed state layers.
+
+The carousel scrolls natively and snaps to items, except in the uncontained layout. A vertical mouse wheel scrolls horizontal carousels as smoothly as horizontal scrolling, snaps to the nearest item when it stops, and hands off to the page at either end. With keyboard focus, arrow keys move between items, and tabbing to an interactive item brings it into the large position.
+
+On vertically scrolling pages, add a way to view every item without scrolling sideways, such as a **Show all** button below the carousel.
+
+## Hero
+
+`hero` keeps one or more large items in focus, followed by a small item.
+
+<ComponentPreview>
+    <CarouselHeroDemo />
+</ComponentPreview>
+
+## Center-aligned hero
+
+`center-hero` centers the large item between two small items and keeps this layout at both ends.
+
+<ComponentPreview>
+    <CarouselCenterHeroDemo />
+</ComponentPreview>
+
+## Uncontained
+
+`uncontained` keeps every item at `itemWidth` and lets items flow off the edge, with leading padding only. It scrolls freely without snapping.
+
+<ComponentPreview>
+    <CarouselUncontainedDemo />
+</ComponentPreview>
+
+## Multi-aspect ratio
+
+Set `width` on each `CarouselItem` in an uncontained carousel to mix item widths, from 9:16 up to 16:9.
+
+<ComponentPreview>
+    <CarouselMultiAspectDemo />
+</ComponentPreview>
+
+## Full screen
+
+`full-screen` shows one edge-to-edge item at a time with 16px between items, scrolling vertically. It works best for portrait content.
+
+<ComponentPreview>
+    <CarouselFullScreenDemo />
+</ComponentPreview>
+
+## Sizing
+
+In `multi-browse`, `hero`, and `center-hero`, the carousel measures itself and picks how many large, medium, and small items fit, keeping the large width close to `itemWidth`. Small items stay between 40px and 56px. Set the carousel height with `className`.
+
+## API Reference
+
+### Carousel
+
+| Prop      | Type                                                                          | Default             |
+| :-------- | :---------------------------------------------------------------------------- | :------------------ |
+| layout    | `multi-browse` \| `hero` \| `center-hero` \| `uncontained` \| `full-screen` | `multi-browse`      |
+| itemWidth | `number` (max large item width, or item width when uncontained, in px)        | depends on `layout` |
+| className | `string`                                                                      |                     |
+
+All other div props are forwarded to the scroll container.
+
+### CarouselItem
+
+| Prop      | Type                        | Default     |
+| :-------- | :-------------------------- | :---------- |
+| width     | `number` (uncontained only) | `itemWidth` |
+| onClick   | `React.MouseEventHandler`   |             |
+| className | `string`                    |             |
+
+Keyline items expose `data-size` (`large`, `medium`, or `small`) and the `--carousel-item-size`, `--carousel-item-offset`, and `--carousel-item-progress` CSS variables for custom transitions.
+
+### CarouselItemLabel
+
+Accepts all div props.
