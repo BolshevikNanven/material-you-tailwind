@@ -1,12 +1,44 @@
 ---
 title: Installation
-description: How to install and configure the components manually.
+description: Add Material You components with the shadcn CLI or install them manually.
 image: '/develop.png'
 ---
 
-## Manual Installation
+## Install with shadcn
 
-Since this is not a component library, you need to configure your project to support the components.
+Start with a React 19 project using Tailwind CSS v4. If the project has no `components.json`, initialize shadcn with CSS variables enabled.
+
+```bash
+npx shadcn@latest init
+```
+
+### Use the registry by name
+
+Register the URL template once in your project.
+
+```bash
+npx shadcn@latest registry add '@material-you=https://material.nanven.cn/r/{name}.json'
+```
+
+### Apply the Material theme
+
+`shadcn init` writes its own values for roles such as `--primary`, `--secondary` and `--background`, which have different meanings in Material You. Add the theme once to replace them with the Material light and dark palette, elevation shadows, Material Symbols and animation support.
+
+```bash
+npx shadcn@latest add @material-you/material-theme
+```
+
+Run this before adding components. Components also install the theme, but in that case existing color variables are kept, so overlapping roles keep the shadcn values.
+
+### Add components
+
+```bash
+npx shadcn@latest add @material-you/button @material-you/text-field
+```
+
+The CLI writes source files to your configured UI directory and uses your project's `cn` helper.
+
+## Manual Installation
 
 ### 1. Create a Next.js project
 

@@ -21,6 +21,8 @@
 
 # production
 /build
+/public/r/
+/registry.json
 
 # misc
 .DS_Store
