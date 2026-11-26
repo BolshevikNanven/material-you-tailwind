@@ -1,0 +1,206 @@
+---
+title: List
+description: 'Lists are continuous, vertical indexes of text and images.'
+---
+
+<ComponentPreview>
+    <ListDemo />
+</ComponentPreview>
+
+## Installation
+
+### Shadcn CLI
+
+```bash
+npx shadcn@latest add @material-you/list
+```
+
+### Manual installation
+
+- Install the following dependencies
+
+```bash
+pnpm add @radix-ui/react-slot
+```
+
+- Copy and paste the following code into your project
+
+<ComponentSource title='src/components/ui/list.tsx'>
+    <List />
+</ComponentSource>
+
+## Usage
+
+```tsx
+import {
+    List,
+    ListItem,
+    ListItemContent,
+    ListItemLabel,
+    ListItemLeading,
+    ListItemSupportingText,
+    ListItemTrailing,
+    ListItemTrailingText,
+} from '@/components/ui/list'
+```
+
+```tsx
+<List>
+    <ListItem onClick={() => {}}>
+        <ListItemLeading>
+            <i className='icon-[material-symbols--content-copy-outline-rounded]' />
+        </ListItemLeading>
+        <ListItemContent>
+            <ListItemLabel>Copy</ListItemLabel>
+            <ListItemSupportingText>Copy the selection</ListItemSupportingText>
+        </ListItemContent>
+        <ListItemTrailing>
+            <ListItemTrailingText>⌘C</ListItemTrailingText>
+            <i className='icon-[material-symbols--arrow-right-rounded]' />
+        </ListItemTrailing>
+    </ListItem>
+</List>
+```
+
+List items follow the Material 3 Expressive specs: 16px leading and trailing padding, 10px top and bottom padding, 12px between elements, 20px icons, and a minimum height of 56px for one line, 72px for two lines and 88px for three lines. Items have 4px corners at rest and morph to 12px on hover, and to 16px when focused, pressed, selected, or dragged.
+
+An item becomes interactive when it has an `onClick` handler or uses `asChild`, which adds hover, focus, and pressed state layers with a ripple. Interactive items without `asChild` are focusable and respond to <kbd>Enter</kbd> and <kbd>Space</kbd>.
+
+## Segmented
+
+`variant='segmented'` separates items with a 2px gap and rounds the outer corners of the first and last visible items to 16px, including items inside collapsible groups and swipe wrappers. Place segmented lists on a `surface-container` background so the items stand out.
+
+<ComponentPreview>
+    <ListSegmentedDemo />
+</ComponentPreview>
+
+## Lines
+
+Add `ListItemOverline` and `ListItemSupportingText` for two-line items. Set `lines={2}` on `ListItemSupportingText` for three-line items, which align their leading and trailing elements to the top.
+
+<ComponentPreview>
+    <ListLinesDemo />
+</ComponentPreview>
+
+## Selection
+
+Set `selectable` to let the item toggle its own selection on click, <kbd>Enter</kbd>, or <kbd>Space</kbd>. Control it with `selected` and `onSelectedChange`, or leave it uncontrolled with `defaultSelected`. Selected items fill with `secondary-container`. `disabled` lowers the content to 38% opacity and blocks clicks. The item sets its own checkbox role and checked state, so you don't need to add accessibility props.
+
+<ComponentPreview>
+    <ListSelectionDemo />
+</ComponentPreview>
+
+## Leading elements
+
+`ListItemLeading` holds an icon, avatar, 56px image, 100 × 56 video thumbnail, checkbox, radio button, or switch. Use an 8px corner (`rounded-lg`) for images and videos. In a `selectable` item, the whole item is the control: checkboxes, radio buttons, and switches in `ListItemLeading` and `ListItemTrailing` become inert, so clicks and focus go to the item. Pass them the same state as `selected`.
+
+<ComponentPreview>
+    <ListLeadingDemo />
+</ComponentPreview>
+
+## Trailing elements
+
+`ListItemTrailing` holds trailing supporting text, icons, a checkbox, radio button, or switch.
+
+<ComponentPreview>
+    <ListTrailingDemo />
+</ComponentPreview>
+
+## Expandable
+
+`ListCollapsible` groups a trigger item with nested items. `ListCollapsibleIndicator` shows a circular chevron that fills with `surface-container` and flips when expanded.
+
+<ComponentPreview>
+    <ListCollapsibleDemo />
+</ComponentPreview>
+
+## Reorder
+
+Pass `onReorder` to `List` and add a `ListItemDragHandle` to each item. Dragging the handle lifts the item with `tertiary-container` and level 4 elevation while the other items make room, and a `surface-container-low` drop zone marks where it will land. With keyboard focus on the handle, <kbd>↑</kbd> and <kbd>↓</kbd> move the item. Set `label` to name the handle for screen readers. Reorder works on the direct children of the list.
+
+<ComponentPreview>
+    <ListReorderDemo />
+</ComponentPreview>
+
+## Swipe actions
+
+Wrap an item in `ListItemReveal` to reveal actions when it is swiped left. As soon as the item moves, all actions appear at the trailing edge with equal widths and grow with the swipe until each reaches `actionWidth`. They fill the item's height and share its 16px corners, and their icons fade in as they widen. Releasing past half of the full width keeps them open. Tapping outside or pressing <kbd>Esc</kbd> closes them, and tabbing to an action opens them. Add a `ListItemRevealTrigger` to the item to open and close the actions from a more button, and use `open` and `onOpenChange` to control it. Give icon-only actions a `label`.
+
+<ComponentPreview>
+    <ListRevealDemo />
+</ComponentPreview>
+
+## API Reference
+
+### List
+
+| Prop      | Type                                 | Default    |
+| :-------- | :----------------------------------- | :--------- |
+| variant   | `standard` \| `segmented`            | `standard` |
+| onReorder | `(from: number, to: number) => void` |            |
+
+All other div props are forwarded.
+
+### ListItem
+
+| Prop             | Type                          | Default                                           |
+| :--------------- | :---------------------------- | :------------------------------------------------ |
+| selectable       | `boolean`                     | `false`                                           |
+| selected         | `boolean`                     |                                                   |
+| defaultSelected  | `boolean`                     | `false`                                           |
+| onSelectedChange | `(selected: boolean) => void` |                                                   |
+| disabled         | `boolean`                     | `false`                                           |
+| dragged          | `boolean`                     | `false`                                           |
+| interactive      | `boolean`                     | `true` with `selectable`, `onClick`, or `asChild` |
+| asChild          | `boolean`                     | `false`                                           |
+
+Items expose `data-selected`, `data-disabled`, and `data-dragged`. Their top and bottom corner radii come from the `--list-item-top` and `--list-item-bottom` CSS variables, which segmented lists set to 16px on the first and last rows.
+
+### ListItemSupportingText
+
+| Prop  | Type       | Default |
+| :---- | :--------- | :------ |
+| lines | `1` \| `2` | `1`     |
+
+### ListCollapsible
+
+| Prop         | Type                      | Default |
+| :----------- | :------------------------ | :------ |
+| open         | `boolean`                 |         |
+| defaultOpen  | `boolean`                 | `false` |
+| onOpenChange | `(open: boolean) => void` |         |
+
+`ListCollapsibleTrigger` merges its props into its child `ListItem`. `ListCollapsibleContent` holds the nested items.
+
+### ListItemReveal
+
+| Prop         | Type                      | Default |
+| :----------- | :------------------------ | :------ |
+| actions      | `React.ReactNode`         |         |
+| open         | `boolean`                 |         |
+| defaultOpen  | `boolean`                 | `false` |
+| onOpenChange | `(open: boolean) => void` |         |
+| actionWidth  | `number` (px, per action) | `56`    |
+
+### ListItemRevealAction
+
+| Prop    | Type                | Default |
+| :------ | :------------------ | :------ |
+| variant | `tonal` \| `filled` | `tonal` |
+| label   | `string`            |         |
+
+### ListItemRevealTrigger
+
+| Prop  | Type     | Default        |
+| :---- | :------- | :------------- |
+| label | `string` | `More actions` |
+
+Renders a more icon unless you pass children.
+
+### ListItemDragHandle
+
+| Prop  | Type     | Default   |
+| :---- | :------- | :-------- |
+| label | `string` | `Reorder` |
+
+`ListItemLeading`, `ListItemContent`, `ListItemOverline`, `ListItemLabel`, `ListItemTrailing`, `ListItemTrailingText`, and `ListCollapsibleIndicator` accept their element's props.

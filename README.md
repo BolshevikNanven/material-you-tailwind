@@ -45,13 +45,14 @@ See the [Changelog](https://material.nanven.cn/docs/changelog) for component upd
 - [x] button
 - [x] calendar
 - [x] card
-- [x] <b>carousel [new]</b>
+- [x] carousel
 - [x] checkbox
 - [x] chip
 - [x] context-menu
 - [x] dialog
 - [x] divider
 - [x] dropdown-menu
+- [x] <b>list [new]</b>
 - [x] loading
 - [x] navigation
 - [x] popover
