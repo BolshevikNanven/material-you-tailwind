@@ -14,8 +14,10 @@ interface CodeViewerProps {
     title?: string
     code: string
     className?: string
+    /** Always expanded and stretched to the parent's height (no collapse toggle). */
+    fill?: boolean
 }
-export function CodeViewer({ title, code, className }: CodeViewerProps) {
+export function CodeViewer({ title, code, className, fill = false }: CodeViewerProps) {
     const { theme } = useTheme()
 
     const [isOpen, setIsOpen] = React.useState(false)
@@ -33,23 +35,25 @@ export function CodeViewer({ title, code, className }: CodeViewerProps) {
         <div className={cn('flex flex-col overflow-hidden rounded-2xl border bg-surface-container-high', className)}>
             <div className='flex items-center gap-2 px-3 py-1'>
                 <h3 className='mr-auto pl-1 text-sm'>{title}</h3>
-                <Button onClick={() => setIsOpen(!isOpen)} size='sm' variant='text'>
-                    <i
-                        className={cn(
-                            'text-lg',
-                            isOpen ? 'icon-[material-symbols--code-off]' : 'icon-[material-symbols--code]',
-                        )}
-                    />
-                    {isOpen ? 'Collapse Code' : 'Expand Code'}
-                </Button>
+                {!fill && (
+                    <Button onClick={() => setIsOpen(!isOpen)} size='sm' variant='text'>
+                        <i
+                            className={cn(
+                                'text-lg',
+                                isOpen ? 'icon-[material-symbols--code-off]' : 'icon-[material-symbols--code]',
+                            )}
+                        />
+                        {isOpen ? 'Collapse Code' : 'Expand Code'}
+                    </Button>
+                )}
                 <CopyButton size='sm' variant='text' text={code} />
             </div>
 
-            <div className='relative h-full'>
+            <div className={cn('relative h-full', fill && 'min-h-0 flex-1')}>
                 <div
                     className={cn(
                         'max-h-130 overflow-auto rounded-t-xl bg-surface-container-low',
-                        isOpen ? 'h-full' : 'max-h-20 overflow-hidden',
+                        fill ? 'h-full max-h-none' : isOpen ? 'h-full' : 'max-h-20 overflow-hidden',
                     )}
                 >
                     <div className='[&_pre]:my-0! [&_pre]:bg-transparent! [&_pre]:p-4 [&_pre]:font-mono [&_pre]:text-sm [&_pre]:leading-relaxed'>
@@ -62,7 +66,7 @@ export function CodeViewer({ title, code, className }: CodeViewerProps) {
                         )}
                     </div>
                 </div>
-                {!isOpen && (
+                {!fill && !isOpen && (
                     <div
                         className='absolute bottom-0 left-0 z-10 h-full w-full'
                         style={{

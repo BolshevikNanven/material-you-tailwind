@@ -47,6 +47,13 @@ export default function Navigation() {
                 >
                     <Link href={'/components'}>components</Link>
                 </NavigationRailItem>
+                <NavigationRailItem
+                    asChild
+                    icon={<i className='icon-[material-symbols--widgets-outline-rounded]' />}
+                    active={pathname.startsWith('/blocks')}
+                >
+                    <Link href={'/blocks'}>blocks</Link>
+                </NavigationRailItem>
                 <div className='mt-auto flex flex-wrap gap-2 p-4'>
                     <Button variant='outline' icon className='size-14 rounded-full' asChild>
                         <a href='https://github.com/BolshevikNanven/material-you-tailwind' target='_blank'>

@@ -51,7 +51,7 @@ function Card({
     const mask = (
         <div
             className={cn(
-                'absolute inset-0 rounded-xl transition-colors group-hover/card:bg-on-surface/8 group-active/card:bg-on-surface/10',
+                'absolute inset-0 rounded-[inherit] transition-colors group-hover/card:bg-on-surface/8 group-active/card:bg-on-surface/10',
             )}
         />
     )

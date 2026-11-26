@@ -160,7 +160,8 @@ function useWaveAnimation(
             const { value: currentValue, wave: isWave, variant: currentVariant } = dataRef.current
 
             const dpr = window.devicePixelRatio || 1
-            const rect = canvas.getBoundingClientRect()
+            // Use layout size (ignores CSS transforms) so a scaled ancestor doesn't distort the stroke
+            const rect = { width: canvas.clientWidth, height: canvas.clientHeight }
 
             // 响应式布局
             // 每一帧都检测 DOM 元素的实际大小，并更新 Canvas 的内部分辨率
