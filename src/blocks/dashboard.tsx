@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { ButtonGroup } from '@/components/ui/button-group'
 import { Card, CardContent } from '@/components/ui/card'
 import { Chip } from '@/components/ui/chip'
-import { Divider } from '@/components/ui/divider'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -16,6 +15,16 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import {
+    List,
+    ListItem,
+    ListItemContent,
+    ListItemLabel,
+    ListItemLeading,
+    ListItemSupportingText,
+    ListItemTrailing,
+    ListItemTrailingText,
+} from '@/components/ui/list'
 import {
     NavigationRail,
     NavigationRailContent,
@@ -28,6 +37,7 @@ import { Progress } from '@/components/ui/progress'
 import { Search, SearchInput, SearchList, SearchListItem, SearchTrigger } from '@/components/ui/search'
 import { toast } from '@/components/ui/snakebar'
 import { Toggle } from '@/components/ui/toggle'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
 
 type Range = '7d' | '30d' | '90d'
@@ -106,6 +116,19 @@ const statusStyles: Record<Status, string> = {
     Refunded: 'bg-error-container text-on-error-container',
 }
 
+function IconAction({ label, children, ...props }: React.ComponentProps<typeof Button> & { label: string }) {
+    return (
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <Button variant='text' icon aria-label={label} {...props}>
+                    {children}
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent>{label}</TooltipContent>
+        </Tooltip>
+    )
+}
+
 function DashboardSearch() {
     const [query, setQuery] = React.useState('')
     const q = query.trim().toLowerCase()
@@ -146,11 +169,16 @@ function DashboardSearch() {
 function OrderActions({ id }: { id: string }) {
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant='text' icon size='sm' className='text-on-surface-variant' aria-label='Order actions'>
-                    <i className='icon-[material-symbols--more-vert]' />
-                </Button>
-            </DropdownMenuTrigger>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant='text' icon size='sm' className='text-on-surface-variant' aria-label='Order actions'>
+                            <i className='icon-[material-symbols--more-vert]' />
+                        </Button>
+                    </DropdownMenuTrigger>
+                </TooltipTrigger>
+                <TooltipContent>Order actions</TooltipContent>
+            </Tooltip>
             <DropdownMenuContent compact align='end'>
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
@@ -210,18 +238,13 @@ export default function DashboardBlock() {
                 <header className='relative z-20 flex h-16 shrink-0 items-center gap-2 px-4 @3xl/app:pl-2'>
                     <DashboardSearch />
                     <div className='ml-auto flex items-center gap-1'>
-                        <Button variant='text' icon className='relative text-on-surface-variant' aria-label='Notifications'>
+                        <IconAction label='Notifications' className='relative text-on-surface-variant'>
                             <i className='icon-[material-symbols--notifications-outline-rounded] size-6' />
                             <Badge className='absolute top-2 right-2'>3</Badge>
-                        </Button>
-                        <Button
-                            variant='text'
-                            icon
-                            className='hidden text-on-surface-variant @3xl/app:inline-flex'
-                            aria-label='Settings'
-                        >
+                        </IconAction>
+                        <IconAction label='Settings' className='hidden text-on-surface-variant @3xl/app:inline-flex'>
                             <i className='icon-[material-symbols--settings-outline-rounded] size-6' />
-                        </Button>
+                        </IconAction>
                         <Avatar className='ml-2 size-9'>
                             <AvatarImage src='https://github.com/bolsheviknanven.png' alt='avatar' />
                             <AvatarFallback>A</AvatarFallback>
@@ -324,35 +347,40 @@ export default function DashboardBlock() {
                                 </ButtonGroup>
                             </div>
 
-                            <ul className='mt-3 flex flex-col'>
-                                {visibleOrders.map((o, i) => (
-                                    <li key={o.id}>
-                                        {i > 0 && <Divider className='ml-14 data-[orientation=horizontal]:w-auto' />}
-                                        <div className='-mx-4 flex items-center gap-4 rounded-2xl px-4 py-3 transition-colors hover:bg-on-surface/8'>
-                                            <Avatar>
-                                                <AvatarFallback>{o.customer.at(0)}</AvatarFallback>
-                                            </Avatar>
-                                            <div className='min-w-0 flex-1'>
-                                                <p className='truncate text-base'>{o.customer}</p>
-                                                <p className='truncate text-sm text-on-surface-variant'>
+                            <div className='mt-3 rounded-3xl bg-surface-container-low p-2'>
+                                <List variant='segmented'>
+                                    {visibleOrders.map(o => (
+                                        <ListItem key={o.id} className='gap-4 pr-2'>
+                                            <ListItemLeading>
+                                                <Avatar>
+                                                    <AvatarFallback>{o.customer.at(0)}</AvatarFallback>
+                                                </Avatar>
+                                            </ListItemLeading>
+                                            <ListItemContent>
+                                                <ListItemLabel>{o.customer}</ListItemLabel>
+                                                <ListItemSupportingText>
                                                     <span className='@lg:hidden'>{o.status} · </span>
                                                     {o.id} · {o.item}
-                                                </p>
-                                            </div>
-                                            <span
-                                                className={cn(
-                                                    'hidden rounded-lg px-2.5 py-1 text-xs font-medium @lg:inline',
-                                                    statusStyles[o.status],
-                                                )}
-                                            >
-                                                {o.status}
-                                            </span>
-                                            <span className='text-right text-sm font-medium @lg:w-20'>{o.amount}</span>
-                                            <OrderActions id={o.id} />
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
+                                                </ListItemSupportingText>
+                                            </ListItemContent>
+                                            <ListItemTrailing>
+                                                <span
+                                                    className={cn(
+                                                        'hidden rounded-lg px-2.5 py-1 text-xs font-medium @lg:inline',
+                                                        statusStyles[o.status],
+                                                    )}
+                                                >
+                                                    {o.status}
+                                                </span>
+                                                <span className='text-right text-sm font-medium text-on-surface @lg:w-20'>
+                                                    {o.amount}
+                                                </span>
+                                                <OrderActions id={o.id} />
+                                            </ListItemTrailing>
+                                        </ListItem>
+                                    ))}
+                                </List>
+                            </div>
 
                             <div className='mt-4 flex flex-wrap gap-2'>
                                 <Chip leadingIcon={<i className='icon-[material-symbols--auto-awesome-outline-rounded]' />}>
@@ -386,17 +414,22 @@ export default function DashboardBlock() {
                                         View all
                                     </Button>
                                 </div>
-                                <ul className='mt-3 flex flex-col gap-5'>
-                                    {topProducts[range].map(p => (
-                                        <li key={p.name} className='flex flex-col gap-2'>
-                                            <div className='flex items-baseline text-sm'>
-                                                <span className='mr-auto truncate'>{p.name}</span>
-                                                <span className='text-on-surface-variant'>{p.sold.toLocaleString()} sold</span>
-                                            </div>
-                                            <Progress value={p.share} />
-                                        </li>
+                                <List className='-mx-4 mt-1'>
+                                    {topProducts[range].map((p, i) => (
+                                        <ListItem key={p.name} className='items-start'>
+                                            <ListItemLeading className='mt-0.5 size-6 rounded-full bg-secondary-container text-xs font-medium text-on-secondary-container'>
+                                                {i + 1}
+                                            </ListItemLeading>
+                                            <ListItemContent className='gap-2'>
+                                                <ListItemLabel>{p.name}</ListItemLabel>
+                                                <Progress value={p.share} />
+                                            </ListItemContent>
+                                            <ListItemTrailing className='mt-0.5'>
+                                                <ListItemTrailingText>{p.sold.toLocaleString()} sold</ListItemTrailingText>
+                                            </ListItemTrailing>
+                                        </ListItem>
                                     ))}
-                                </ul>
+                                </List>
                             </section>
                         </aside>
                     </div>
