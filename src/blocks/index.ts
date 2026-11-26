@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import DashboardBlock from './dashboard'
+import SupportInboxBlock from './support-inbox'
 
 export const categories = [
     {
@@ -56,6 +57,40 @@ export const blocks: Block[] = [
         ],
         file: 'src/blocks/dashboard.tsx',
         component: DashboardBlock,
+    },
+    {
+        slug: 'support-inbox',
+        title: 'Support Inbox',
+        description:
+            'A customer support workspace with queues, SLA tracking, bulk actions, macros, internal notes, escalation, and keyboard shortcuts.',
+        category: 'Application',
+        components: [
+            'Search',
+            'Tabs',
+            'Chip',
+            'List',
+            'Checkbox',
+            'Toolbar',
+            'Context Menu',
+            'Dropdown Menu',
+            'Card',
+            'Button',
+            'Button Group',
+            'Avatar',
+            'Badge',
+            'Divider',
+            'Progress',
+            'Loading',
+            'Dialog',
+            'Text Field',
+            'Radio Group',
+            'Switch',
+            'Popover',
+            'Tooltip',
+            'Snackbar',
+        ],
+        file: 'src/blocks/support-inbox.tsx',
+        component: SupportInboxBlock,
     },
 ]
 

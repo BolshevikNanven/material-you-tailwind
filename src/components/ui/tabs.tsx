@@ -27,6 +27,17 @@ const tabListVariants = cva('relative flex border-b border-outline-variant', {
     },
 })
 
+/** Layout offset of `element` inside `ancestor`, unaffected by CSS transforms and scrolling. */
+function offsetLeftWithin(element: HTMLElement, ancestor: HTMLElement) {
+    let left = 0
+    let node: HTMLElement | null = element
+    while (node && node !== ancestor) {
+        left += node.offsetLeft
+        node = node.offsetParent as HTMLElement | null
+    }
+    return left
+}
+
 function TabsList({
     variant = 'primary',
     className,
@@ -37,70 +48,66 @@ function TabsList({
     const localRef = React.useRef<HTMLDivElement>(null)
 
     const [indicatorStyle, setIndicatorStyle] = React.useState({ left: 0, width: 0, opacity: 0 })
+    // The indicator is placed before the first paint, so it only animates once it has a position.
+    const [animated, setAnimated] = React.useState(false)
 
     const updateIndicator = React.useCallback(() => {
         const list = localRef.current
         if (!list) return
 
-        const activeTab = list.querySelector('[data-state="active"]') as HTMLElement
+        const activeTab = list.querySelector<HTMLElement>('[data-slot="tabs-trigger"][data-state="active"]')
         if (!activeTab) {
-            setIndicatorStyle(prev => ({ ...prev, opacity: 0 }))
+            setIndicatorStyle(prev => (prev.opacity === 0 ? prev : { ...prev, opacity: 0 }))
             return
         }
 
-        let targetElement = activeTab
+        const target = (variant === 'primary' && activeTab.querySelector<HTMLElement>('[data-slot="tabs-tab"]')) || activeTab
+        const next = { left: offsetLeftWithin(target, list), width: target.offsetWidth, opacity: 1 }
 
-        if (variant === 'primary') {
-            const innerContent = activeTab.querySelector('[data-slot="tabs-tab"]') as HTMLElement
-            if (innerContent) {
-                targetElement = innerContent
-            }
-        }
-
-        const listRect = list.getBoundingClientRect()
-        const targetRect = targetElement.getBoundingClientRect()
-
-        setIndicatorStyle({
-            left: targetRect.left - listRect.left,
-            width: targetRect.width,
-            opacity: 1,
-        })
+        setIndicatorStyle(prev =>
+            prev.left === next.left && prev.width === next.width && prev.opacity === next.opacity ? prev : next,
+        )
     }, [variant])
+
+    React.useLayoutEffect(() => {
+        updateIndicator()
+    }, [updateIndicator])
+
+    React.useEffect(() => {
+        const frame = requestAnimationFrame(() => setAnimated(true))
+        return () => cancelAnimationFrame(frame)
+    }, [])
 
     React.useEffect(() => {
         const list = localRef.current
         if (!list) return
 
-        requestAnimationFrame(updateIndicator)
+        // Tabs can change width without the list resizing (labels, badges, fonts loading), so watch each trigger.
+        const resizeObserver = new ResizeObserver(updateIndicator)
+        const observeTriggers = () => {
+            resizeObserver.disconnect()
+            resizeObserver.observe(list)
+            list.querySelectorAll('[data-slot="tabs-trigger"]').forEach(trigger => resizeObserver.observe(trigger))
+        }
+        observeTriggers()
 
         const mutationObserver = new MutationObserver(mutations => {
-            mutations.forEach(mutation => {
-                if (
-                    mutation.type === 'attributes' &&
-                    (mutation.attributeName === 'data-state' || mutation.attributeName === 'class')
-                ) {
-                    updateIndicator()
-                }
-            })
+            if (mutations.some(mutation => mutation.type === 'childList')) observeTriggers()
+            updateIndicator()
         })
-
         mutationObserver.observe(list, {
             attributes: true,
+            childList: true,
             subtree: true,
             attributeFilter: ['data-state', 'class'],
         })
-
-        const resizeObserver = new ResizeObserver(() => {
-            updateIndicator()
-        })
-
-        resizeObserver.observe(list)
 
         return () => {
             mutationObserver.disconnect()
             resizeObserver.disconnect()
         }
     }, [updateIndicator])
+
     return (
         <TabsPrimitive.List
             ref={node => {
@@ -119,7 +126,8 @@ function TabsList({
             <span
                 data-slot='tabs-indicator'
                 className={cn(
-                    'absolute bottom-0 z-10 h-0.75 min-w-6 rounded-t-full bg-primary transition-[transform,width] duration-300 ease-out',
+                    'absolute bottom-0 left-0 z-10 h-0.75 min-w-6 rounded-t-full bg-primary',
+                    animated && 'transition-[transform,width] duration-300 ease-out',
                     variant === 'secondary' && 'h-0.5 rounded-none',
                 )}
                 style={{
