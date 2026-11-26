@@ -39,9 +39,7 @@ import { Carousel, CarouselItem, CarouselItemLabel } from '@/components/ui/carou
 </Carousel>
 ```
 
-Items are masks with 28px corners and 8px gaps, inset 16px from the leading and trailing edges and 8px from the top and bottom. Their content keeps the large item's size and stays centered, so it is cropped rather than squeezed as the item shrinks, and items scrolling off bleed over the padding. `CarouselItemLabel` follows the visible part of its item, stays on large and medium items, and fades out on small ones. It inherits the text color, so add `text-white` over photos. Pass `onClick` to `CarouselItem` to make it interactive with hover and pressed state layers.
-
-The carousel scrolls natively and snaps to items, except in the uncontained layout. A vertical mouse wheel scrolls horizontal carousels as smoothly as horizontal scrolling, snaps to the nearest item when it stops, and hands off to the page at either end. With keyboard focus, arrow keys move between items, and tabbing to an interactive item brings it into the large position.
+`CarouselItemLabel` follows the visible part of its item and inherits the text color, so add `text-white` over photos. Pass `onClick` to `CarouselItem` to make it interactive.
 
 On vertically scrolling pages, add a way to view every item without scrolling sideways, such as a **Show all** button below the carousel.
 
@@ -55,7 +53,7 @@ On vertically scrolling pages, add a way to view every item without scrolling si
 
 ## Center-aligned hero
 
-`center-hero` centers the large item between two small items and keeps this layout at both ends.
+`center-hero` centers the large item between two small items.
 
 <ComponentPreview>
     <CarouselCenterHeroDemo />
@@ -63,7 +61,7 @@ On vertically scrolling pages, add a way to view every item without scrolling si
 
 ## Uncontained
 
-`uncontained` keeps every item at `itemWidth` and lets items flow off the edge, with leading padding only. It scrolls freely without snapping.
+`uncontained` keeps every item at `itemWidth` and scrolls freely without snapping.
 
 <ComponentPreview>
     <CarouselUncontainedDemo />
@@ -79,7 +77,7 @@ Set `width` on each `CarouselItem` in an uncontained carousel to mix item widths
 
 ## Full screen
 
-`full-screen` shows one edge-to-edge item at a time with 16px between items, scrolling vertically. It works best for portrait content.
+`full-screen` shows one edge-to-edge item at a time, scrolling vertically. It works best for portrait content.
 
 <ComponentPreview>
     <CarouselFullScreenDemo />
@@ -87,7 +85,7 @@ Set `width` on each `CarouselItem` in an uncontained carousel to mix item widths
 
 ## Sizing
 
-In `multi-browse`, `hero`, and `center-hero`, the carousel measures itself and picks how many large, medium, and small items fit, keeping the large width close to `itemWidth`. Small items stay between 40px and 56px. Set the carousel height with `className`.
+In `multi-browse`, `hero`, and `center-hero`, the carousel picks how many large, medium, and small items fit, keeping the large width close to `itemWidth`. Set the carousel height with `className`.
 
 ## API Reference
 
@@ -108,8 +106,6 @@ All other div props are forwarded to the scroll container.
 | width     | `number` (uncontained only) | `itemWidth` |
 | onClick   | `React.MouseEventHandler`   |             |
 | className | `string`                    |             |
-
-Keyline items expose `data-size` (`large`, `medium`, or `small`) and the `--carousel-item-size`, `--carousel-item-offset`, and `--carousel-item-progress` CSS variables for custom transitions.
 
 ### CarouselItemLabel
 

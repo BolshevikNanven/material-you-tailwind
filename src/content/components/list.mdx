@@ -62,13 +62,11 @@ import {
 </List>
 ```
 
-List items follow the Material 3 Expressive specs: 16px leading and trailing padding, 10px top and bottom padding, 12px between elements, 20px icons, and a minimum height of 56px for one line, 72px for two lines and 88px for three lines. Items have 4px corners at rest and morph to 12px on hover, and to 16px when focused, pressed, selected, or dragged.
-
-An item becomes interactive when it has an `onClick` handler or uses `asChild`, which adds hover, focus, and pressed state layers with a ripple. Interactive items without `asChild` are focusable and respond to <kbd>Enter</kbd> and <kbd>Space</kbd>.
+An item becomes interactive when it has an `onClick` handler or uses `asChild`.
 
 ## Segmented
 
-`variant='segmented'` separates items with a 2px gap and rounds the outer corners of the first and last visible items to 16px, including items inside collapsible groups and swipe wrappers. Place segmented lists on a `surface-container` background so the items stand out.
+`variant='segmented'` separates items with a small gap and rounds the outer corners of the list. Place it on a `surface-container` background.
 
 <ComponentPreview>
     <ListSegmentedDemo />
@@ -76,7 +74,7 @@ An item becomes interactive when it has an `onClick` handler or uses `asChild`, 
 
 ## Lines
 
-Add `ListItemOverline` and `ListItemSupportingText` for two-line items. Set `lines={2}` on `ListItemSupportingText` for three-line items, which align their leading and trailing elements to the top.
+Add `ListItemOverline` and `ListItemSupportingText` for two-line items. Set `lines={2}` on `ListItemSupportingText` for three-line items.
 
 <ComponentPreview>
     <ListLinesDemo />
@@ -84,7 +82,7 @@ Add `ListItemOverline` and `ListItemSupportingText` for two-line items. Set `lin
 
 ## Selection
 
-Set `selectable` to let the item toggle its own selection on click, <kbd>Enter</kbd>, or <kbd>Space</kbd>. Control it with `selected` and `onSelectedChange`, or leave it uncontrolled with `defaultSelected`. Selected items fill with `secondary-container`. `disabled` lowers the content to 38% opacity and blocks clicks. The item sets its own checkbox role and checked state, so you don't need to add accessibility props.
+Set `selectable` to let the item toggle its own selection. Control it with `selected` and `onSelectedChange`, or use `defaultSelected`.
 
 <ComponentPreview>
     <ListSelectionDemo />
@@ -92,7 +90,7 @@ Set `selectable` to let the item toggle its own selection on click, <kbd>Enter</
 
 ## Leading elements
 
-`ListItemLeading` holds an icon, avatar, 56px image, 100 × 56 video thumbnail, checkbox, radio button, or switch. Use an 8px corner (`rounded-lg`) for images and videos. In a `selectable` item, the whole item is the control: checkboxes, radio buttons, and switches in `ListItemLeading` and `ListItemTrailing` become inert, so clicks and focus go to the item. Pass them the same state as `selected`.
+`ListItemLeading` holds an icon, avatar, image, video thumbnail, checkbox, radio button, or switch. In a `selectable` item, controls inside become inert and the item handles clicks, so pass them the same state as `selected`.
 
 <ComponentPreview>
     <ListLeadingDemo />
@@ -108,7 +106,7 @@ Set `selectable` to let the item toggle its own selection on click, <kbd>Enter</
 
 ## Expandable
 
-`ListCollapsible` groups a trigger item with nested items. `ListCollapsibleIndicator` shows a circular chevron that fills with `surface-container` and flips when expanded.
+`ListCollapsible` groups a trigger item with nested items. `ListCollapsibleIndicator` shows a chevron that flips when expanded.
 
 <ComponentPreview>
     <ListCollapsibleDemo />
@@ -116,7 +114,7 @@ Set `selectable` to let the item toggle its own selection on click, <kbd>Enter</
 
 ## Reorder
 
-Pass `onReorder` to `List` and add a `ListItemDragHandle` to each item. Dragging the handle lifts the item with `tertiary-container` and level 4 elevation while the other items make room, and a `surface-container-low` drop zone marks where it will land. With keyboard focus on the handle, <kbd>↑</kbd> and <kbd>↓</kbd> move the item. Set `label` to name the handle for screen readers. Reorder works on the direct children of the list.
+Pass `onReorder` to `List` and add a `ListItemDragHandle` to each item. Drag the handle, or focus it and press <kbd>↑</kbd> and <kbd>↓</kbd>, to move the item. Reorder works on the direct children of the list.
 
 <ComponentPreview>
     <ListReorderDemo />
@@ -124,7 +122,7 @@ Pass `onReorder` to `List` and add a `ListItemDragHandle` to each item. Dragging
 
 ## Swipe actions
 
-Wrap an item in `ListItemReveal` to reveal actions when it is swiped left. As soon as the item moves, all actions appear at the trailing edge with equal widths and grow with the swipe until each reaches `actionWidth`. They fill the item's height and share its 16px corners, and their icons fade in as they widen. Releasing past half of the full width keeps them open. Tapping outside or pressing <kbd>Esc</kbd> closes them, and tabbing to an action opens them. Add a `ListItemRevealTrigger` to the item to open and close the actions from a more button, and use `open` and `onOpenChange` to control it. Give icon-only actions a `label`.
+Wrap an item in `ListItemReveal` to reveal actions when it is swiped left. Add a `ListItemRevealTrigger` to open and close the actions from a more button, and use `open` and `onOpenChange` to control it. Give icon-only actions a `label`.
 
 <ComponentPreview>
     <ListRevealDemo />
@@ -153,8 +151,6 @@ All other div props are forwarded.
 | dragged          | `boolean`                     | `false`                                           |
 | interactive      | `boolean`                     | `true` with `selectable`, `onClick`, or `asChild` |
 | asChild          | `boolean`                     | `false`                                           |
-
-Items expose `data-selected`, `data-disabled`, and `data-dragged`. Their top and bottom corner radii come from the `--list-item-top` and `--list-item-bottom` CSS variables, which segmented lists set to 16px on the first and last rows.
 
 ### ListItemSupportingText
 
