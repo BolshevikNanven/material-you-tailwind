@@ -1,11 +1,10 @@
 'use client'
 
 import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
-import { cva, type VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
-import { Ripple } from './ripple'
+import { ListItem } from './list'
 
 type SearchVariant = 'docked' | 'fullscreen'
 
@@ -79,6 +78,7 @@ function Search({
     defaultOpen,
     disabled,
     onBlurCapture,
+    onKeyDown,
     onOpenChange,
     open: openProp,
     variant = 'docked',
@@ -115,6 +115,28 @@ function Search({
         }, 0)
     }
 
+    // Like Compose: Down moves focus from the input into the results, Up from the first result returns to the input.
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        onKeyDown?.(event)
+
+        if (event.defaultPrevented || !open || (event.key !== 'ArrowDown' && event.key !== 'ArrowUp')) return
+
+        const options = Array.from(
+            rootRef.current?.querySelectorAll<HTMLElement>('[role="option"]:not([aria-disabled="true"])') ?? [],
+        )
+        if (options.length === 0) return
+
+        const index = options.findIndex(option => option === document.activeElement || option.contains(document.activeElement))
+        if (index === -1 && event.key === 'ArrowUp') return
+
+        const next = event.key === 'ArrowDown' ? index + 1 : index - 1
+
+        event.preventDefault()
+
+        if (next < 0) inputRef.current?.focus()
+        else options[Math.min(next, options.length - 1)]?.focus()
+    }
+
     React.useEffect(() => {
         if (!open) return
 
@@ -149,6 +171,7 @@ function Search({
                 data-variant={variant}
                 className={cn('relative w-full', disabled && 'pointer-events-none opacity-50', className)}
                 onBlurCapture={handleBlurCapture}
+                onKeyDown={handleKeyDown}
                 {...props}
             />
         </SearchContext.Provider>
@@ -243,6 +266,7 @@ const triggerContentClassName = [
 function SearchTrigger({ className, children, onClick, onFocusCapture, onSearch, onSubmit, ...props }: SearchTriggerProps) {
     const { clearInput, disabled, inputRef, open, setOpen, variant } = useSearchContext('SearchTrigger')
     const isFullscreenOpen = variant === 'fullscreen' && open
+    const isDockedOpen = variant === 'docked' && open
     const inputChild = getSearchInputChild(children)
 
     const handleClick = (event: React.MouseEvent<HTMLFormElement>) => {
@@ -291,11 +315,35 @@ function SearchTrigger({ className, children, onClick, onFocusCapture, onSearch,
         setOpen(false)
     }
 
-    const openInput = inputChild ? (
-        React.cloneElement(inputChild, { autoFocus: inputChild.props.autoFocus ?? true })
-    ) : (
-        <SearchInput autoFocus />
-    )
+    // The input is a keyed item of the same array in both states, so React keeps one <input> instance
+    // (and its uncontrolled value) while the trigger opens and closes.
+    const items = open
+        ? [
+              <button
+                  key='search-close'
+                  data-slot='search-button'
+                  type='button'
+                  aria-label='Close search'
+                  onClick={handleClose}
+              >
+                  <i className='icon-[material-symbols--arrow-back-rounded]' />
+              </button>,
+              inputChild ?? <SearchInput key='search-input' />,
+              <button
+                  key='search-clear'
+                  data-slot='search-button'
+                  type='button'
+                  aria-label='Clear search'
+                  onClick={handleClear}
+              >
+                  <i className='icon-[material-symbols--close-rounded]' />
+              </button>,
+          ]
+        : React.Children.toArray(children)
+
+    React.useEffect(() => {
+        if (open) inputRef.current?.focus()
+    }, [open, inputRef])
 
     return (
         <form
@@ -305,7 +353,9 @@ function SearchTrigger({ className, children, onClick, onFocusCapture, onSearch,
             data-variant={variant}
             className={cn(
                 'group/trigger relative flex h-14 w-full items-center overflow-hidden rounded-[28px] bg-surface-container-high text-on-surface-variant transition-all',
-                isFullscreenOpen && 'fixed top-0 right-3 left-3 z-[60] w-auto',
+                // Contained full screen: the pill is inset 8px horizontally and 4px from the top.
+                isFullscreenOpen && 'fixed inset-x-2 top-1 z-[60] w-auto',
+                isDockedOpen && 'z-[45]',
                 className,
             )}
             onClick={handleClick}
@@ -321,19 +371,7 @@ function SearchTrigger({ className, children, onClick, onFocusCapture, onSearch,
                 )}
             />
             <div data-slot='search-trigger-content' className={cn(triggerContentClassName)}>
-                {open ? (
-                    <>
-                        <button data-slot='search-button' type='button' aria-label='Close search' onClick={handleClose}>
-                            <i className='icon-[material-symbols--arrow-back-rounded]' />
-                        </button>
-                        {openInput}
-                        <button data-slot='search-button' type='button' aria-label='Clear search' onClick={handleClear}>
-                            <i className='icon-[material-symbols--close-rounded]' />
-                        </button>
-                    </>
-                ) : (
-                    children
-                )}
+                {items}
             </div>
         </form>
     )
@@ -347,8 +385,10 @@ type SearchListProps = React.ComponentProps<'div'> & {
 const searchListVariants = cva('z-50 flex flex-col', {
     variants: {
         variant: {
-            docked: 'absolute top-[calc(100%+2px)] left-0 min-h-[72px] w-full overflow-hidden rounded-xl bg-surface-container-high',
-            fullscreen: 'fixed inset-0 z-50 overflow-y-auto bg-surface-container pt-[58px] pb-6',
+            // Docked with gap: at least 240px (never taller than the cap) and at most half of the viewport height, then it scrolls.
+            docked: 'absolute top-[calc(100%+2px)] left-0 max-h-[50vh] min-h-[min(240px,50vh)] w-full overflow-hidden rounded-xl bg-surface-container-high',
+            // Contained full screen: surface-container-low, 4px + 56px pill + 8px gap above the results.
+            fullscreen: 'fixed inset-0 z-50 overflow-y-auto bg-surface-container-low pt-[68px] pb-6',
         },
     },
     defaultVariants: {
@@ -357,79 +397,58 @@ const searchListVariants = cva('z-50 flex flex-col', {
 })
 
 function SearchList({ className, contentClassName, children, forceMount, ...props }: SearchListProps) {
-    const { listId, open, variant } = useSearchContext('SearchList')
+    const { listId, open, setOpen, variant } = useSearchContext('SearchList')
 
     if (!forceMount && !open) {
         return null
     }
 
     return (
-        <div
-            id={listId}
-            aria-hidden={!open}
-            data-slot='search-list'
-            data-state={open ? 'open' : 'closed'}
-            data-variant={variant}
-            role='listbox'
-            className={cn(searchListVariants({ variant }), !open && 'hidden', className)}
-            {...props}
-        >
+        <>
+            {variant === 'docked' && open && (
+                <div
+                    aria-hidden='true'
+                    data-slot='search-scrim'
+                    className='fixed inset-0 z-40 bg-scrim/32'
+                    onClick={() => setOpen(false)}
+                />
+            )}
             <div
-                data-slot='search-list-content'
-                className={cn(
-                    'flex w-full flex-col gap-0',
-                    variant === 'docked' && 'overflow-hidden rounded-xl',
-                    contentClassName,
-                )}
+                id={listId}
+                aria-hidden={!open}
+                data-slot='search-list'
+                data-state={open ? 'open' : 'closed'}
+                data-variant={variant}
+                role='listbox'
+                className={cn(searchListVariants({ variant }), !open && 'hidden', className)}
+                {...props}
             >
-                {children}
+                <div
+                    data-slot='search-list-content'
+                    tabIndex={-1}
+                    className={cn(
+                        'flex w-full flex-col gap-0 outline-none',
+                        variant === 'docked' && 'min-h-0 flex-1 overflow-y-auto rounded-xl',
+                        contentClassName,
+                    )}
+                >
+                    {children}
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 
-const searchListItemVariants = cva(
-    [
-        'group/search-item relative flex min-h-12 w-full items-center gap-3 overflow-hidden rounded-xl px-4 py-2.5 text-left text-on-surface transition-colors outline-none select-none',
-        'hover:bg-on-surface/8 focus:bg-on-surface/8 active:bg-on-surface/10 disabled:pointer-events-none disabled:opacity-50',
-        '[&_[data-slot=search-list-item-leading]]:flex [&_[data-slot=search-list-item-leading]]:size-10 [&_[data-slot=search-list-item-leading]]:shrink-0 [&_[data-slot=search-list-item-leading]]:items-center [&_[data-slot=search-list-item-leading]]:justify-center [&_[data-slot=search-list-item-leading]]:rounded-full [&_[data-slot=search-list-item-leading]]:text-on-surface-variant [&_[data-slot=search-list-item-leading]]:[&_i:not([class*=size-])]:size-6',
-        '[&_[data-slot=search-list-item-content]]:flex [&_[data-slot=search-list-item-content]]:min-w-0 [&_[data-slot=search-list-item-content]]:flex-1 [&_[data-slot=search-list-item-content]]:flex-col',
-        '[&_[data-slot=search-list-item-title]]:truncate [&_[data-slot=search-list-item-title]]:text-base [&_[data-slot=search-list-item-title]]:leading-6 [&_[data-slot=search-list-item-title]]:font-normal [&_[data-slot=search-list-item-title]]:tracking-[0.5px]',
-        '[&_[data-slot=search-list-item-supporting]]:truncate [&_[data-slot=search-list-item-supporting]]:text-sm [&_[data-slot=search-list-item-supporting]]:leading-5 [&_[data-slot=search-list-item-supporting]]:tracking-[0.25px] [&_[data-slot=search-list-item-supporting]]:text-on-surface-variant',
-        '[&_[data-slot=search-list-item-trailing]]:ml-auto [&_[data-slot=search-list-item-trailing]]:shrink-0 [&_[data-slot=search-list-item-trailing]]:text-sm [&_[data-slot=search-list-item-trailing]]:text-on-surface-variant',
-    ],
-    {
-        variants: {
-            selected: {
-                true: 'bg-secondary-container text-on-secondary-container hover:bg-secondary-container active:bg-secondary-container [&_[data-slot=search-list-item-leading]]:text-on-secondary-container [&_[data-slot=search-list-item-supporting]]:text-on-secondary-container/80 [&_[data-slot=search-list-item-trailing]]:text-on-secondary-container/80',
-            },
-        },
-        defaultVariants: {
-            selected: false,
-        },
-    },
-)
+type SearchListItemProps = Omit<React.ComponentProps<typeof ListItem>, 'dragged' | 'interactive' | 'selectable'> & {
+    closeOnSelect?: boolean
+}
 
-type SearchListItemProps = React.ComponentProps<'button'> &
-    VariantProps<typeof searchListItemVariants> & {
-        asChild?: boolean
-        closeOnSelect?: boolean
-    }
-
-function SearchListItem({
-    asChild,
-    children,
-    className,
-    closeOnSelect = true,
-    onClick,
-    selected,
-    type = 'button',
-    ...props
-}: SearchListItemProps) {
+// Search results are plain list items on a transparent container, inset 4px vertically,
+// the same way the Compose search samples build them with ListItem(containerColor = Transparent).
+function SearchListItem({ className, closeOnSelect = true, onClick, selected, ...props }: SearchListItemProps) {
     const { setOpen } = useSearchContext('SearchListItem')
-    const Comp = asChild ? Slot : 'button'
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         onClick?.(event)
 
         if (!event.defaultPrevented && closeOnSelect) {
@@ -437,35 +456,16 @@ function SearchListItem({
         }
     }
 
-    const adornments = <Ripple className='rounded-xl' />
-
     return (
-        <Comp
-            aria-selected={selected || undefined}
-            data-selected={selected || undefined}
-            data-slot='search-list-item'
+        <ListItem
             role='option'
-            className={cn(searchListItemVariants({ selected, className }))}
+            aria-selected={selected || undefined}
+            selected={selected}
+            interactive
+            className={cn('my-1 bg-transparent data-selected:bg-secondary-container', className)}
             onClick={handleClick}
-            {...(!asChild ? { type } : {})}
             {...props}
-        >
-            {asChild && React.isValidElement(children) ? (
-                React.cloneElement(children as React.ReactElement<React.PropsWithChildren>, {
-                    children: (
-                        <>
-                            {(children as React.ReactElement<React.PropsWithChildren>).props.children}
-                            {adornments}
-                        </>
-                    ),
-                })
-            ) : (
-                <>
-                    {children}
-                    {adornments}
-                </>
-            )}
-        </Comp>
+        />
     )
 }
 

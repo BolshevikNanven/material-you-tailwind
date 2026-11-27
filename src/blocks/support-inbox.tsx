@@ -723,15 +723,15 @@ function InboxSearch({ tickets, onSelect }: { tickets: Ticket[]; onSelect: (tick
                 )}
                 {matches.map(ticket => (
                     <SearchListItem key={ticket.id} onClick={() => select(ticket)}>
-                        <span data-slot='search-list-item-leading'>
+                        <ListItemLeading>
                             <PersonAvatar name={ticket.customer.name} customer className='size-8' />
-                        </span>
-                        <span data-slot='search-list-item-content'>
-                            <span data-slot='search-list-item-title'>{ticket.subject}</span>
-                            <span data-slot='search-list-item-supporting'>
+                        </ListItemLeading>
+                        <ListItemContent>
+                            <ListItemLabel>{ticket.subject}</ListItemLabel>
+                            <ListItemSupportingText>
                                 #{ticket.id} · {ticket.customer.name} · {ticket.status}
-                            </span>
-                        </span>
+                            </ListItemSupportingText>
+                        </ListItemContent>
                     </SearchListItem>
                 ))}
             </SearchList>

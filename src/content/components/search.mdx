@@ -26,6 +26,14 @@ npx shadcn@latest add @material-you/search
 
 ```tsx
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import {
+    ListItemContent,
+    ListItemLabel,
+    ListItemLeading,
+    ListItemSupportingText,
+    ListItemTrailing,
+    ListItemTrailingText,
+} from '@/components/ui/list'
 import { Search, SearchInput, SearchList, SearchListItem, SearchTrigger } from '@/components/ui/search'
 ```
 
@@ -46,17 +54,17 @@ The first direct `SearchInput` child of `SearchTrigger` is reused in the open he
     </SearchTrigger>
     <SearchList>
         <SearchListItem>
-            <span data-slot='search-list-item-leading'>
+            <ListItemLeading>
                 <Avatar className='size-10 bg-surface-container-high'>
                     <AvatarFallback>
                         <i className='icon-[material-symbols--category-rounded]' />
                     </AvatarFallback>
                 </Avatar>
-            </span>
-            <span data-slot='search-list-item-content'>
-                <span data-slot='search-list-item-title'>Label text</span>
-                <span data-slot='search-list-item-supporting'>Supporting line text, lorem ipsum dolor</span>
-            </span>
+            </ListItemLeading>
+            <ListItemContent>
+                <ListItemLabel>Label text</ListItemLabel>
+                <ListItemSupportingText>Supporting line text, lorem ipsum dolor</ListItemSupportingText>
+            </ListItemContent>
         </SearchListItem>
     </SearchList>
 </Search>
@@ -66,7 +74,7 @@ The first direct `SearchInput` child of `SearchTrigger` is reused in the open he
 
 ### Docked
 
-Docked search opens a list surface directly below the trigger. The list is absolutely positioned with a 2px gap and uses the width of the `Search` root.
+Docked search opens a list surface directly below the trigger, matching Compose `ExpandedDockedSearchBarWithGap`: a 2px gap and 12px corners, the width of the `Search` root, and a scrim behind it that closes search when clicked. The list is at least 240px tall (never taller than half of the viewport) and scrolls once its content exceeds half of the viewport height.
 
 Set the width on `Search` or a parent layout. The component does not apply a max width.
 
@@ -88,7 +96,7 @@ Docked search closes automatically when focus leaves the entire search area, inc
 
 ### Fullscreen
 
-Fullscreen search opens a full-screen result surface. The trigger becomes a fixed search header at the top of the viewport.
+Fullscreen search matches Compose `ExpandedFullScreenContainedSearchBar`. The trigger becomes a fixed pill, inset 8px horizontally and 4px from the top, above a full-screen result surface on `surface-container-low`. There is no divider.
 
 ```tsx
 <Search variant='fullscreen'>
@@ -124,22 +132,24 @@ Buttons and links inside closed trigger content do not open search when clicked 
 
 ## Result Items
 
-`SearchListItem` is styled for Material 3 result rows. Compose each row with optional leading, content, title, supporting, and trailing slots.
+`SearchListItem` wraps the [List](/docs/components/list) `ListItem` on a transparent container, inset 4px vertically, so the content lines up with the search bar icons. Build each row with the `ListItemLeading`, `ListItemContent`, `ListItemLabel`, `ListItemSupportingText`, `ListItemTrailing` and `ListItemTrailingText` parts from the list component.
 
 ```tsx
 <SearchListItem closeOnSelect={false}>
-    <span data-slot='search-list-item-leading'>
+    <ListItemLeading>
         <Avatar className='size-10 bg-surface-container-high'>
             <AvatarFallback>
                 <i className='icon-[material-symbols--category-rounded]' />
             </AvatarFallback>
         </Avatar>
-    </span>
-    <span data-slot='search-list-item-content'>
-        <span data-slot='search-list-item-title'>Label text</span>
-        <span data-slot='search-list-item-supporting'>Supporting line text, lorem ipsum dolor</span>
-    </span>
-    <span data-slot='search-list-item-trailing'>Meta</span>
+    </ListItemLeading>
+    <ListItemContent>
+        <ListItemLabel>Label text</ListItemLabel>
+        <ListItemSupportingText>Supporting line text, lorem ipsum dolor</ListItemSupportingText>
+    </ListItemContent>
+    <ListItemTrailing>
+        <ListItemTrailingText>Meta</ListItemTrailingText>
+    </ListItemTrailing>
 </SearchListItem>
 ```
 
@@ -191,4 +201,4 @@ By default, selecting a result closes search. Use `closeOnSelect={false}` to kee
 | closeOnSelect | `boolean` | `true`  |
 | asChild       | `boolean` | `false` |
 
-`SearchListItem` also accepts standard `button` props.
+`SearchListItem` also accepts the `ListItem` props (such as `disabled` and `asChild`) except `selectable`, `dragged` and `interactive`.

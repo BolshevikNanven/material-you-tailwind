@@ -149,16 +149,18 @@ function DashboardSearch() {
                 {results.length === 0 && <p className='px-4 py-6 text-sm text-on-surface-variant'>No results for “{query}”</p>}
                 {results.map(o => (
                     <SearchListItem key={o.id}>
-                        <span data-slot='search-list-item-leading'>
+                        <ListItemLeading>
                             <i className='icon-[material-symbols--receipt-long-outline-rounded]' />
-                        </span>
-                        <span data-slot='search-list-item-content'>
-                            <span data-slot='search-list-item-title'>{o.customer}</span>
-                            <span data-slot='search-list-item-supporting'>
+                        </ListItemLeading>
+                        <ListItemContent>
+                            <ListItemLabel>{o.customer}</ListItemLabel>
+                            <ListItemSupportingText>
                                 {o.id} · {o.item}
-                            </span>
-                        </span>
-                        <span data-slot='search-list-item-trailing'>{o.amount}</span>
+                            </ListItemSupportingText>
+                        </ListItemContent>
+                        <ListItemTrailing>
+                            <ListItemTrailingText>{o.amount}</ListItemTrailingText>
+                        </ListItemTrailing>
                     </SearchListItem>
                 ))}
             </SearchList>

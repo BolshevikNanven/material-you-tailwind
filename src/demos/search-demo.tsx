@@ -3,6 +3,7 @@
 import * as React from 'react'
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { ListItemContent, ListItemLabel, ListItemLeading, ListItemSupportingText } from '@/components/ui/list'
 import { Search, SearchInput, SearchList, SearchListItem, SearchTrigger } from '@/components/ui/search'
 
 const results = [
@@ -28,17 +29,17 @@ function SearchResults() {
         <>
             {results.map((result, index) => (
                 <SearchListItem key={index}>
-                    <span data-slot='search-list-item-leading'>
+                    <ListItemLeading>
                         <Avatar className='size-10 bg-surface-container-high'>
                             <AvatarFallback className='text-on-surface-variant/35'>
                                 <i className={result.icon} />
                             </AvatarFallback>
                         </Avatar>
-                    </span>
-                    <span data-slot='search-list-item-content'>
-                        <span data-slot='search-list-item-title'>{result.title}</span>
-                        <span data-slot='search-list-item-supporting'>{result.supporting}</span>
-                    </span>
+                    </ListItemLeading>
+                    <ListItemContent>
+                        <ListItemLabel>{result.title}</ListItemLabel>
+                        <ListItemSupportingText>{result.supporting}</ListItemSupportingText>
+                    </ListItemContent>
                 </SearchListItem>
             ))}
         </>
