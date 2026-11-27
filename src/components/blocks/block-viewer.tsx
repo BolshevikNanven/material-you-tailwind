@@ -1,6 +1,8 @@
 'use client'
 
-import { getBlock } from '@/blocks'
+import { getBlock, type BlockSlug } from '@/blocks'
+import DashboardBlock from '@/blocks/dashboard'
+import SupportInboxBlock from '@/blocks/support-inbox'
 import { CodeViewer } from '@/components/code-viewer'
 import { Button } from '@/components/ui/button'
 import { ButtonGroup } from '@/components/ui/button-group'
@@ -8,7 +10,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Toggle } from '@/components/ui/toggle'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, type ComponentType } from 'react'
+
+const blockDemos = {
+    dashboard: DashboardBlock,
+    'support-inbox': SupportInboxBlock,
+} satisfies Record<BlockSlug, ComponentType>
 
 const viewports = [
     { key: 'desktop', label: 'Desktop', width: '100%', icon: 'icon-[material-symbols--desktop-windows-outline-rounded]' },
@@ -22,7 +29,7 @@ export default function BlockViewer({ slug, code }: { slug: string; code: string
     const [viewport, setViewport] = useState<(typeof viewports)[number]['key']>('desktop')
 
     if (!block) return null
-    const Component = block.component
+    const Component = blockDemos[block.slug]
     const width = viewports.find(v => v.key === viewport)!.width
     const isMobile = viewport === 'mobile'
 

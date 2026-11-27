@@ -56,7 +56,7 @@ function FeaturedBanner({ block }: { block: Block }) {
                 </div>
             </div>
             <div className='absolute top-10 -right-16 hidden w-[58%] overflow-hidden rounded-3xl shadow-elevation-3 md:block'>
-                <BlockThumbnail slug={block.slug} />
+                <BlockThumbnail slug={block.slug} loading='eager' />
             </div>
         </section>
     )
@@ -95,7 +95,7 @@ export default function BlocksGallery() {
                     </Search>
                 </div>
                 <Tabs value={tab} onValueChange={setTab} className='px-6'>
-                    <TabsList variant='secondary' className='border-none'>
+                    <TabsList className='border-none h-12'>
                         {[DISCOVER, ...categories.map(c => c.name)].map(name => (
                             <TabsTrigger key={name} value={name} className='w-auto px-4!'>
                                 {name}

@@ -1,7 +1,3 @@
-import type { ComponentType } from 'react'
-import DashboardBlock from './dashboard'
-import SupportInboxBlock from './support-inbox'
-
 export const categories = [
     {
         name: 'Application',
@@ -25,13 +21,12 @@ export interface Block {
     description: string
     category: BlockCategory
     /** Library components the block is built with. */
-    components: string[]
+    components: readonly string[]
     /** Path relative to project root, used to show the source code. */
     file: string
-    component: ComponentType
 }
 
-export const blocks: Block[] = [
+export const blocks = [
     {
         slug: 'dashboard',
         title: 'Analytics Dashboard',
@@ -56,7 +51,6 @@ export const blocks: Block[] = [
             'Snackbar',
         ],
         file: 'src/blocks/dashboard.tsx',
-        component: DashboardBlock,
     },
     {
         slug: 'support-inbox',
@@ -90,9 +84,10 @@ export const blocks: Block[] = [
             'Snackbar',
         ],
         file: 'src/blocks/support-inbox.tsx',
-        component: SupportInboxBlock,
     },
-]
+] as const satisfies readonly Block[]
+
+export type BlockSlug = (typeof blocks)[number]['slug']
 
 export function getBlock(slug: string) {
     return blocks.find(block => block.slug === slug)
