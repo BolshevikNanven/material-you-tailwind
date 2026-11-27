@@ -60,11 +60,12 @@ See the [Changelog](https://material.nanven.cn/docs/changelog) for component upd
 - [x] ripple
 - [x] scroll-field
 - [x] search
+- [x] <b>sheet [new]</b>
 - [x] slider
 - [x] snakebar
 - [x] switch
 - [x] text-field
-- [x] <b>time-picker [new]</b>
+- [x] time-picker
 - [x] toggle
 - [x] tab
 - [x] tooltip

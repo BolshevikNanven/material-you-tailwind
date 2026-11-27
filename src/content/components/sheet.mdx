@@ -1,0 +1,165 @@
+---
+title: Sheet
+description: 'Sheets show secondary content anchored to the bottom or a side of the screen.'
+---
+
+<ComponentPreview>
+    <SheetDemo />
+</ComponentPreview>
+
+## Installation
+
+### Shadcn CLI
+
+```bash
+npx shadcn@latest add @material-you/sheet
+```
+
+### Manual installation
+
+- Install the following dependencies
+
+```bash
+pnpm add @radix-ui/react-dialog
+```
+
+- Copy and paste the following code into your project
+
+<ComponentSource title='src/components/ui/sheet.tsx'>
+    <Sheet />
+</ComponentSource>
+
+## Usage
+
+```tsx
+import {
+    Sheet,
+    SheetBody,
+    SheetCloseButton,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from '@/components/ui/sheet'
+```
+
+```tsx
+<Sheet>
+    <SheetTrigger>Open</SheetTrigger>
+    <SheetContent side='bottom'>
+        <SheetHeader>
+            <SheetTitle>Title</SheetTitle>
+        </SheetHeader>
+        <SheetBody>Content</SheetBody>
+    </SheetContent>
+</Sheet>
+```
+
+Use `side` to choose where the sheet appears: `bottom` (default), `left` or `right`. Bottom sheets show a drag handle by default.
+
+Users can close a sheet by dragging it towards its edge, pressing the scrim or pressing `Escape`. Dragging inside scrollable content scrolls the content first.
+
+## Examples
+
+### Side
+
+Set `side` to `left` or `right` for a side sheet. Put a `SheetFooter` with action buttons at the bottom.
+
+<ComponentPreview>
+    <SheetSideDemo />
+</ComponentPreview>
+
+### Partially expanded
+
+A bottom sheet taller than half the window opens at half height first. Drag it up or press the drag handle to expand it, and drag down to collapse or dismiss it. Set `skipPartiallyExpanded` to always open it fully.
+
+<ComponentPreview>
+    <SheetPartialDemo />
+</ComponentPreview>
+
+### Detached
+
+`detached` floats the sheet away from the edge of the window and rounds every corner. Put a back button first in `SheetHeader` to go back inside the sheet.
+
+<ComponentPreview>
+    <SheetDetachedDemo />
+</ComponentPreview>
+
+### Standard
+
+Set `modal={false}` on `Sheet` for a standard sheet. It has no scrim, leaves the page interactive and stays open when users press outside it.
+
+<ComponentPreview>
+    <SheetStandardDemo />
+</ComponentPreview>
+
+## API Reference
+
+### Sheet
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| open | `boolean` | |
+| defaultOpen | `boolean` | `false` |
+| onOpenChange | `(open: boolean) => void` | |
+| modal | `boolean` | `true` |
+
+### SheetContent
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| side | `'bottom' \| 'left' \| 'right'` | `'bottom'` |
+| detached | `boolean` | `false` |
+| showDragHandle | `boolean` | `true` for `bottom` |
+| skipPartiallyExpanded | `boolean` | `false` |
+| gesturesEnabled | `boolean` | `true` |
+| onOpenAutoFocus | `function` | |
+| onCloseAutoFocus | `function` | |
+| onEscapeKeyDown | `function` | |
+| onInteractOutside | `function` | |
+
+Add `data-sheet-no-drag` to an element to stop drags that start on it from moving the sheet.
+
+### SheetDragHandle
+
+Rendered by `SheetContent` when `showDragHandle` is set. Pressing it expands a partially expanded sheet, collapses an expanded one, or dismisses the sheet.
+
+### SheetHeader
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| - | - | - |
+
+### SheetTitle
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| asChild | `boolean` | `false` |
+
+### SheetDescription
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| asChild | `boolean` | `false` |
+
+### SheetBody
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| - | - | - |
+
+### SheetFooter
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| - | - | - |
+
+### SheetCloseButton
+
+An icon [Button](/components/button) that closes the sheet, with a close icon unless you pass children.
+
+### SheetClose
+
+| Prop | type | default |
+| :--- | :--- | :--- |
+| asChild | `boolean` | `false` |
