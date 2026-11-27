@@ -1,0 +1,100 @@
+---
+title: Scroll Field
+description: 'Scroll fields let people pick numbers and units of measurement by scrolling or typing.'
+---
+
+<ComponentPreview>
+    <ScrollFieldDemo />
+</ComponentPreview>
+
+## Installation
+
+### Shadcn CLI
+
+```bash
+npx shadcn@latest add @material-you/scroll-field
+```
+
+### Manual installation
+
+- Copy and paste the following code into your project
+
+<ComponentSource title='src/components/ui/scroll-field.tsx'>
+    <ScrollField />
+</ComponentSource>
+
+## Usage
+
+```tsx
+import { ScrollField } from '@/components/ui/scroll-field'
+```
+
+```tsx
+<ScrollField aria-label='Select minutes' min={0} max={59} defaultValue={30} />
+```
+
+Drag, fling or use the mouse wheel to scroll. Press an option to move it to the center. Press the selected option, press `Enter`, or start typing a number to enter a value with the keyboard. `ArrowUp` and `ArrowDown` move one option, `PageUp` and `PageDown` move a tenth of the range, and `Home` and `End` jump to either end.
+
+## Examples
+
+### Time
+
+Group fields with `ScrollFieldGroup` to pick several values together. `ScrollFieldSeparator` renders the colon between hours and minutes.
+
+<ComponentPreview>
+    <ScrollFieldTimeDemo />
+</ComponentPreview>
+
+### Units
+
+Use `step` for decimal values and `options` for labels such as units. Set `loop={false}` for short lists.
+
+<ComponentPreview>
+    <ScrollFieldUnitDemo />
+</ComponentPreview>
+
+### Finite
+
+Fields loop by default. Set `loop={false}` to stop at the ends of the range, and `formatValue` to change how options read. Because a looping field has no visible ends, include the range in `aria-label` when it is not obvious.
+
+<ComponentPreview>
+    <ScrollFieldFiniteDemo />
+</ComponentPreview>
+
+### Disabled
+
+<ComponentPreview>
+    <ScrollFieldDisabledDemo />
+</ComponentPreview>
+
+## API Reference
+
+### ScrollField
+
+| Prop          | Type                                  | Default                        |
+| :------------ | :------------------------------------ | :----------------------------- |
+| min           | `number`                              | `0`                            |
+| max           | `number`                              | `99`                           |
+| step          | `number`                              | `1`                            |
+| options       | `string[]`                            |                                |
+| value         | `number` \| `string`                  |                                |
+| defaultValue  | `number` \| `string`                  | first option                   |
+| onValueChange | `(value: number \| string) => void`   |                                |
+| loop          | `boolean`                             | `true`                         |
+| size          | `small` \| `medium` \| `large`        | `small`                        |
+| editable      | `boolean`                             | `true`                         |
+| formatValue   | `(value: number \| string) => string` | two digits, or `step` decimals |
+| disabled      | `boolean`                             | `false`                        |
+| name          | `string`                              |                                |
+
+`options` replaces `min`, `max` and `step`, and fields with `options` select by typing the first letters instead of entering a number. `onValueChange` fires as each option reaches the center.
+
+### ScrollFieldGroup
+
+A `surface-container-highest` container that lays fields out in a row. Accepts `div` props.
+
+### ScrollFieldSeparator
+
+| Prop     | Type              | Default |
+| :------- | :---------------- | :------ |
+| children | `React.ReactNode` | `:`     |

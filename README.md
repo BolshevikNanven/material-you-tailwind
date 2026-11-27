@@ -52,12 +52,13 @@ See the [Changelog](https://material.nanven.cn/docs/changelog) for component upd
 - [x] dialog
 - [x] divider
 - [x] dropdown-menu
-- [x] <b>list [new]</b>
+- [x] list
 - [x] loading
 - [x] navigation
 - [x] popover
 - [x] radio-group
 - [x] ripple
+- [x] <b>scroll-field [new]</b>
 - [x] search
 - [x] slider
 - [x] snakebar
