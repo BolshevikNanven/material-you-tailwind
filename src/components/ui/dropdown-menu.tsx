@@ -24,12 +24,7 @@ function DropdownMenuTrigger({ ...props }: React.ComponentProps<typeof DropdownM
     return <DropdownMenuPrimitive.Trigger data-slot='dropdown-menu-trigger' {...props} />
 }
 
-function DropdownMenuContent({
-    className,
-    compact = false,
-    sideOffset = 4,
-    ...props
-}: DropdownMenuContentProps) {
+function DropdownMenuContent({ className, compact = false, sideOffset = 4, ...props }: DropdownMenuContentProps) {
     return (
         <DropdownMenuPrimitive.Portal>
             <DropdownMenuCompactContext.Provider value={compact}>
@@ -65,9 +60,7 @@ function DropdownMenuGroup({ className, children, ...props }: React.ComponentPro
             )}
             {...props}
         >
-            <div className={cn('flex w-full flex-col gap-0.5', compact && 'gap-px')}>
-                {children}
-            </div>
+            <div className={cn('flex w-full flex-col gap-0.5', compact && 'gap-px')}>{children}</div>
         </DropdownMenuPrimitive.Group>
     )
 }
@@ -279,7 +272,7 @@ function DropdownMenuSubContent({ className, ...props }: React.ComponentProps<ty
             data-slot='dropdown-menu-sub-content'
             data-compact={compact ? '' : undefined}
             className={cn(
-                'z-50 min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) flex-col gap-0.5 rounded-2xl data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
+                'z-50 flex min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) flex-col gap-0.5 rounded-2xl data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
                 compact && 'min-w-28 gap-0.5 rounded-xl',
                 className,
             )}

@@ -40,7 +40,7 @@ export function ListSelectionDemo() {
     const [selected, setSelected] = React.useState<string[]>(['wifi', 'nfc'])
 
     return (
-        <div className='w-full max-w-90 rounded-3xl bg-surface-container p-3'>
+        <div className='w-full max-w-90'>
             <List variant='segmented'>
                 {items.map(item => {
                     const isSelected = selected.includes(item.id)

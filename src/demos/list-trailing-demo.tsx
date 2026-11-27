@@ -27,7 +27,7 @@ export function ListTrailingDemo() {
     const [theme, setTheme] = React.useState('system')
 
     return (
-        <div className='flex w-full max-w-90 flex-col gap-4 rounded-3xl bg-surface-container p-3'>
+        <div className='flex w-full max-w-90 flex-col gap-4'>
             <List variant='segmented'>
                 <ListItem onClick={() => {}}>
                     <ListItemLeading>

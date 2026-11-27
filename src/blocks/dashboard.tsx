@@ -349,7 +349,7 @@ export default function DashboardBlock() {
                                 </ButtonGroup>
                             </div>
 
-                            <div className='mt-3 rounded-3xl bg-surface-container-low p-2'>
+                            <div className='mt-3'>
                                 <List variant='segmented'>
                                     {visibleOrders.map(o => (
                                         <ListItem key={o.id} className='gap-4 pr-2'>

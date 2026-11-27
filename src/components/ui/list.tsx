@@ -153,11 +153,12 @@ function List({
                 data-slot='list'
                 data-variant={variant}
                 className={cn(
-                    'relative isolate flex flex-col [--list-item-bottom:4px] [--list-item-top:4px]',
-                    // Segmented lists round the outer corners of the first and last rows. The radii inherit into
-                    // reveal wrappers and collapsible groups.
+                    'relative isolate flex flex-col [--list-item-bottom:4px] [--list-item-container:var(--surface)] [--list-item-top:4px]',
+                    // Segmented lists round the outer corners of the first and last rows and give every row its own
+                    // container color, so they sit directly on a surface. The radii inherit into reveal wrappers and
+                    // collapsible groups; override `--list-item-container` to change the row color.
                     variant === 'segmented'
-                        ? 'gap-0.5 [--list-gap:--spacing(0.5)] *:first:[--list-item-top:16px] *:last:[--list-item-bottom:16px]'
+                        ? 'gap-0.5 [--list-gap:--spacing(0.5)] [--list-item-container:var(--surface-container)] *:first:[--list-item-top:16px] *:last:[--list-item-bottom:16px]'
                         : '[--list-gap:0px]',
                     'before:pointer-events-none before:absolute before:inset-x-0 before:top-(--list-drop-top) before:-z-1 before:hidden before:h-(--list-drop-height) before:rounded-t-(--list-drop-top-radius) before:rounded-b-(--list-drop-bottom-radius) before:bg-surface-container-low before:transition-[top,border-radius] before:duration-200 data-dragging:before:block',
                     className,
@@ -171,13 +172,13 @@ function List({
 type ListItemTone = 'default' | 'selected' | 'dragged' | 'disabled' | 'selected-disabled'
 
 const toneClasses: Record<ListItemTone, string> = {
-    default: 'bg-surface [--list-item-content:var(--on-surface)] [--list-item-variant:var(--on-surface-variant)]',
+    default: 'bg-[var(--list-item-container,var(--surface))] [--list-item-content:var(--on-surface)] [--list-item-variant:var(--on-surface-variant)]',
     selected:
         'bg-secondary-container [--list-item-content:var(--on-secondary-container)] [--list-item-variant:var(--on-secondary-container)]',
     dragged:
         'z-10 bg-tertiary-container shadow-elevation-4 [--list-item-content:var(--on-tertiary-container)] [--list-item-variant:var(--on-tertiary-container)]',
     disabled:
-        'bg-surface [--list-item-content:var(--on-surface)] [--list-item-variant:var(--on-surface)] *:opacity-38',
+        'bg-[var(--list-item-container,var(--surface))] [--list-item-content:var(--on-surface)] [--list-item-variant:var(--on-surface)] *:opacity-38',
     'selected-disabled':
         'bg-on-surface/10 [--list-item-content:var(--on-surface)] [--list-item-variant:var(--on-surface)] *:opacity-38',
 }

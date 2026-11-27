@@ -34,7 +34,7 @@ export function ListReorderDemo() {
     const [items, setItems] = React.useState(initial)
 
     return (
-        <div className='w-full max-w-90 rounded-3xl bg-surface-container p-3'>
+        <div className='w-full max-w-90'>
             <List
                 variant='segmented'
                 onReorder={(from, to) =>

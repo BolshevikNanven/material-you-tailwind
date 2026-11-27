@@ -2340,7 +2340,7 @@ export default function SupportInboxBlock() {
 
                 <div className='min-h-0 flex-1 overflow-y-auto'>
                     {visible.length > 0 ? (
-                        <List variant='segmented' aria-label='Ticket list'>
+                        <List variant='segmented' aria-label='Ticket list' className='[--list-item-container:var(--surface)]'>
                             {visible.map(ticket => (
                                 <TicketRow
                                     key={ticket.id}
