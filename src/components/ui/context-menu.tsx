@@ -104,7 +104,7 @@ function ContextMenuSubContent({ className, ...props }: React.ComponentProps<typ
             data-compact={compact ? '' : undefined}
             className={cn(
                 'z-50 flex min-w-32 origin-(--radix-context-menu-content-transform-origin) flex-col gap-0.5 rounded-2xl data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
-                compact && 'min-w-28 gap-px rounded-xl',
+                compact && 'min-w-28 gap-0.5 rounded-xl',
                 className,
             )}
             {...props}
@@ -121,7 +121,7 @@ function ContextMenuContent({ className, compact = false, ...props }: ContextMen
                     data-compact={compact ? '' : undefined}
                     className={cn(
                         'z-50 flex max-h-(--radix-context-menu-content-available-height) min-w-32 origin-(--radix-context-menu-content-transform-origin) flex-col gap-0.5 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
-                        compact && 'min-w-28 gap-px',
+                        compact && 'min-w-28 gap-0.5',
                         className,
                     )}
                     {...props}

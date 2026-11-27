@@ -39,7 +39,7 @@ function DropdownMenuContent({
                     sideOffset={sideOffset}
                     className={cn(
                         'z-50 flex max-h-(--radix-dropdown-menu-content-available-height) min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) flex-col gap-0.5 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
-                        compact && 'min-w-28 gap-px',
+                        compact && 'min-w-28 gap-0.5',
                         className,
                     )}
                     {...props}
@@ -280,7 +280,7 @@ function DropdownMenuSubContent({ className, ...props }: React.ComponentProps<ty
             data-compact={compact ? '' : undefined}
             className={cn(
                 'z-50 min-w-32 origin-(--radix-dropdown-menu-content-transform-origin) flex-col gap-0.5 rounded-2xl data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
-                compact && 'min-w-28 gap-px rounded-xl',
+                compact && 'min-w-28 gap-0.5 rounded-xl',
                 className,
             )}
             {...props}
