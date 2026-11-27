@@ -1262,10 +1262,14 @@ function EscalateDialog({
                                 <label
                                     key={item.value}
                                     className={cn(
-                                        'flex cursor-pointer items-center gap-4 rounded-2xl px-4 py-2.5 transition-colors hover:bg-on-surface/8',
+                                        'group/severity relative flex cursor-pointer items-center gap-4 rounded-2xl px-4 py-2.5 transition-colors',
                                         severity === item.value && 'bg-secondary-container text-on-secondary-container',
                                     )}
                                 >
+                                    <span
+                                        aria-hidden='true'
+                                        className='pointer-events-none absolute inset-0 rounded-[inherit] bg-current opacity-0 transition-opacity group-hover/severity:opacity-8 group-active/severity:opacity-10 group-has-focus-visible/severity:opacity-10'
+                                    />
                                     <RadioGroupItem value={item.value} />
                                     <span>
                                         <span className='block text-sm font-medium'>{item.label}</span>

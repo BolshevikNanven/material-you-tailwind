@@ -70,7 +70,7 @@ function DialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
     return (
         <div
             data-slot='dialog-footer'
-            className={cn('mt-2 flex h-10 flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
+            className={cn('mt-2 flex shrink-0 flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
             {...props}
         />
     )

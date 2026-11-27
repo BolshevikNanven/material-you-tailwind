@@ -454,7 +454,13 @@ function ListCollapsible({
                 role='listitem'
                 data-slot='list-collapsible'
                 data-state={open ? 'open' : 'closed'}
-                className={cn('flex flex-col [&[data-state=open]>[data-slot=list-item]]:[--list-item-bottom:4px]', className)}
+                className={cn(
+                    'flex flex-col',
+                    // Open, the header and its rows get rounded outer corners and tight inner ones.
+                    '[&[data-state=open]>[data-slot=list-item]]:[--list-item-bottom:4px] [&[data-state=open]>[data-slot=list-item]]:[--list-item-top:16px]',
+                    '[&[data-state=open]_[data-slot=list-collapsible-content]>div>:last-child]:[--list-item-bottom:16px]',
+                    className,
+                )}
                 {...props}
             />
         </ListCollapsibleContext.Provider>
@@ -488,7 +494,7 @@ function ListCollapsibleIndicator({ className, ...props }: React.ComponentProps<
             data-slot='list-collapsible-indicator'
             data-state={open ? 'open' : 'closed'}
             className={cn(
-                'flex size-8 items-center justify-center rounded-full bg-surface text-on-surface transition-colors duration-200 data-[state=open]:bg-surface-container',
+                'flex size-8 items-center justify-center rounded-full bg-transparent text-on-surface transition-colors duration-200 data-[state=open]:bg-surface',
                 className,
             )}
             {...props}
@@ -553,7 +559,7 @@ function ListItemReveal({
     open: openProp,
     defaultOpen = false,
     onOpenChange,
-    actionWidth = 56,
+    actionWidth = 48,
     className,
     children,
     style,
@@ -609,7 +615,7 @@ function ListItemReveal({
             data-slot='list-item-reveal'
             data-state={open ? 'open' : 'closed'}
             data-revealed={offset > 0 ? '' : undefined}
-            className={cn('relative flex overflow-hidden data-revealed:[&_[data-slot=list-item]]:rounded-2xl!', className)}
+            className={cn('relative flex overflow-hidden data-revealed:[&_[data-slot=list-item]]:rounded-2xl! data-revealed:[&_[data-slot=list-item]:not([data-selected],[data-dragged],[data-disabled])]:bg-surface-container-highest', className)}
             style={
                 {
                     '--list-reveal-icon-opacity': Math.min(Math.max((progress - 0.3) / 0.4, 0), 1),
@@ -708,7 +714,7 @@ function ListItemRevealAction({
             data-slot='list-item-reveal-action'
             data-variant={variant}
             className={cn(
-                "group/reveal-action relative flex min-w-0 flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset [&_i]:shrink-0 [&_i]:opacity-(--list-reveal-icon-opacity) [&_i:not([class*='size-'])]:size-6",
+                "group/reveal-action relative flex min-w-0 flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-full outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset [&_i]:shrink-0 [&_i]:opacity-(--list-reveal-icon-opacity) [&_i:not([class*='size-'])]:size-6",
                 variant === 'tonal' && 'bg-secondary-container text-on-secondary-container',
                 variant === 'filled' && 'bg-primary text-on-primary',
                 className,
