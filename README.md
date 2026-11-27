@@ -58,13 +58,13 @@ See the [Changelog](https://material.nanven.cn/docs/changelog) for component upd
 - [x] popover
 - [x] radio-group
 - [x] ripple
-- [x] <b>scroll-field [new]</b>
+- [x] scroll-field
 - [x] search
 - [x] slider
 - [x] snakebar
 - [x] switch
 - [x] text-field
-- [ ] time-picker
+- [x] <b>time-picker [new]</b>
 - [x] toggle
 - [x] tab
 - [x] tooltip

@@ -1,0 +1,151 @@
+---
+title: Time Picker
+description: 'Time pickers help people select and set a specific time with a clock dial, text fields or scroll fields.'
+---
+
+<ComponentPreview>
+    <TimePickerDemo />
+</ComponentPreview>
+
+## Installation
+
+### Shadcn CLI
+
+```bash
+npx shadcn@latest add @material-you/time-picker
+```
+
+### Manual installation
+
+- Copy and paste the following code into your project
+
+<ComponentSource title='src/components/ui/time-picker.tsx'>
+    <TimePicker />
+</ComponentSource>
+
+## Usage
+
+```tsx
+import {
+    TimePicker,
+    TimePickerActions,
+    TimePickerCancelButton,
+    TimePickerConfirmButton,
+    TimePickerContent,
+    TimePickerModeToggle,
+} from '@/components/ui/time-picker'
+```
+
+```tsx
+<TimePicker defaultValue={{ hour: 7, minute: 0 }}>
+    <TimePickerContent />
+    <TimePickerActions>
+        <TimePickerModeToggle />
+        <TimePickerCancelButton>Cancel</TimePickerCancelButton>
+        <TimePickerConfirmButton>OK</TimePickerConfirmButton>
+    </TimePickerActions>
+</TimePicker>
+```
+
+Values use a 24 hour `hour` from `0` to `23` and a `minute` from `0` to `59`, in both 12 and 24 hour pickers.
+
+Press or drag on the dial to set the hour, and the picker moves on to minutes when you let go. Tapping snaps minutes to steps of five, while dragging sets any minute. With the keyboard, `Tab` to the dial, move between numbers with the arrow keys, and press `Enter` or `Space` to pick one.
+
+## Examples
+
+### Text input
+
+Text input lets people type the time. Typing a full hour moves on to minutes, and fields out of range show an error and disable `TimePickerConfirmButton`. `TimePickerModeToggle` switches between the dial and text input.
+
+<ComponentPreview>
+    <TimePickerInputDemo />
+</ComponentPreview>
+
+### Scroll
+
+Scroll mode picks the hour and minute with [Scroll Fields](/components/scroll-field). Starting in `scroll` mode makes `TimePickerModeToggle` switch between scroll fields and text input.
+
+<ComponentPreview>
+    <TimePickerScrollDemo />
+</ComponentPreview>
+
+### 24 hour
+
+Set `is24Hour` to hide the AM and PM toggle. The dial shows hours from 00 to 11 on the outer ring and 12 to 23 on an inner ring, so pressing nearer the center picks afternoon hours. Render a single mode, such as `TimePickerClock`, to leave out the mode toggle.
+
+<ComponentPreview>
+    <TimePicker24HourDemo />
+</ComponentPreview>
+
+### Horizontal
+
+Set `orientation='horizontal'` to place the dial beside the time for landscape layouts.
+
+<ComponentPreview>
+    <TimePickerHorizontalDemo />
+</ComponentPreview>
+
+### Dialog
+
+Put a time picker in a [Dialog](/components/dialog) and read the time when it is confirmed.
+
+<ComponentPreview>
+    <TimePickerDialogDemo />
+</ComponentPreview>
+
+## API Reference
+
+### TimePicker
+
+The surface container that holds the time. Accepts `div` props.
+
+| Prop          | Type                                  | Default                    |
+| :------------ | :------------------------------------ | :------------------------- |
+| value         | `{ hour: number; minute: number }`    |                            |
+| defaultValue  | `{ hour: number; minute: number }`    | `{ hour: 0, minute: 0 }`   |
+| onValueChange | `(value: TimePickerValue) => void`    |                            |
+| is24Hour      | `boolean`                             | `false`                    |
+| mode          | `clock` \| `input` \| `scroll`        |                            |
+| defaultMode   | `clock` \| `input` \| `scroll`        | `clock`                    |
+| onModeChange  | `(mode: TimePickerMode) => void`      |                            |
+| orientation   | `vertical` \| `horizontal`            | `vertical`                 |
+
+### TimePickerContent
+
+Renders `TimePickerClock`, `TimePickerInput` or `TimePickerScroll` for the current mode.
+
+### TimePickerClock
+
+The clock dial, with the hour and minute selectors and the AM and PM toggle. Follows `orientation` from `TimePicker` and renders regardless of `mode`. Accepts `div` props.
+
+### TimePickerInput
+
+Hour and minute text fields with the AM and PM toggle. Renders regardless of `mode`. Accepts `div` props.
+
+### TimePickerScroll
+
+Hour and minute scroll fields with the AM and PM toggle. Renders regardless of `mode`. Accepts `div` props.
+
+### TimePickerActions
+
+Lays out the mode toggle and buttons in a row. Accepts `div` props.
+
+### TimePickerModeToggle
+
+Switches between text input and the dial, or the scroll fields when the picker was in `scroll` mode. Accepts `button` props.
+
+### TimePickerCancelButton
+
+| Prop     | Type         | Default |
+| :------- | :----------- | :------ |
+| onCancel | `() => void` |         |
+
+### TimePickerConfirmButton
+
+Disabled while a text field holds an invalid time.
+
+| Prop      | Type                               | Default |
+| :-------- | :--------------------------------- | :------ |
+| onConfirm | `(value: TimePickerValue) => void` |         |
+
+Both buttons accept the props of [Button](/components/button) and default to `variant='text'` and `size='sm'`.
