@@ -171,15 +171,15 @@ function List({
 type ListItemTone = 'default' | 'selected' | 'dragged' | 'disabled' | 'selected-disabled'
 
 const toneClasses: Record<ListItemTone, string> = {
-    default: 'bg-surface [--list-item-content:var(--color-on-surface)] [--list-item-variant:var(--color-on-surface-variant)]',
+    default: 'bg-surface [--list-item-content:var(--on-surface)] [--list-item-variant:var(--on-surface-variant)]',
     selected:
-        'bg-secondary-container [--list-item-content:var(--color-on-secondary-container)] [--list-item-variant:var(--color-on-secondary-container)]',
+        'bg-secondary-container [--list-item-content:var(--on-secondary-container)] [--list-item-variant:var(--on-secondary-container)]',
     dragged:
-        'z-10 bg-tertiary-container shadow-elevation-4 [--list-item-content:var(--color-on-tertiary-container)] [--list-item-variant:var(--color-on-tertiary-container)]',
+        'z-10 bg-tertiary-container shadow-elevation-4 [--list-item-content:var(--on-tertiary-container)] [--list-item-variant:var(--on-tertiary-container)]',
     disabled:
-        'bg-surface [--list-item-content:var(--color-on-surface)] [--list-item-variant:var(--color-on-surface)] *:opacity-38',
+        'bg-surface [--list-item-content:var(--on-surface)] [--list-item-variant:var(--on-surface)] *:opacity-38',
     'selected-disabled':
-        'bg-on-surface/10 [--list-item-content:var(--color-on-surface)] [--list-item-variant:var(--color-on-surface)] *:opacity-38',
+        'bg-on-surface/10 [--list-item-content:var(--on-surface)] [--list-item-variant:var(--on-surface)] *:opacity-38',
 }
 
 type ListItemProps = React.ComponentProps<'div'> & {
